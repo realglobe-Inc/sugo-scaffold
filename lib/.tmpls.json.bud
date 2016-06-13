@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const tmplDir = `${__dirname}/../asset/tmpl`
+const fs = require('fs')
+const path = require('path')
+
+module.exports = {
+  force: true,
+  mode: '444',
+  tmpl(data) {
+    return JSON.stringify(data, null, 2)
+  },
+  data: fs.readdirSync(tmplDir).map((name) => ({
+    name,
+    path: path.join('asset/tmpl', name)
+  })).reduce((result, data) => Object.assign({
+    [data.name]: data.path
+  }), {})
+}
+
+if (!module.parent) {
+  require('coz').render(__filename)
+}

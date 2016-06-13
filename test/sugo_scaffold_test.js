@@ -1,0 +1,28 @@
+/**
+ * Test case for sugoScaffold.
+ * Runs with mocha.
+ */
+'use strict'
+
+const sugoScaffold = require('../lib/sugo_scaffold.js')
+const assert = require('assert')
+const co = require('co')
+
+describe('sugo-scaffold', () => {
+  before(() => co(function * () {
+
+  }))
+
+  after(() => co(function * () {
+
+  }))
+
+  it('Generate interface', () => co(function * () {
+    yield sugoScaffold('interface', `${__dirname}/../tmp/foo/bar`, {
+      straight: true,
+      force: true
+    })
+  }))
+})
+
+/* global describe, before, after, it */
