@@ -78,9 +78,13 @@ Usage
 const sugoScaffold = require('sugo-scaffold')
 
 // Generate interface project
-sugoScaffold('interface', 'my-projects/my-custom-interface', {
-  force: false
-}).then((err) => console.error(err))
+sugoScaffold(
+  'interface', // Type
+  'my-projects/my-custom-interface', // Destination directory
+  {
+    force: false
+  }
+).then((err) => console.error(err))
 
 ```
 
@@ -110,6 +114,19 @@ sugo-scaffold interface "my-projects/my-custom-interface"
 
 
 <!-- Section from "doc/guides/03.CLI.md.hbs" End -->
+
+<!-- Section from "doc/guides/04.Templates.md.hbs" Start -->
+
+<a name="section-doc-guides-04-templates-md"></a>
+Types
+---------
+
+Available template types
+
++ [interface](asset/tmpl/interface)
+
+
+<!-- Section from "doc/guides/04.Templates.md.hbs" End -->
 
 
 <!-- Sections Start -->

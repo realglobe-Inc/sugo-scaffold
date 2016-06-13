@@ -22,5 +22,11 @@
       "short": "f",
       "desc": "Force to generate"
     }
+  ],
+  "examples": [
+    {
+      "script": "sugo-scaffold interface my-awesome-interface",
+      "desc": "Generate a interface project"
+    }
   ]
 }

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
+  "bin": {
+    "sugo-scaffold": "bin/sugo-scaffold"
+  },
   "scripts": {
     "test": "./ci/test.js"
   },
