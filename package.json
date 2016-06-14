@@ -29,7 +29,8 @@
     "co": "^4.6.0",
     "filemode": "^2.0.1",
     "gitconfig": "^2.0.0",
-    "tmplconv": "^3.0.4"
+    "sugo-demo-interface": "^1.0.2",
+    "tmplconv": "^3.0.5"
   },
   "devDependencies": {
     "ape-covering": "^3.0.3",

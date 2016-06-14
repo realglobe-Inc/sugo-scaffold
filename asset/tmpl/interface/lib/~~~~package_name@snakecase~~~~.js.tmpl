@@ -7,12 +7,24 @@
 
 const { name, version } = require('../package.json')
 const co = require('co')
+const debug = require('debug')('~~~~package_name@enumcase~~~~')
 
 /** @lends ~~~~package_name@camelcase~~~~ */
 function ~~~~package_name@camelcase~~~~ (config = {}) {
   return {
 
-    // ( Define methods here )
+    /**
+     * Ping a message.
+     * @param {SpotContext} ctx
+     * @returns {Promise}
+     */
+    ping (ctx) {
+      let { params, pipe } = ctx
+      debug('Invoke ping with params: ', params)
+      return co(function * () {
+        return 'pong!' // Return result to remote terminal.
+      })
+    },
 
     /**
      * Interface specification
@@ -32,3 +44,9 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
 }
 
 module.exports = ~~~~package_name@camelcase~~~~
+
+/**
+ * @typedef {Object} SpotContext
+ * @property {Array} params - Invoke parameters.
+ * @property {EventEmitter} pipe - Pipe to remote terminal.
+ */
