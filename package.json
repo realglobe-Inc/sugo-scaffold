@@ -1,13 +1,14 @@
 {
   "name": "sugo-scaffold",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
     "sugo-scaffold": "bin/sugo-scaffold"
   },
   "scripts": {
-    "test": "./ci/test.js"
+    "test": "./ci/test.js",
+    "prepublish": "./ci/build.js"
   },
   "repository": "realglobe-Inc/sugo-scaffold",
   "keywords": [
@@ -29,7 +30,7 @@
     "co": "^4.6.0",
     "filemode": "^2.0.1",
     "gitconfig": "^2.0.0",
-    "sugo-demo-interface": "^1.0.2",
+    "sugo-demo-interface": "^1.1.0",
     "tmplconv": "^3.0.5"
   },
   "devDependencies": {
@@ -43,7 +44,7 @@
     "ape-updating": "^3.0.2",
     "coz": "^6.0.2",
     "injectmock": "^2.0.0",
-    "sugo-demo-interface": "^1.0.1"
+    "sugo-demo-interface": "^1.1.0"
   },
   "engines": {
     "node": ">=6",

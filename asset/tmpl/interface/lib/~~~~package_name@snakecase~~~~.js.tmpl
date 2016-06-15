@@ -1,11 +1,12 @@
 /**
+ * ~~~~package_description~~~~
  * @function ~~~~package_name@camelcase~~~~
  * @param {Object} config - Configuration
  * @returns {Object} - Interface settings
  */
 'use strict'
 
-const { name, version } = require('../package.json')
+const { name, version, description } = require('../package.json')
 const co = require('co')
 const debug = require('debug')('~~~~package_name@enumcase~~~~')
 
@@ -13,16 +14,17 @@ const debug = require('debug')('~~~~package_name@enumcase~~~~')
 function ~~~~package_name@camelcase~~~~ (config = {}) {
   return {
 
+    // ( Implement your custom methods here )
+
     /**
      * Ping a message.
-     * @param {SpotContext} ctx
-     * @returns {Promise}
+     * @param {SugoInterfaceContext} ctx
+     * @returns {Promise.<string>} - Pong message
      */
     ping (ctx) {
       let { params, pipe } = ctx
-      debug('Invoke ping with params: ', params)
       return co(function * () {
-        return 'pong!' // Return result to remote terminal.
+        return params[ 0 ] || 'pong' // Return result to remote terminal.
       })
     },
 
@@ -33,11 +35,21 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
     $spec: {
       name,
       version,
-      desc: '__your_interface_description__',
+      desc: description,
       methods: {
 
-        // ( Describe methods here )
+        // ( Describe your custom methods here )
 
+        ping: {
+          desc: 'Test the reachability of a interface.',
+          params: [
+            { name: 'pong', type: 'string', desc: 'Pong message to return' }
+          ],
+          return: {
+            type: 'string',
+            desc: 'pong message'
+          }
+        }
       }
     }
   }
@@ -46,7 +58,7 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
 module.exports = ~~~~package_name@camelcase~~~~
 
 /**
- * @typedef {Object} SpotContext
+ * @typedef {Object} SugoInterfaceContext
  * @property {Array} params - Invoke parameters.
  * @property {EventEmitter} pipe - Pipe to remote terminal.
  */

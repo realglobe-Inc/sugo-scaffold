@@ -1,0 +1,17 @@
+Methods
+---------
+
+{{#each vars.spec.methods}}
+<a name="{{@key}}"></a>
+### {{{@key}}}({{#each params}}{{name}}{{#if @last}}{{else}}, {{/if}}{{/each}}){{#if return}} -> <code>{{{return.type}}}</code>{{/if}}
+
+{{{desc}}}
+{{#if params}}
+
+| Param | Type | Description |
+| ----- | ---- | ----------- |
+{{#each params}}
+| {{name}}  | <code>{{{type}}}</code> | {{{desc}}} |
+{{/each}}
+{{/if}}
+{{/each}}
