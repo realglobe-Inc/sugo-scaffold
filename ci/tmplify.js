@@ -43,7 +43,7 @@ apeTasking.runTasks('tmplify', [
           'node_modules/**/*.*'
         ],
         data: {
-          'github_repository': demoPkg.repository.url,
+          'github_repository': demoPkg.repository.url.split(/\//g).slice(-2).join('/').replace(/\.git$/, ''),
           'package_name': demoPkg.name,
           'package_description': demoPkg.description,
           'author_name': demoPkg.author.name,
