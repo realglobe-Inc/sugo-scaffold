@@ -19,7 +19,7 @@ describe('~~~~package_name~~~~', () => {
 
   }))
 
-  it('Sugo demo interface', () => co(function * () {
+  it('Get interface spec', () => co(function * () {
     let interface_ = ~~~~package_name@camelcase~~~~({})
     assert.ok(interface_)
 
@@ -28,7 +28,7 @@ describe('~~~~package_name~~~~', () => {
     assert.ok(!specError)
   }))
 
-  it('Ping/Pong', () => co(function * () {
+  it('Take ping-pong', () => co(function * () {
     let interface_ = ~~~~package_name@camelcase~~~~({})
     let pong = yield interface_.ping({ params: [] })
     assert.ok(pong)
