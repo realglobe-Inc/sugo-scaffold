@@ -16,6 +16,7 @@ const tmplconv = require('tmplconv')
 
 const demos = {
   'interface': 'sugo-demo-interface',
+  'endpoint': 'sugo-demo-endpoint',
   'middleware': 'sugo-demo-middleware'
 }
 
