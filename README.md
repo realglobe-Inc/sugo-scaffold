@@ -125,6 +125,7 @@ Types
 
 Available template types
 
++ [interface](asset/tmpl/interface)
 + [middleware](asset/tmpl/middleware)
 
 
