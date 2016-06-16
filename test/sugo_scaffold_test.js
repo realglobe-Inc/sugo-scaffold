@@ -18,7 +18,14 @@ describe('sugo-scaffold', () => {
   }))
 
   it('Generate interface', () => co(function * () {
-    yield sugoScaffold('interface', `${__dirname}/../tmp/foo/bar`, {
+    yield sugoScaffold('interface', `${__dirname}/../tmp/foo/bar-interface`, {
+      straight: true,
+      force: true
+    })
+  }))
+
+  it('Generate middleware', () => co(function * () {
+    yield sugoScaffold('middleware', `${__dirname}/../tmp/foo/bar-middleware`, {
       straight: true,
       force: true
     })

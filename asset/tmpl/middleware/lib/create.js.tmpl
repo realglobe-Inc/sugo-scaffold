@@ -1,0 +1,29 @@
+/**
+ * ~~~~package_description~~~~
+ * @function ~~~~package_name@camelcase~~~~
+ * @param {object} [options] - Optional settings.
+ * @returns {function} - Defined app function.
+ */
+
+'use strict'
+
+const co = require('co')
+const debug = require('debug')('~~~~package_name@enumcase~~~~')
+
+/** @lends ~~~~package_name@camelcase~~~~ */
+function create (options = {}) {
+  let middleware = co.wrap(function * middleware (ctx, next) {
+    yield next()
+  })
+
+  Object.assign(middleware, {
+    /**
+     * Description of this middleware.
+     */
+    $desc: '__your_middleware_description__'
+  })
+
+  return middleware
+}
+
+module.exports = create

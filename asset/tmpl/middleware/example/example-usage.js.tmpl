@@ -1,0 +1,19 @@
+/** This is an example to use ~~~~package_name~~~~ */
+
+'use strict'
+
+const sgServer = require('sg-server')
+
+const server = sgServer({
+  middlewares: [
+    require('~~~~package_name~~~~')({
+      // Options
+    })
+  ],
+  routes: {
+    /* ... */
+  }
+})
+
+server.listen(3000)
+

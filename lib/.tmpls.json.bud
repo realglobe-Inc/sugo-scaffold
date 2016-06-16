@@ -15,7 +15,7 @@ module.exports = {
   data: fs.readdirSync(tmplDir).map((name) => ({
     name,
     path: path.join('asset/tmpl', name)
-  })).reduce((result, data) => Object.assign({
+  })).reduce((result, data) => Object.assign(result, {
     [data.name]: data.path
   }), {})
 }

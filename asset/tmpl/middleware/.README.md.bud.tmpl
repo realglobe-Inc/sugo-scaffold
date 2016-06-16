@@ -1,0 +1,40 @@
+/**
+ * Bud file for README.md
+ */
+
+'use strict'
+
+const apeTmpl = require('ape-tmpl')
+const apeDoc = require('ape-doc')
+const fs = require('fs')
+const pkg = require('./package.json')
+
+module.exports = apeTmpl.readmeMdBud({
+  pkg: pkg,
+  repo: pkg.repository,
+  sections: 'doc/guides/*.md.hbs',
+  badges: {
+    travis: false,
+    travisCom: true,
+    travisComToken: 'aeFzCpBZebyaRijpCFmm',
+    codeclimate: false,
+    codeclimateCoverage: false,
+    gemnasium: false,
+    npm: true,
+    standard: true
+  },
+  overview: 'doc/overview.md',
+  links: require('./doc/links'),
+  vars: {
+    get signature () {
+      let comments = apeDoc.commentsInFile(
+        require.resolve('./lib/create')
+      )
+      return apeDoc.commentsInFile.describeFunction(comments[ 0 ])
+    }
+  }
+})
+
+if (!module.parent) {
+  require('coz').render(__filename)
+}

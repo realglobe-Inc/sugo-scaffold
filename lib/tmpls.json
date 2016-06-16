@@ -1,3 +1,4 @@
 {
-  "interface": "asset/tmpl/interface"
+  "interface": "asset/tmpl/interface",
+  "middleware": "asset/tmpl/middleware"
 }

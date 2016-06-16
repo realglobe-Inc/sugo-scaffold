@@ -15,7 +15,8 @@ const apeTasking = require('ape-tasking')
 const tmplconv = require('tmplconv')
 
 const demos = {
-  'interface': 'sugo-demo-interface'
+  'interface': 'sugo-demo-interface',
+  'middleware': 'sugo-demo-middleware'
 }
 
 let prefix = '~~~~'
@@ -23,7 +24,7 @@ let suffix = '~~~~'
 apeTasking.runTasks('tmplify', [
   () => co(function * () {
     for (let type of Object.keys(demos)) {
-      let demoName = demos[type]
+      let demoName = demos[ type ]
       let demoDir = path.dirname(require.resolve(`${demoName}/package.json`))
       let demoPkg = require(`${demoName}/package.json`)
       let tmplDir = `asset/tmpl/${type}`

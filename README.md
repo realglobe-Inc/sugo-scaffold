@@ -125,7 +125,7 @@ Types
 
 Available template types
 
-+ [interface](asset/tmpl/interface)
++ [middleware](asset/tmpl/middleware)
 
 
 <!-- Section from "doc/guides/04.Templates.md.hbs" End -->
