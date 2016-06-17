@@ -17,11 +17,14 @@ describe('create', () => {
   let request = apemanrequest.create()
   let sleep = apemansleep.create()
   before(() => co(function * () {
-    let app = create({})
-    assert.ok(app)
+    let middleware = create({})
+    assert.ok(middleware)
     let port = yield apemanport.find()
     server = sgServer({
-      routes: {
+      middlewares: [
+        middleware
+      ],
+      endpoints: {
         '/foo/bar': (ctx) => {
           ctx.body = 'done!!'
         }
@@ -41,7 +44,7 @@ describe('create', () => {
       method: 'GET',
       url: `${baseUrl}/foo/bar`
     })
-    assert.ok(body)
+    assert.equal(body, 'done!!')
     assert.equal(statusCode, 200)
   }))
 })
