@@ -1,0 +1,17 @@
+### Setup Cloud
+
+Install the CLI to your spot server
+
+```bash
+$ npm install {{pkg.name}} -g
+```
+
+Then, start the server
+
+```bash
+$ PORT=300 {{pkg.name}} cloud
+```
+
+In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to outer world.
+
+[nginx_url]: https://www.nginx.com/

@@ -1,0 +1,21 @@
+/**
+ * Snippet variables.
+ * @namespace Snippets
+ */
+'use strict';
+
+var CONTAINER_ID = 'dynamic-mount-root';
+
+/** @lends Snippets */
+module.exports = Object.assign(exports, {
+  /**
+   * Default script
+   * @type {string}
+   */
+  DEFAULT_SCRIPT: '\n\nrequire(\'babel-polyfill\')\n\nimport React, {PropTypes as types} from \'react\'\nimport ReactDOM from \'react-dom\'\nimport {ApBigButton, ApButton} from \'apeman-react-button\'\nimport co from \'co\'\nimport sugoTerminal from \'sugo-terminal\'\nimport sugoObserver from \'sugo-observer\'\n\n/**\n * Dynamic component create from the online-editor\n * @class DynamicComponent\n */\nconst DynamicComponent = React.createClass({\n  // --------------------\n  // Specs\n  // --------------------\n  \n  getInitialState () {\n    return {\n      spotKey: \'spot01\'\n    }\n  },\n\n  render () {\n    const s = this\n    let {state} = s\n    let {spotKey} = state\n    return (\n      <div className=\'dynamic-component\'>\n        <ApBigButton onTap={ () => s.withTerminal(function * sendPing(terminal){\n            console.log(\'terminal\', terminal)\n            let spot = yield terminal.connect(spotKey)\n            let noop = spot.noop()\n            console.log(\'Send ping to noop...\')\n            let pong = yield noop.ping()\n            console.log(' + '`...received ping from noop: "${pong}"`' + ')\n            yield spot.disconnect()\n        }) }>Ping!</ApBigButton>\n      </div>\n    )\n  },\n  \n  // --------------------\n  // LifeCycle\n  // --------------------\n  \n  componentDidMount () {\n    const s = this\n    let {protocol, host} = window.location\n    s.terminal = sugoTerminal(' + '`${protocol}//${host}/terminals`' + ')\n  },\n  \n  // --------------------\n  // custom\n  // --------------------\n  \n  withTerminal (handler) {\n    const s = this\n    let {terminal} = s\n    if (!terminal) {\n      return\n    }\n    co(handler, terminal).catch((err) => console.error(err)) \n  }\n})\n\nlet container = document.getElementById(\'' + CONTAINER_ID + '\')\nlet element = (<DynamicComponent/>)\nReactDOM.render(element, container)\n\n',
+  /**
+   * Default html
+   * @type {string}
+   */
+  DEFAULT_HTML: '\n<html>\n<head>\n<link rel="stylesheet" href="./css/theme.css">\n<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>\n<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>\n<script src="js/external.cc.js"></script>\n</head>\n<body>\n<div id="' + CONTAINER_ID + '">\nThis is root of dynamic content\n</div>\n</body>\n</html>\n'
+});

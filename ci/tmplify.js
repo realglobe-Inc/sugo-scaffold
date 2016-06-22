@@ -17,7 +17,8 @@ const tmplconv = require('tmplconv')
 const demos = {
   'interface': 'sugo-demo-interface',
   'endpoint': 'sugo-demo-endpoint',
-  'middleware': 'sugo-demo-middleware'
+  'middleware': 'sugo-demo-middleware',
+  'example': 'sugo-demo-example'
 }
 
 let prefix = '~~~~'

@@ -1,0 +1,26 @@
+
+/**
+ * !! This files aut generated and do not edit manually
+ * Markdown contents
+ * @namespace Markdowns
+ */
+'use strict';
+
+var restore = function restore(text) {
+  return text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=');
+};
+
+/** Converted from "doc/guides/01.Quick Start.md.hbs" */
+exports['01.Quick Start'] = restore('Quick Start\n-----\n\nDeploy to the [Heroku][heroku_url] and play it!\n\n[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)\n\n[heroku_url]: https://www.heroku.com/');
+
+/** Converted from "doc/guides/10.How to.md.hbs" */
+exports['10.How to'] = restore('How to\n-------');
+
+/** Converted from "doc/guides/11.Setup Cloud.md.hbs" */
+exports['11.Setup Cloud'] = restore('### Setup Cloud\n\nInstall the CLI to your spot server\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, start the server\n\n&#x60;&#x60;&#x60;bash\n$ PORT&#x3D;300 ~~~~package_name~~~~ cloud\n&#x60;&#x60;&#x60;\n\nIn the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to outer world.\n\n[nginx_url]: https://www.nginx.com/\n');
+
+/** Converted from "doc/guides/12.Run Spot.md.hbs" */
+exports['12.Run Spot'] = restore('### Run Spot\n\n\nInstall the CLI to machine which the spot runs on. \n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, connect spot to the cloud\n\n&#x60;&#x60;&#x60;bash\n$ HOST&#x3D;__hostname_of_your_cloud__ ~~~~package_name~~~~ spot \n&#x60;&#x60;&#x60;\n');
+
+/** Converted from "doc/guides/13.Use Terminal.md.hbs" */
+exports['13.Use Terminal'] = restore('### Use Terminal\n\n\nInstall the CLI to machine which the use terminal.\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, rune the example terminal\n\n&#x60;&#x60;&#x60;bash\n$ HOST&#x3D;__hostname_of_your_cloud__ ~~~~package_name~~~~ terminal\n&#x60;&#x60;&#x60;');

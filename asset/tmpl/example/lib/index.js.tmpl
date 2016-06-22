@@ -1,0 +1,16 @@
+/**
+ * ~~~~package_description~~~~
+ * @module ~~~~package_name~~~~
+ */
+
+'use strict'
+
+let d = (module) => module.default || module
+
+module.exports = {
+  get cloud () { return d(require('./cloud')) },
+  get configs () { return d(require('./configs')) },
+  get spot () { return d(require('./spot')) },
+  get terminal () { return d(require('./terminal')) },
+  get ui () { return d(require('./ui')) }
+}

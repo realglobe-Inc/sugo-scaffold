@@ -1,0 +1,276 @@
+/**
+ * Root component to mount.
+ * @class Component
+ */
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _agent = require('sugo-cloud/lib/agent');
+
+var _agent2 = _interopRequireDefault(_agent);
+
+var _agent3 = require('sugo-endpoint-compile/lib/agent');
+
+var _agent4 = _interopRequireDefault(_agent3);
+
+var _sugoReactExample = require('sugo-react-example');
+
+var _sgReactComponents = require('sg-react-components');
+
+var _sgReactComponents2 = _interopRequireDefault(_sgReactComponents);
+
+var _co = require('co');
+
+var _co2 = _interopRequireDefault(_co);
+
+var _sugoTerminal = require('sugo-terminal');
+
+var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
+
+var _sugoObserver = require('sugo-observer');
+
+var _sugoObserver2 = _interopRequireDefault(_sugoObserver);
+
+var _snippets = require('./snippets');
+
+var _markdowns = require('./markdowns');
+
+var _markdowns2 = _interopRequireDefault(_markdowns);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+require('babel-polyfill');
+
+/** @lends Component */
+var Component = _react2.default.createClass({
+  displayName: 'Component',
+
+  // --------------------
+  // Specs
+  // --------------------
+
+  propTypes: {
+    /** Port number of the cloud */
+    port: _react.PropTypes.number,
+    /** Hostname of the cloud */
+    hostname: _react.PropTypes.string,
+    /** Package data */
+    pkg: _react.PropTypes.object,
+    /** Theme color */
+    color: _react.PropTypes.string
+  },
+  getInitialState: function getInitialState() {
+    var s = this;
+    var props = s.props;
+    var port = props.port;
+    var hostname = props.hostname;
+
+    return {
+      script: _snippets.DEFAULT_SCRIPT,
+      html: _snippets.DEFAULT_HTML,
+      tab: 'DEMO',
+      playground: false,
+      refreshing: false,
+      tooltip: null,
+      cloud: {},
+      terminals: [],
+      spots: [],
+      globals: {
+        require: function require(name) {
+          var modules = {
+            co: _co2.default,
+            'sugo-terminal': _sugoTerminal2.default,
+            'sugo-observer': _sugoObserver2.default,
+            'sg-react-components': _sgReactComponents2.default
+          };
+          if (modules[name]) {
+            return modules[name];
+          }
+          return window.require(name);
+        }
+      }
+    };
+  },
+  render: function render() {
+    var s = this;
+    var state = s.state;
+    var props = s.props;
+    var pkg = props.pkg;
+    var tab = state.tab;
+    var script = state.script;
+    var html = state.html;
+    var globals = state.globals;
+    var cloud = state.cloud;
+    var spots = state.spots;
+    var terminals = state.terminals;
+
+    return _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement(
+        _sugoReactExample.SgExample,
+        null,
+        _react2.default.createElement(_sugoReactExample.SgExampleHeader, _extends({ tab: tab, pkg: pkg }, {
+          spots: spots,
+          runSpot: function runSpot() {
+            return s.setState({ tooltip: _markdowns2.default['12.Run Spot'] });
+          },
+          onTabChange: function onTabChange(e) {
+            return s.setTab(e.tab);
+          } })),
+        _react2.default.createElement(
+          _sugoReactExample.SgExampleBody,
+          { hidden: tab !== 'DEMO' },
+          _react2.default.createElement(_sugoReactExample.SgExampleAbout, { pkg: pkg }),
+          _react2.default.createElement(_sugoReactExample.SgExampleStatus, { spots: spots,
+            terminals: terminals,
+            cloud: cloud,
+            spinning: state.refreshing,
+            onRefresh: s.refreshStatus
+          }),
+          _react2.default.createElement(_sugoReactExample.SgExamplePlayground, _extends({ html: html, script: script, globals: globals }, {
+            compile: s.compileScript,
+            onChange: s.handleChange,
+            pipeConsole: true,
+            closed: !state.playground,
+            onToggle: s.togglePlayground
+          }))
+        ),
+        _react2.default.createElement(
+          _sugoReactExample.SgExampleBody,
+          { hidden: tab !== 'GUIDES' },
+          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Spot'], _markdowns2.default['13.Use Terminal']] }),
+          _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
+        ),
+        _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
+        _react2.default.createElement(_sugoReactExample.SgExampleTooltip, { onClose: function onClose() {
+            return s.setState({ tooltip: null });
+          },
+          src: state.tooltip,
+          hidden: !state.tooltip
+        })
+      )
+    );
+  },
+  componentDidMount: function componentDidMount() {
+    var s = this;
+    var _window$location = window.location;
+    var protocol = _window$location.protocol;
+    var host = _window$location.host;
+    var hash = _window$location.hash;
+
+    s.observer = (0, _sugoObserver2.default)(protocol + '//' + host + '/observers', function (data) {
+      console.log('observed', data);
+      s.refreshStatus();
+    });
+    s.observer.start();
+    s.refreshStatus();
+    s.setTab(String(hash).replace(/^#/, '').toUpperCase());
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    var s = this;
+    s.observer.stop();
+
+    clearTimeout(s._statusRefreshTimer);
+  },
+
+
+  // --------------------
+  // custom
+  // --------------------
+
+  setTab: function setTab(tab) {
+    var s = this;
+    var valid = tab && !! ~['DEMO', 'GUIDES'].indexOf(tab);
+    s.setState({ tab: valid ? tab : 'DEMO' });
+    window.location.hash = String(tab).toLowerCase();
+  },
+  handleChange: function handleChange(e) {
+    var s = this;
+    var _e$values = e.values;
+    var html = _e$values.html;
+    var script = _e$values.script;
+    var globals = _e$values.globals;
+
+    s.setState({ html: html, script: script, globals: globals });
+  },
+  compileScript: function compileScript(script) {
+    var s = this;
+    var state = s.state;
+
+    return (0, _agent4.default)('/actions/compile').compile(script);
+  },
+  refreshStatus: function refreshStatus() {
+    var delay = arguments.length <= 0 || arguments[0] === undefined ? 300 : arguments[0];
+
+    var s = this;
+    var state = s.state;
+
+    if (state.refreshing) {
+      return;
+    }
+    s.setState({ refreshing: true });
+    s._statusRefreshTimer = setTimeout(function () {
+      var _window = window;
+      var location = _window.location;
+
+      if (!location) {
+        return;
+      }
+      var host = location.host;
+
+      (0, _co2.default)(regeneratorRuntime.mark(function _callee() {
+        var spots, terminals;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return (0, _agent2.default)().spots();
+
+              case 2:
+                spots = _context.sent;
+                _context.next = 5;
+                return (0, _agent2.default)().terminals();
+
+              case 5:
+                terminals = _context.sent;
+
+                console.log('spots', spots);
+                s.setState({
+                  spots: spots,
+                  terminals: terminals,
+                  cloud: Object.assign(state.cloud || {}, { host: host })
+                });
+
+              case 8:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      })).catch(function (err) {
+        console.error(err);
+      }).then(function () {
+        s.setState({ refreshing: false });
+      });
+    }, delay);
+  },
+  togglePlayground: function togglePlayground() {
+    var s = this;
+    var state = s.state;
+
+    s.setState({ playground: !state.playground });
+  }
+});
+
+exports.default = Component;

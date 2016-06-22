@@ -1,0 +1,43 @@
+/**
+ * Run spot
+ * @function spot
+ * @returns {Promise}
+ */
+'use strict'
+
+const pkg = require('../package.json')
+const sugoSpot = require('sugo-spot')
+const co = require('co')
+const debug = require('debug')('~~~~package_name@enumcase~~~~:spot')
+const noop = require('sugo-interface-noop')
+const colorprint = require('colorprint')
+
+let configs = require('./configs')
+
+/** @lends spot */
+function spot () {
+  debug('Example spot invoked')
+  let { port, hostname } = configs()
+  let url = `http://${hostname}:${port}/spots`
+
+  let { SPOT_KEY } = process.env
+
+  let spotKey = SPOT_KEY || 'spot01'
+
+  colorprint.notice(`[${pkg.name}] Running spot script...`)
+  colorprint.trace('Settings: %s', {port, hostname, spotKey})
+
+  return co(function * () {
+    let spot01 = sugoSpot(url, {
+      key: spotKey,
+      interfaces: {
+        noop: noop()
+      },
+      force: true
+    })
+    yield spot01.connect()
+    return spot01
+  })
+}
+
+module.exports = spot
