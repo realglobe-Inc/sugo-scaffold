@@ -126,6 +126,7 @@ Types
 Available template types
 
 + [endpoint](asset/tmpl/endpoint)
++ [example](asset/tmpl/example)
 + [interface](asset/tmpl/interface)
 + [middleware](asset/tmpl/middleware)
 
