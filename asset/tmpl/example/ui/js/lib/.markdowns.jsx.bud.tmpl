@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+/**
+ * Bud file for markdowns
+ * Executing this file generates markdowns.js from markdown files of docs
+ * @see http://coz-repo.github.io/coz/apiguide/index.html
+ */
+'use strict'
+
+const pkg = require('../../../package.json')
+const path = require('path')
+const expandglob = require('expandglob')
+
+const baseDir = `${__dirname}/../../..`
+
+module.exports = {
+  force: true,
+  mode: '644',
+  data: {
+    pkg,
+    files: expandglob
+      .sync(`${baseDir}/doc/guides/*.md.hbs`)
+      .map((filename) => ({
+        filename,
+        name: path.basename(filename, '.md.hbs')
+      }))
+  },
+  tmpl: `
+/**
+ * !! This is an auto-generated file and do not edit manually !! 
+ * Markdown contents
+ * @namespace Markdowns
+ */
+'use strict'
+
+let restore = (text) => text.replace(/&#x60;/g, '${'`'}').replace(/&#x3D;/g, '=')
+
+{{#each files}}
+/** Converted from "doc/guides/{{name}}.md.hbs" */
+exports[ '{{name}}' ] = restore(${'`'}{{render filename}}${'`'})
+
+{{/each}}
+`
+}
+
+if (!module.parent) {
+  require('coz').render(__filename)
+}

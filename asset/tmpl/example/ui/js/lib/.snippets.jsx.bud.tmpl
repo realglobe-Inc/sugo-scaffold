@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+/**
+ * Bud file for playground
+ * Executing this file generates playground.js from playground assets
+ * @see http://coz-repo.github.io/coz/apiguide/index.html
+ */
+'use strict'
+
+const pkg = require('../../../package.json')
+const path = require('path')
+const fs = require('fs')
+
+const baseDir = `${__dirname}/../../..`
+
+let asset = (filename) => ({
+  filename,
+  basename: path.basename(filename),
+  name: path.basename(filename, path.extname(filename)),
+  content: fs.readFileSync(filename).toString()
+    .replace(/(\$\{)(.*?)(})/g, ($0, $1, $2, $3) =>
+      ["${'${'}", $2, "${'}'}"].join('')
+    )
+    .replace(/`/g, "${'`'}")
+})
+
+module.exports = {
+  force: true,
+  mode: '644',
+  data: {
+    pkg,
+    assets: {
+      DEFAULT_HTML: asset(`${baseDir}/ui/html/playground.html`),
+      DEFAULT_SCRIPT: asset(`${baseDir}/ui/js/lib/playground.jsx`)
+    }
+  },
+  tmpl: `
+/**
+ * !! This is an auto-generated file and do not edit manually !! 
+ * Snippet contents
+ * @namespace Snippets
+ */
+'use strict'
+
+{{#each assets}}
+/** Converted from "{{{basename}}}" */
+exports.{{@key}} = ${'`'}{{{content}}}${'`'}
+
+{{/each}}
+`
+}
+
+if (!module.parent) {
+  require('coz').render(__filename)
+}
