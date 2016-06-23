@@ -12,6 +12,7 @@ const path = require('path')
 const fs = require('fs')
 const co = require('co')
 const apeTasking = require('ape-tasking')
+const filemode = require('filemode')
 const tmplconv = require('tmplconv')
 
 const demos = {
@@ -63,28 +64,32 @@ apeTasking.runTasks('tmplify', [
         prefix,
         suffix
       })
-      let filename = `${tmplDir}/package.json.tmpl`
-      let str = fs.readFileSync(filename).toString()
-      let pkg = JSON.parse(str)
-      fs.chmodSync(filename, '644')
-      fs.writeFileSync(filename, JSON.stringify({
-        name: pkg.name,
-        version: '1.0.0',
-        description: pkg.description,
-        main: pkg.main,
-        scripts: pkg.scripts,
-        repository: pkg.repository.url.split(/\//g).slice(-1).join('/').replace(/\.git$/, ''),
-        keywords: pkg.keywords,
-        author: pkg.author,
-        license: pkg.license,
-        bugs: pkg.bugs,
-        homepage: pkg.homepage,
-        dependencies: pkg.dependencies,
-        devDependencies: pkg.devDependencies,
-        engines: pkg.engines,
-        publishConfig: pkg.publishConfig
-      }, null, 2))
-      fs.chmodSync(filename, '444')
+
+      // Modify package.json
+      {
+        let filename = `${tmplDir}/package.json.tmpl`
+        let str = fs.readFileSync(filename).toString()
+        let pkg = JSON.parse(str)
+        fs.chmodSync(filename, '644')
+        fs.writeFileSync(filename, JSON.stringify({
+          name: pkg.name,
+          version: '1.0.0',
+          description: pkg.description,
+          main: pkg.main,
+          scripts: pkg.scripts,
+          repository: pkg.repository.url.split(/\//g).slice(-1).join('/').replace(/\.git$/, ''),
+          keywords: pkg.keywords,
+          author: pkg.author,
+          license: pkg.license,
+          bugs: pkg.bugs,
+          homepage: pkg.homepage,
+          dependencies: pkg.dependencies,
+          devDependencies: pkg.devDependencies,
+          engines: pkg.engines,
+          publishConfig: pkg.publishConfig
+        }, null, 2))
+        yield filemode(filename, '444')
+      }
     }
   })
 ], true)
