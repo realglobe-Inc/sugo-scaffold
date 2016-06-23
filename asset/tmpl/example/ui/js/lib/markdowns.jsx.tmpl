@@ -1,13 +1,13 @@
 
 /**
- * !! This files aut generated and do not edit manually
+ * !! This is an auto-generated file and do not edit manually !! 
  * Markdown contents
  * @namespace Markdowns
  */
- 'use strict'
+'use strict'
 
-let restore = (text) => text.replace(/&#x60;/g,'`').replace(/&#x3D;/g, '=')
-  
+let restore = (text) => text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=')
+
 /** Converted from "doc/guides/01.Quick Start.md.hbs" */
 exports[ '01.Quick Start' ] = restore(`Quick Start
 -----

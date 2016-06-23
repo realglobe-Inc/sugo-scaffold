@@ -24,6 +24,8 @@ import {
   SgExampleInstruction
 } from 'sugo-react-example'
 import sgReactComponents from 'sg-react-components'
+import apemanReactBasic from 'apeman-react-basic'
+import apemansleep from 'apemansleep'
 import co from 'co'
 import sugoTerminal from 'sugo-terminal'
 import sugoObserver from 'sugo-observer'
@@ -31,12 +33,21 @@ import sugoObserver from 'sugo-observer'
 import {DEFAULT_SCRIPT, DEFAULT_HTML} from './snippets'
 import markdowns from './markdowns'
 
+const RequirePool = {
+  co,
+  apemansleep,
+  'sugo-terminal': sugoTerminal,
+  'sugo-observer': sugoObserver,
+  'sg-react-components': sgReactComponents,
+  'apeman-react-basic': apemanReactBasic
+}
+
 /** @lends Component */
 const Component = React.createClass({
   // --------------------
   // Specs
   // --------------------
-  
+
   propTypes: {
     /** Port number of the cloud */
     port: types.number,
@@ -63,14 +74,8 @@ const Component = React.createClass({
       spots: [],
       globals: {
         require (name) {
-          let modules = {
-            co,
-            'sugo-terminal': sugoTerminal,
-            'sugo-observer': sugoObserver,
-            'sg-react-components': sgReactComponents
-          }
-          if (modules[ name ]) {
-            return modules[ name ]
+          if (RequirePool[ name ]) {
+            return RequirePool[ name ]
           }
           return window.require(name)
         }
@@ -111,7 +116,7 @@ const Component = React.createClass({
               markdowns[ '11.Setup Cloud' ],
               markdowns[ '12.Run Spot' ],
               markdowns[ '13.Use Terminal' ]
-            ] }/>
+            ] } vars={ s.getMarkdownVars() }/>
             <SgExampleLinks links={ require('../../../doc/links.json') }/>
           </SgExampleBody>
           <SgExampleFooter>
@@ -119,6 +124,7 @@ const Component = React.createClass({
           </SgExampleFooter>
           <SgExampleTooltip onClose={ () => s.setState({ tooltip: null }) }
                             src={ state.tooltip }
+                            vars={ s.getMarkdownVars() }
                             hidden={ !state.tooltip }
           />
         </SgExample>
@@ -130,8 +136,10 @@ const Component = React.createClass({
     const s = this
     let { protocol, host, hash } = window.location
     s.observer = sugoObserver(`${protocol}//${host}/observers`, (data) => {
-      console.log('observed', data)
-      s.refreshStatus()
+      let { playground } = s.state
+      if (!playground) {
+        s.refreshStatus()
+      }
     })
     s.observer.start()
     s.refreshStatus()
@@ -180,23 +188,15 @@ const Component = React.createClass({
       if (!location) {
         return
       }
-      let { host } = location
       co(function * () {
         let spots = yield cloudAgent().spots()
         let terminals = yield cloudAgent().terminals()
-        console.log('spots', spots)
-        s.setState({
-          spots,
-          terminals,
-          cloud: Object.assign(state.cloud || {}, { host })
-        })
+        let cloud = { host: location.host }
+        let globals = Object.assign(state.globals, { spots })
+        s.setState({ spots, terminals, cloud, globals })
       })
-        .catch((err) => {
-          console.error(err)
-        })
-        .then(() => {
-          s.setState({ refreshing: false })
-        })
+        .catch((err) => console.error(err))
+        .then(() => s.setState({ refreshing: false }))
     }, delay)
   },
 
@@ -204,6 +204,14 @@ const Component = React.createClass({
     const s = this
     let { state } = s
     s.setState({ playground: !state.playground })
+  },
+
+  getMarkdownVars () {
+    const s = this
+    let { location } = window
+    return {
+      __hostname_of_your_cloud__: location && location.host
+    }
   }
 })
 

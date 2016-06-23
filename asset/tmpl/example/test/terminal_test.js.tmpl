@@ -18,6 +18,7 @@ describe('terminal', () => {
     let port = yield apemanport.find()
     let storage = `${__dirname}/../tmp/testing-terminal`
     injectmock(process.env, 'STORAGE', storage)
+    injectmock(process.env, 'SPOT_KEY', 'hoge')
     injectmock(process.env, 'PORT', port)
     injectmock(process.env, 'INTERVAL', 120)
   }))

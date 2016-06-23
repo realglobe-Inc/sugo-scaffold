@@ -11,6 +11,7 @@ const co = require('co')
 const debug = require('debug')('~~~~package_name@enumcase~~~~:spot')
 const noop = require('sugo-interface-noop')
 const colorprint = require('colorprint')
+const pudding = require('pudding')({ lang: 'en' })
 
 let configs = require('./configs')
 
@@ -22,22 +23,31 @@ function spot () {
 
   let { SPOT_KEY } = process.env
 
-  let spotKey = SPOT_KEY || 'spot01'
+  let context = spot.newContext()
+  let key = SPOT_KEY || context.key
 
   colorprint.notice(`[${pkg.name}] Running spot script...`)
-  colorprint.trace('Settings: %s', {port, hostname, spotKey})
+  colorprint.trace('Settings: %s', { port, hostname, key })
 
   return co(function * () {
-    let spot01 = sugoSpot(url, {
-      key: spotKey,
+    let instance = sugoSpot(url, {
+      key,
       interfaces: {
         noop: noop()
       },
       force: true
     })
-    yield spot01.connect()
-    return spot01
+    yield instance.connect()
+    return instance
   })
 }
+
+Object.assign(spot, {
+  newContext () {
+    return pudding.explode({
+      key: '${spinalcase([this.color, this.fish].join("-")).trim()}'
+    }, 1)[0]
+  }
+})
 
 module.exports = spot

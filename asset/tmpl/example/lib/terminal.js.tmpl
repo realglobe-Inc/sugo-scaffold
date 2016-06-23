@@ -22,11 +22,14 @@ function terminal () {
 
   let { INTERVAL, SPOT_KEY } = process.env
 
-  let spotKey = SPOT_KEY || 'spot01'
+  let spotKey = SPOT_KEY
+  if (!spotKey) {
+    throw new Error('SPOT_KEY is required.')
+  }
   let interval = INTERVAL || 1200
 
   colorprint.notice(`[${pkg.name}] Running terminal script...`)
-  colorprint.trace('Settings: %s', {port, hostname, spotKey, interval})
+  colorprint.trace('Settings: %s', { port, hostname, spotKey, interval })
   return co(function * () {
     let terminal = sugoTerminal(url)
     let spot = yield terminal.connect(spotKey)

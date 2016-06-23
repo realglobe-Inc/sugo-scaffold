@@ -28,6 +28,14 @@ var _sgReactComponents = require('sg-react-components');
 
 var _sgReactComponents2 = _interopRequireDefault(_sgReactComponents);
 
+var _apemanReactBasic = require('apeman-react-basic');
+
+var _apemanReactBasic2 = _interopRequireDefault(_apemanReactBasic);
+
+var _apemansleep = require('apemansleep');
+
+var _apemansleep2 = _interopRequireDefault(_apemansleep);
+
 var _co = require('co');
 
 var _co2 = _interopRequireDefault(_co);
@@ -49,6 +57,15 @@ var _markdowns2 = _interopRequireDefault(_markdowns);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 require('babel-polyfill');
+
+var RequirePool = {
+  co: _co2.default,
+  apemansleep: _apemansleep2.default,
+  'sugo-terminal': _sugoTerminal2.default,
+  'sugo-observer': _sugoObserver2.default,
+  'sg-react-components': _sgReactComponents2.default,
+  'apeman-react-basic': _apemanReactBasic2.default
+};
 
 /** @lends Component */
 var Component = _react2.default.createClass({
@@ -86,14 +103,8 @@ var Component = _react2.default.createClass({
       spots: [],
       globals: {
         require: function require(name) {
-          var modules = {
-            co: _co2.default,
-            'sugo-terminal': _sugoTerminal2.default,
-            'sugo-observer': _sugoObserver2.default,
-            'sg-react-components': _sgReactComponents2.default
-          };
-          if (modules[name]) {
-            return modules[name];
+          if (RequirePool[name]) {
+            return RequirePool[name];
           }
           return window.require(name);
         }
@@ -148,7 +159,7 @@ var Component = _react2.default.createClass({
         _react2.default.createElement(
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
-          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Spot'], _markdowns2.default['13.Use Terminal']] }),
+          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Spot'], _markdowns2.default['13.Use Terminal']], vars: s.getMarkdownVars() }),
           _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
@@ -156,6 +167,7 @@ var Component = _react2.default.createClass({
             return s.setState({ tooltip: null });
           },
           src: state.tooltip,
+          vars: s.getMarkdownVars(),
           hidden: !state.tooltip
         })
       )
@@ -169,8 +181,11 @@ var Component = _react2.default.createClass({
     var hash = _window$location.hash;
 
     s.observer = (0, _sugoObserver2.default)(protocol + '//' + host + '/observers', function (data) {
-      console.log('observed', data);
-      s.refreshStatus();
+      var playground = s.state.playground;
+
+      if (!playground) {
+        s.refreshStatus();
+      }
     });
     s.observer.start();
     s.refreshStatus();
@@ -226,10 +241,8 @@ var Component = _react2.default.createClass({
       if (!location) {
         return;
       }
-      var host = location.host;
-
       (0, _co2.default)(regeneratorRuntime.mark(function _callee() {
-        var spots, terminals;
+        var spots, terminals, cloud, globals;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -244,24 +257,21 @@ var Component = _react2.default.createClass({
 
               case 5:
                 terminals = _context.sent;
+                cloud = { host: location.host };
+                globals = Object.assign(state.globals, { spots: spots });
 
-                console.log('spots', spots);
-                s.setState({
-                  spots: spots,
-                  terminals: terminals,
-                  cloud: Object.assign(state.cloud || {}, { host: host })
-                });
+                s.setState({ spots: spots, terminals: terminals, cloud: cloud, globals: globals });
 
-              case 8:
+              case 9:
               case 'end':
                 return _context.stop();
             }
           }
         }, _callee, this);
       })).catch(function (err) {
-        console.error(err);
+        return console.error(err);
       }).then(function () {
-        s.setState({ refreshing: false });
+        return s.setState({ refreshing: false });
       });
     }, delay);
   },
@@ -270,6 +280,15 @@ var Component = _react2.default.createClass({
     var state = s.state;
 
     s.setState({ playground: !state.playground });
+  },
+  getMarkdownVars: function getMarkdownVars() {
+    var s = this;
+    var _window2 = window;
+    var location = _window2.location;
+
+    return {
+      __hostname_of_your_cloud__: location && location.host
+    };
   }
 });
 

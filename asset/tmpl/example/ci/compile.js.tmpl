@@ -12,12 +12,15 @@ const apeTasking = require('ape-tasking')
 const apeCompiling = require('ape-compiling')
 const filecopy = require('filecopy')
 const co = require('co')
+const coz = require('coz')
 const React = require('react')
 const { SgExampleStyle } = require('sugo-react-example')
 const { readFileAsync, writeFileAsync } = require('apemanfs')
 const { color } = require('../lib/configs')()
 
 apeTasking.runTasks('compile', [
+  // Generate markdowns, snppets...
+  () => coz.render('ui/js/lib/.*.jsx.bud'),
   // JSX -> JS
   () => apeCompiling.compileReactJsx('*.jsx', {
     cwd: 'ui/js/lib',

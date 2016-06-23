@@ -6,5 +6,6 @@
 const cloud = require('../lib/cloud')
 
 cloud()
-  .then(() => {})
+  .then((cloud) => {})
   .catch(() => process.exit(1))
+
