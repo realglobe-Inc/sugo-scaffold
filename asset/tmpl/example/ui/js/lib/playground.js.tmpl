@@ -86,71 +86,83 @@ var DynamicComponent = _react2.default.createClass({
             'div',
             { className: 'playground-row' },
             _react2.default.createElement(
-              'p',
+              _apemanReactBasic.ApContainer,
               null,
-              'Send a ping and receive pong.'
-            ),
-            _react2.default.createElement(
-              _apemanReactBasic.ApBigButton,
-              {
-                onTap: function onTap() {
-                  return s.withTerminal(regeneratorRuntime.mark(function sendPing(terminal) {
-                    var spot, noop, pong;
-                    return regeneratorRuntime.wrap(function sendPing$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            if (!s.state.pongAt) {
-                              _context.next = 3;
-                              break;
+              _react2.default.createElement(
+                'div',
+                { className: 'playground-item' },
+                _react2.default.createElement(
+                  'p',
+                  null,
+                  'Send a ping and receive pong.'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'playground-item' },
+                _react2.default.createElement(
+                  _apemanReactBasic.ApBigButton,
+                  {
+                    onTap: function onTap() {
+                      return s.withTerminal(regeneratorRuntime.mark(function sendPing(terminal) {
+                        var spot, noop, pong;
+                        return regeneratorRuntime.wrap(function sendPing$(_context) {
+                          while (1) {
+                            switch (_context.prev = _context.next) {
+                              case 0:
+                                if (!s.state.pongAt) {
+                                  _context.next = 3;
+                                  break;
+                                }
+
+                                // Reset to send ping
+                                s.setState({ pingAt: null, pongAt: null });
+                                return _context.abrupt('return');
+
+                              case 3:
+                                _context.next = 5;
+                                return terminal.connect(spotKey);
+
+                              case 5:
+                                spot = _context.sent;
+                                noop = spot.noop();
+
+                                // Do ping-pong
+
+                                console.log('Send ping to noop...');
+                                s.setState({ pingAt: new Date().toLocaleTimeString() });
+                                _context.next = 11;
+                                return noop.ping();
+
+                              case 11:
+                                pong = _context.sent;
+
+                                s.setState({ pongAt: new Date().toLocaleTimeString() });
+                                console.log('...received ping from noop: "' + pong + '"');
+
+                                // Tear down
+                                _context.next = 16;
+                                return spot.disconnect();
+
+                              case 16:
+                                _context.next = 18;
+                                return (0, _apemansleep.sleep)(10);
+
+                              case 18:
+                              case 'end':
+                                return _context.stop();
                             }
-
-                            // Reset to send ping
-                            s.setState({ pingAt: null, pongAt: null });
-                            return _context.abrupt('return');
-
-                          case 3:
-                            _context.next = 5;
-                            return terminal.connect(spotKey);
-
-                          case 5:
-                            spot = _context.sent;
-                            noop = spot.noop();
-
-                            // Do ping-pong
-
-                            console.log('Send ping to noop...');
-                            s.setState({ pingAt: new Date().toLocaleTimeString() });
-                            _context.next = 11;
-                            return noop.ping();
-
-                          case 11:
-                            pong = _context.sent;
-
-                            s.setState({ pongAt: new Date().toLocaleTimeString() });
-                            console.log('...received ping from noop: "' + pong + '"');
-
-                            // Tear down
-                            _context.next = 16;
-                            return spot.disconnect();
-
-                          case 16:
-                            _context.next = 18;
-                            return (0, _apemansleep.sleep)(10);
-
-                          case 18:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    }, sendPing, this);
-                  }));
-                },
-                spinning: pingAt && !pongAt,
-                primary: !pingAt
-              },
-              pongAt ? 'Pong at ' + pongAt : pingAt ? 'Waiting...' : 'Send ping',
-              ' '
+                          }
+                        }, sendPing, this);
+                      }));
+                    },
+                    spinning: pingAt && !pongAt,
+                    primary: !pingAt
+                  },
+                  pongAt ? 'Pong at ' + pongAt : pingAt ? 'Waiting...' : 'Send ping',
+                  ' '
+                )
+              )
             )
           )
         )

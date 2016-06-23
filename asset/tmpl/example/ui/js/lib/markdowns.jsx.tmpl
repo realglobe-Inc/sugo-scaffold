@@ -14,9 +14,10 @@ exports[ '01.Quick Start' ] = restore(`Quick Start
 
 Deploy to the [Heroku][heroku_url] and play it!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template&#x3D;https://github.com/realglobe-Inc/~~~~package_name~~~~/tree/heroku)
 
-[heroku_url]: https://www.heroku.com/`)
+[heroku_url]: https://www.heroku.com/
+`)
 
 /** Converted from "doc/guides/10.How to.md.hbs" */
 exports[ '10.How to' ] = restore(`How to
@@ -55,8 +56,9 @@ $ npm install ~~~~package_name~~~~ -g
 Then, connect spot to the cloud
 
 &#x60;&#x60;&#x60;bash
-$ HOST&#x3D;__hostname_of_your_cloud__ ~~~~package_name~~~~ spot 
+$ HOST&#x3D;__hostname_of_your_cloud__ SPOT_KEY&#x3D;__your_own_spot_name__ ~~~~package_name~~~~ spot
 &#x60;&#x60;&#x60;
+
 `)
 
 /** Converted from "doc/guides/13.Use Terminal.md.hbs" */

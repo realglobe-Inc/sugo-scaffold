@@ -27,6 +27,7 @@ import sgReactComponents from 'sg-react-components'
 import apemanReactBasic from 'apeman-react-basic'
 import apemansleep from 'apemansleep'
 import co from 'co'
+import os from 'os'
 import sugoTerminal from 'sugo-terminal'
 import sugoObserver from 'sugo-observer'
 
@@ -35,6 +36,7 @@ import markdowns from './markdowns'
 
 const RequirePool = {
   co,
+  os,
   apemansleep,
   'sugo-terminal': sugoTerminal,
   'sugo-observer': sugoObserver,

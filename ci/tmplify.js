@@ -76,6 +76,7 @@ apeTasking.runTasks('tmplify', [
           version: '1.0.0',
           description: pkg.description,
           main: pkg.main,
+          bin: pkg.bin,
           scripts: pkg.scripts,
           repository: pkg.repository.url.split(/\//g).slice(-1).join('/').replace(/\.git$/, ''),
           keywords: pkg.keywords,

@@ -19,6 +19,7 @@ exports.DEFAULT_HTML = `<!--
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
   <script src="js/external.cc.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body class="playground-body">
 <div id="playground-root">
@@ -38,7 +39,11 @@ require('babel-polyfill')
 
 import React, {PropTypes as types} from 'react'
 import ReactDOM from 'react-dom'
-import {ApBigButton, ApSelectableArticle} from 'apeman-react-basic'
+import {
+  ApContainer,
+  ApBigButton,
+  ApSelectableArticle
+} from 'apeman-react-basic'
 import co from 'co'
 import sugoTerminal from 'sugo-terminal'
 import {sleep} from 'apemansleep'
@@ -82,34 +87,39 @@ const DynamicComponent = React.createClass({
         >
           <ApSelectableArticle.Content contentFor={ String(spotKey) }>
             <div className='playground-row'>
-              <p>Send a ping and receive pong.</p>
-              <ApBigButton
-                onTap={ () => s.withTerminal(function * sendPing (terminal) {
-                  if (s.state.pongAt) {
-                    // Reset to send ping
-                    s.setState({pingAt: null, pongAt: null})
-                    return
-                  }
+              <ApContainer>
+                <div className='playground-item'>
+                  <p>Send a ping and receive pong.</p>
+                </div>
+                <div className='playground-item'>
+                  <ApBigButton
+                    onTap={ () => s.withTerminal(function * sendPing (terminal) {
+                      if (s.state.pongAt) {
+                        // Reset to send ping
+                        s.setState({pingAt: null, pongAt: null})
+                        return
+                      }
 
-                  // Set up
-                  let spot = yield terminal.connect(spotKey)
-                  let noop = spot.noop()
+                      // Set up
+                      let spot = yield terminal.connect(spotKey)
+                      let noop = spot.noop()
 
-                  // Do ping-pong
-                  console.log('Send ping to noop...')
-                  s.setState({pingAt: new Date().toLocaleTimeString()})
-                  let pong = yield noop.ping()
-                  s.setState({pongAt: new Date().toLocaleTimeString()})
-                  console.log(${'`'}...received ping from noop: "${'${'}pong${'}'}"${'`'})
+                      // Do ping-pong
+                      console.log('Send ping to noop...')
+                      s.setState({pingAt: new Date().toLocaleTimeString()})
+                      let pong = yield noop.ping()
+                      s.setState({pongAt: new Date().toLocaleTimeString()})
+                      console.log(${'`'}...received ping from noop: "${'${'}pong${'}'}"${'`'})
 
-                  // Tear down
-                  yield spot.disconnect()
-                  yield sleep(10)
-              }) }
-                spinning={ pingAt && !pongAt }
-                primary={ !pingAt }
-              >{ pongAt ? ${'`'}Pong at ${'${'}pongAt${'}'}${'`'} : (pingAt ? 'Waiting...' : 'Send ping')} </ApBigButton>
-
+                      // Tear down
+                      yield spot.disconnect()
+                      yield sleep(10)
+                  }) }
+                    spinning={ pingAt && !pongAt }
+                    primary={ !pingAt }
+                  >{ pongAt ? ${'`'}Pong at ${'${'}pongAt${'}'}${'`'} : (pingAt ? 'Waiting...' : 'Send ping')} </ApBigButton>
+                </div>
+              </ApContainer>
             </div>
           </ApSelectableArticle.Content>
         </ApSelectableArticle>

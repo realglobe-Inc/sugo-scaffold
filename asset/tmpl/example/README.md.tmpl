@@ -58,9 +58,10 @@ Quick Start
 
 Deploy to the [Heroku][heroku_url] and play it!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/realglobe-Inc/~~~~package_name~~~~/tree/heroku)
 
 [heroku_url]: https://www.heroku.com/
+
 
 <!-- Section from "doc/guides/01.Quick Start.md.hbs" End -->
 
@@ -111,8 +112,9 @@ $ npm install ~~~~package_name~~~~ -g
 Then, connect spot to the cloud
 
 ```bash
-$ HOST=__hostname_of_your_cloud__ ~~~~package_name~~~~ spot 
+$ HOST=__hostname_of_your_cloud__ SPOT_KEY=__your_own_spot_name__ ~~~~package_name~~~~ spot
 ```
+
 
 
 <!-- Section from "doc/guides/12.Run Spot.md.hbs" End -->

@@ -40,6 +40,10 @@ var _co = require('co');
 
 var _co2 = _interopRequireDefault(_co);
 
+var _os = require('os');
+
+var _os2 = _interopRequireDefault(_os);
+
 var _sugoTerminal = require('sugo-terminal');
 
 var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
@@ -60,6 +64,7 @@ require('babel-polyfill');
 
 var RequirePool = {
   co: _co2.default,
+  os: _os2.default,
   apemansleep: _apemansleep2.default,
   'sugo-terminal': _sugoTerminal2.default,
   'sugo-observer': _sugoObserver2.default,

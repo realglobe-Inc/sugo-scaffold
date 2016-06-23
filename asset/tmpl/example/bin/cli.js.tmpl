@@ -26,17 +26,17 @@ function run (script) {
 program
   .command('cloud')
   .description('Run example cloud')
-  .action(() => run(`${__dirname}/bin/cloud.js`))
+  .action(() => run(`${__dirname}/cloud.js`))
 
 program
   .command('spot')
   .description('Run example spot')
-  .action(() => run(`${__dirname}/bin/spot.js`))
+  .action(() => run(`${__dirname}/spot.js`))
 
 program
   .command('terminal')
   .description('Run example terminal')
-  .action(() => run(`${__dirname}/bin/terminal.js`))
+  .action(() => run(`${__dirname}/terminal.js`))
 
 program.parse(process.argv)
 
