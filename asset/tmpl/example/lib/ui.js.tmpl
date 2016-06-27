@@ -15,7 +15,7 @@ let configs = require('./configs')
 /** @lends ui */
 function ui () {
   debug('Example ui invoked')
-  
+
   let { port, hostname } = configs()
   let url = `http://${hostname}:${port}/index.html`
 

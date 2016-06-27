@@ -10,11 +10,15 @@ process.chdir(`${__dirname}/..`)
 
 const apeTasking = require('ape-tasking')
 const pkg = require('../package.json')
+const filelink = require('filelink')
 let { execcli } = apeTasking
 let { color } = require('../lib/configs')()
 
+let faviconFile = 'doc/images/favicon.svg'
+let faviconLink = 'ui/favicon.svg'
+
 apeTasking.runTasks('favicon', [
-  () => execcli('fur', [ 'favicon', `${__dirname}/../ui/favicon.svg`, {
+  () => execcli('fur', [ 'favicon', faviconFile, {
     text: pkg.name.split(/\-/g).map((name) => name[ 0 ]).join('').toUpperCase(),
     size: 128,
     shape: 'g',
@@ -26,5 +30,8 @@ apeTasking.runTasks('favicon', [
   }).catch((err) => {
     // Do nothing
     console.log('Failed to generate favicon:', err)
+  }),
+  () => filelink(faviconFile, faviconLink, {
+    force: true
   })
 ], true)

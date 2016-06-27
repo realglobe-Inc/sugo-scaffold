@@ -31,10 +31,10 @@ require('babel-polyfill');
 
 /**
  * Dynamic component create from the online-editor
- * @class DynamicComponent
+ * @class Playground
  */
-var DynamicComponent = _react2.default.createClass({
-  displayName: 'DynamicComponent',
+var Playground = _react2.default.createClass({
+  displayName: 'Playground',
 
   // --------------------
   // Specs
@@ -202,9 +202,11 @@ var DynamicComponent = _react2.default.createClass({
   }
 });
 
-var _window = window;
-var spots = _window.spots;
+setTimeout(function () {
+  var _window = window;
+  var spots = _window.spots;
 
-var container = document.getElementById('playground-root');
-var element = _react2.default.createElement(DynamicComponent, { spots: spots || [] });
-_reactDom2.default.render(element, container);
+  var container = document.getElementById('playground-root');
+  var element = _react2.default.createElement(Playground, { spots: spots || [] });
+  _reactDom2.default.render(element, container);
+}, 100); // Wait for DOM ready

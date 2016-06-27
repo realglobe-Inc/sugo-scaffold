@@ -7,4 +7,7 @@ const terminal = require('../lib/terminal')
 
 terminal()
   .then(() => {})
-  .catch(() => process.exit(1))
+  .catch((err) => {
+    console.error('Failed to run terminal', err)
+    process.exit(1)
+  })

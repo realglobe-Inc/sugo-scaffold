@@ -7,4 +7,7 @@ const spot = require('../lib/spot')
 
 spot()
   .then(() => {})
-  .catch(() => process.exit(1))
+  .catch((err) => {
+    console.error('Failed to setup connect spot', err)
+    process.exit(1)
+  })

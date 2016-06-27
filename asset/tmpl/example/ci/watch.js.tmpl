@@ -13,7 +13,8 @@ const childProcess = require('child_process')
 
 let timer = null
 apeWatching.watchFiles([
-  'ui/**/*.jsx'
+  'ui/**/*.jsx',
+  'ui/**/*.scss'
 ], (ev, filename) => {
   clearTimeout(timer)
   timer = setTimeout(() => {

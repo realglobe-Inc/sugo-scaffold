@@ -7,5 +7,8 @@ const cloud = require('../lib/cloud')
 
 cloud()
   .then((cloud) => {})
-  .catch(() => process.exit(1))
+  .catch((err) => {
+    console.error('Failed to start cloud', err)
+    process.exit(1)
+  })
 

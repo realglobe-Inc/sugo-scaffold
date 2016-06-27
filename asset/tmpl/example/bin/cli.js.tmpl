@@ -13,7 +13,9 @@ program
   .description(description)
 
 function run (script) {
-  execcli('node', [ script ])
+  execcli('node', [ script ], {
+    env: process.env
+  })
     .then(() => {
       process.exit(0)
     })

@@ -18,7 +18,7 @@ describe('configs', () => {
   }))
 
   it('Configs', () => co(function * () {
-
+    assert.ok(configs())
   }))
 })
 
