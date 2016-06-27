@@ -4,23 +4,40 @@
  */
 'use strict'
 
-const ~~~~package_name@camelcase~~~~ = require('../lib/~~~~package_name@snakecase~~~~.js')
+const ~~~~package_name@pascalcase~~~~ = require('../lib/~~~~package_name@snakecase~~~~.js')
 const assert = require('assert')
+const sgServer = require('sg-server')
+const { freeport } = sgServer
 const co = require('co')
 
 describe('~~~~package_name~~~~', function () {
   this.timeout(3000)
-
+  let server, port
   before(() => co(function * () {
+    port = yield freeport()
+    server = sgServer({
+      endpoints: {
+        '/api/foo': {
+          HEAD: (ctx) => {
+            ctx.set('foo', 'This is foo')
+            ctx.body = null
+          }
+        }
+      }
+    })
 
+    yield server.listen(port)
   }))
 
   after(() => co(function * () {
-
+    yield server.close()
   }))
 
   it('Sugo demo agent', () => co(function * () {
-
+    let agent = new ~~~~package_name@pascalcase~~~~(`http://localhost:${port}`)
+    assert.ok(agent)
+    let ok = yield agent.knock('/api/foo')
+    assert.ok(ok)
   }))
 })
 

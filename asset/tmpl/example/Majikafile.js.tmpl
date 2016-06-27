@@ -25,6 +25,7 @@ module.exports = {
   travisCreateArgs: {},
   heroku: {
     additionalDependencies: {
+      ['babel']: '*',
       ['babel-cli']: '*',
       ['node-sass']: '*',
       ['browserify']: '*',

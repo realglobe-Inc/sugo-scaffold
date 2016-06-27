@@ -76,11 +76,11 @@ const ~~~~package_name@camelcase~~~~ = require('~~~~package_name~~~~')
 const co = require('co')
 
 co(function * () {
-  let agent = ~~~~package_name@camelcase~~~~('http://example.com')
+  let agent = ~~~~package_name@camelcase~~~~('http://my-sever.com')
 
+  // Check if server available
   {
-    // Check if server available
-    let ok = yield agent.knock()
+    let ok = yield agent.knock() // Send HTTP HEAD request.
     /** ... */
   }
 }).catch((err) => console.error(err))

@@ -18,9 +18,9 @@ var _agent = require('sugo-cloud/lib/agent');
 
 var _agent2 = _interopRequireDefault(_agent);
 
-var _agent3 = require('sugo-endpoint-compile/lib/agent');
+var _sugoAgentCompile = require('sugo-agent-compile');
 
-var _agent4 = _interopRequireDefault(_agent3);
+var _sugoAgentCompile2 = _interopRequireDefault(_sugoAgentCompile);
 
 var _sugoReactExample = require('sugo-react-example');
 
@@ -227,7 +227,7 @@ var Component = _react2.default.createClass({
     var s = this;
     var state = s.state;
 
-    return (0, _agent4.default)('/actions/compile').compile(script);
+    return (0, _sugoAgentCompile2.default)('/actions/compile').compile(script);
   },
   refreshStatus: function refreshStatus() {
     var delay = arguments.length <= 0 || arguments[0] === undefined ? 300 : arguments[0];
