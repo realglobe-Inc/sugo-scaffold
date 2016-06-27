@@ -1,4 +1,5 @@
 {
+  "agent": "asset/tmpl/agent",
   "endpoint": "asset/tmpl/endpoint",
   "example": "asset/tmpl/example",
   "interface": "asset/tmpl/interface",

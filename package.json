@@ -20,7 +20,7 @@
     "email": "okunishitaka.com@gmail.com",
     "url": "http://okunishitaka.com"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/realglobe-Inc/sugo-scaffold/issues"
   },
@@ -43,6 +43,7 @@
     "ape-updating": "^4.0.1",
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
+    "sugo-demo-agent": "^1.0.0",
     "sugo-demo-endpoint": "^1.0.3",
     "sugo-demo-example": "^1.0.13",
     "sugo-demo-interface": "^1.1.3",

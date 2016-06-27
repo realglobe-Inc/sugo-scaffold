@@ -1,0 +1,50 @@
+{
+  "name": "~~~~package_name~~~~",
+  "version": "1.0.0",
+  "description": "~~~~package_description~~~~",
+  "main": "lib",
+  "scripts": {
+    "prepublish": "./ci/build.js && ./ci/browser.js",
+    "test": "./ci/test.js"
+  },
+  "repository": "~~~~github_repository~~~~",
+  "keywords": [
+    "SUGOS",
+    "agent"
+  ],
+  "author": {
+    "email": "~~~~author_email~~~~",
+    "name": "~~~~author_name~~~~",
+    "url": "~~~~author_url~~~~"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/realglobe-Inc/~~~~package_name~~~~/issues"
+  },
+  "homepage": "https://github.com/realglobe-Inc/~~~~package_name~~~~#readme",
+  "dependencies": {
+    "co": "^4.6.0"
+  },
+  "devDependencies": {
+    "ape-compiling": "^4.3.2",
+    "ape-covering": "^3.0.3",
+    "ape-formatting": "^1.0.0",
+    "ape-releasing": "^4.0.1",
+    "ape-reporting": "^3.0.1",
+    "ape-tasking": "^4.0.2",
+    "ape-testing": "^4.0.0",
+    "ape-tmpl": "^5.0.6",
+    "ape-updating": "^4.0.1",
+    "coz": "^6.0.3",
+    "filedel": "^2.0.1",
+    "injectmock": "^2.0.0",
+    "sugo-agent-base": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=3"
+  },
+  "publishConfig": {
+    "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
+  }
+}

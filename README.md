@@ -125,6 +125,7 @@ Types
 
 Available template types
 
++ [agent](asset/tmpl/agent)
 + [endpoint](asset/tmpl/endpoint)
 + [example](asset/tmpl/example)
 + [interface](asset/tmpl/interface)
@@ -142,7 +143,7 @@ Available template types
 
 License
 -------
-This software is released under the [MIT License](https://github.com/realglobe-Inc/sugo-scaffold/blob/master/LICENSE).
+This software is released under the [Apache-2.0 License](https://github.com/realglobe-Inc/sugo-scaffold/blob/master/LICENSE).
 
 <!-- LICENSE End -->
 

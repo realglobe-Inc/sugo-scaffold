@@ -1,0 +1,18 @@
+/**
+ * ~~~~package_description~~~~
+ * @module ~~~~package_name~~~~
+ */
+
+'use strict'
+
+const create = require('./create')
+const ~~~~package_name@pascalcase~~~~ = require('./~~~~package_name@snakecase~~~~')
+
+let lib = create.bind(this)
+
+Object.assign(lib, ~~~~package_name@pascalcase~~~~, {
+  create,
+  ~~~~package_name@pascalcase~~~~
+})
+
+module.exports = lib
