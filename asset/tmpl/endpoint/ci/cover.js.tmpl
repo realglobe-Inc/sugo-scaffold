@@ -8,13 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const apeCovering = require('ape-covering')
+const { endpointCover } = require('sugos-ci')
 
-apeTasking.runTasks('cover', [
-  () => apeCovering.measureCoverage('_mocha', [
-    '-t', 4000, 'test/*_test.js'
-  ], {
-    dir: 'coverage'
-  })
-], true)
+endpointCover({})

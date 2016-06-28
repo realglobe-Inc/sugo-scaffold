@@ -8,14 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const coz = require('coz')
+const { endpointBuild } = require('sugos-ci')
 
-apeTasking.runTasks('build', [
-  () => coz.render([
-    '.*.bud',
-    'doc/**/.*.bud',
-    'lib/.*.bud',
-    'test/.*.bud'
-  ])
-], true)
+endpointBuild({})

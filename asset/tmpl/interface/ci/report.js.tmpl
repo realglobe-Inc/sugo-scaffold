@@ -8,9 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const apeReporting = require('ape-reporting')
+const { interfaceReport } = require('sugos-ci')
 
-apeTasking.runTasks('report', [
-  () => apeReporting.sendToCodeclimate('coverage/lcov.info', {})
-], true)
+interfaceReport({})

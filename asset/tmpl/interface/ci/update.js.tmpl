@@ -8,9 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const apeUpdating = require('ape-updating')
+const { interfaceUpdate } = require('sugos')
 
-apeTasking.runTasks('update', [
-  () => apeUpdating.updateDependencies({})
-], true)
+interfaceUpdate({})

@@ -1,6 +1,6 @@
 {
   "name": "sugo-scaffold",
-  "version": "1.3.10",
+  "version": "1.3.11",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
@@ -44,10 +44,10 @@
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
     "sugo-demo-agent": "^1.0.3",
-    "sugo-demo-endpoint": "^1.0.4",
-    "sugo-demo-example": "^1.0.19",
-    "sugo-demo-interface": "^1.1.3",
-    "sugo-demo-middleware": "^1.0.2"
+    "sugo-demo-endpoint": "^1.0.5",
+    "sugo-demo-example": "^1.0.21",
+    "sugo-demo-interface": "^1.1.5",
+    "sugo-demo-middleware": "^1.0.4"
   },
   "engines": {
     "node": ">=6",

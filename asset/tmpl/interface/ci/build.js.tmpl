@@ -8,13 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const coz = require('coz')
+const { interfaceBuild } = require('sugos-ci')
 
-apeTasking.runTasks('build', [
-  () => coz.render([
-    '.*.bud',
-    'lib/.*.bud',
-    'test/.*.bud'
-  ])
-], true)
+interfaceBuild({})

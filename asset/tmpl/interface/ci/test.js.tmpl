@@ -8,11 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const apeTesting = require('ape-testing')
+const { interfaceTest } = require('sugos-ci')
 
-apeTasking.runTasks('test', [
-  () => apeTesting.runMocha('test/*_test.js', {
-    timeout: 4000
-  })
-], true)
+interfaceTest({})

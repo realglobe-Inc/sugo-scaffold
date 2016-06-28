@@ -48,6 +48,10 @@ var _sugoTerminal = require('sugo-terminal');
 
 var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
 
+var _sgReact = require('sg-react');
+
+var _sgReact2 = _interopRequireDefault(_sgReact);
+
 var _sugoObserver = require('sugo-observer');
 
 var _sugoObserver2 = _interopRequireDefault(_sugoObserver);
@@ -68,6 +72,7 @@ var RequirePool = {
   apemansleep: _apemansleep2.default,
   'sugo-terminal': _sugoTerminal2.default,
   'sugo-observer': _sugoObserver2.default,
+  'sg-react': _sgReact2.default,
   'sg-react-components': _sgReactComponents2.default,
   'apeman-react-basic': _apemanReactBasic2.default
 };
@@ -293,7 +298,7 @@ var Component = _react2.default.createClass({
 
     return {
       __your_cloud_hostname__: location && location.host,
-      __your_own_spot_name__: '__your_own_spot_name__' //TODO
+      __your_own_spot_name__: '__your_own_spot_name__' // TODO
     };
   }
 });

@@ -4,13 +4,7 @@
  */
 'use strict';
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
+var _sgReact = require('sg-react');
 
 var _component = require('./component');
 
@@ -38,12 +32,9 @@ var hostname = _configs.hostname;
 function onLoad() {
   window.removeEventListener('DOMContentLoaded', onLoad);
 
-  var container = document.getElementById('mount-root');
-  var element = _react2.default.createElement(_component2.default, {
+  (0, _sgReact.mount)('mount-root', _component2.default, {
     pkg: _package2.default, color: color, port: port, hostname: hostname
-  });
-
-  _reactDom2.default.render(element, container, function () {
+  }).then(function () {
     console.debug('Component mounted');
   });
 }

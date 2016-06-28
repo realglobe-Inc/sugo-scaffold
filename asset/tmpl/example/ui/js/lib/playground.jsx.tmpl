@@ -6,7 +6,7 @@
 require('babel-polyfill')
 
 import React, {PropTypes as types} from 'react'
-import ReactDOM from 'react-dom'
+import {mount} from 'sg-react'
 import {
   ApContainer,
   ApBigButton,
@@ -119,9 +119,12 @@ const Playground = React.createClass({
   }
 })
 
-setTimeout(() => {
-  let { spots } = window
-  let container = document.getElementById('playground-root')
-  let element = (<Playground spots={ spots || [] }/>)
-  ReactDOM.render(element, container)
-}, 100) // Wait for DOM ready
+// Mount react component
+{
+  let mountRoot = document.getElementById('playground-root')
+  mount(mountRoot, Playground, {
+    spots: [].concat(window.spots || [])
+  }).then(() => {
+    console.debug('Playground mounted')
+  }).catch((err) => console.error(err))
+}

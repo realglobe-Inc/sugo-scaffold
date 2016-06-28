@@ -29,6 +29,7 @@ import apemansleep from 'apemansleep'
 import co from 'co'
 import os from 'os'
 import sugoTerminal from 'sugo-terminal'
+import sgReact from 'sg-react'
 import sugoObserver from 'sugo-observer'
 
 import {DEFAULT_SCRIPT, DEFAULT_HTML} from './snippets'
@@ -40,6 +41,7 @@ const RequirePool = {
   apemansleep,
   'sugo-terminal': sugoTerminal,
   'sugo-observer': sugoObserver,
+  'sg-react': sgReact,
   'sg-react-components': sgReactComponents,
   'apeman-react-basic': apemanReactBasic
 }
@@ -213,7 +215,7 @@ const Component = React.createClass({
     let { location } = window
     return {
       __your_cloud_hostname__: location && location.host,
-      __your_own_spot_name__: '__your_own_spot_name__' //TODO
+      __your_own_spot_name__: '__your_own_spot_name__' // TODO
     }
   }
 })

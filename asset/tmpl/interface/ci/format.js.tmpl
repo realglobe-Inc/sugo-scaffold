@@ -8,19 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const apeFormatting = require('ape-formatting')
+const { interfaceFormat } = require('sugos-ci')
 
-apeTasking.runTasks('format', [
-  () => apeFormatting.formatJs([
-    '.*.bud',
-    'lib/.*.bud',
-    'example/*.js',
-    'doc/mocks/*.js',
-    'test/.*.bud'
-  ], {
-    ignore: [
-      'lib/index.js'
-    ]
-  })
-], true)
+interfaceFormat({})
