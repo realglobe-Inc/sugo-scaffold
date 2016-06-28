@@ -7,11 +7,11 @@
 'use strict';
 
 var restore = function restore(text) {
-  return text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=');
+     return text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=');
 };
 
 /** Converted from "doc/guides/00.Requirements.md.hbs" */
-exports['00.Requirements'] = restore('Requirements\n-----\n\n+ [Node.js ( &gt;&#x3D;6.x )][node_download_url]\n\n[node_download_url]: https://nodejs.org/en/download/\n');
+exports['00.Requirements'] = restore('Requirements\n-----\n\n&lt;a href&#x3D;&quot;https://nodejs.org&quot;&gt;\n  &lt;img src&#x3D;&quot;https://realglobe-inc.github.io/sugos-assets/images/nodejs-banner.png&quot;\n       alt&#x3D;&quot;Node.js&quot;\n       height&#x3D;&quot;&quot;\n       style&#x3D;&quot;height:px&quot;\n  /&gt;&lt;/a&gt;\n&lt;a href&#x3D;&quot;https://docs.npmjs.com/&quot;&gt;\n  &lt;img src&#x3D;&quot;https://realglobe-inc.github.io/sugos-assets/images/npm-banner.png&quot;\n       alt&#x3D;&quot;NPM&quot;\n       height&#x3D;&quot;&quot;\n       style&#x3D;&quot;height:px&quot;\n  /&gt;&lt;/a&gt;\n\n+ [Node.js ( &gt;&#x3D;6.x )][node_download_url]\n+ [npm ( &gt;&#x3D;3.x )][npm_url]\n\n[node_download_url]: https://nodejs.org/en/download/\n[npm_url]: https://docs.npmjs.com/\n');
 
 /** Converted from "doc/guides/01.Quick Start.md.hbs" */
 exports['01.Quick Start'] = restore('Quick Start\n-----\n\nDeploy to the [Heroku][heroku_url] and play it!\n\n[![Deploy](https://www.herokucdn.com/deploy/button.svg)][heroku_deploy_url]\n\n[heroku_url]: https://www.heroku.com/\n[heroku_deploy_url]: https://heroku.com/deploy?template&#x3D;https://github.com//tree/heroku\n');

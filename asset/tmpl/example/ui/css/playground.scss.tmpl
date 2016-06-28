@@ -1,5 +1,28 @@
+$error-color: #E11;
+
 .playground-body {
   font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+
+  .ap-selectable-article-header {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
+  .ap-label {
+    padding-right: 4px;
+    color: #888;
+  }
+
+  .ap-selectable-article-alt {
+    color: $error-color;
+    opacity: 1;
+    font-style: italic;
+  }
+
+  .ap-selectable-article-content-null {
+    opacity: 0.2;
+  }
+
 }
 
 .playground-message {
@@ -36,17 +59,3 @@
   background: #FAFAFA;
 }
 
-.playground-body .ap-label {
-  padding-right: 4px;
-  color: #888;
-}
-
-.playground-body .ap-selectable-article-alt {
-  color: #E11;
-  opacity: 1;
-  font-style: italic;
-}
-
-.playground-body .ap-selectable-article-content-null {
-  opacity: 0.2;
-}

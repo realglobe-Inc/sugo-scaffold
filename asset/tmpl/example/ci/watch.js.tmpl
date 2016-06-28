@@ -8,18 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeWatching = require('ape-watching')
-const childProcess = require('child_process')
+const { exampleWatch } = require('sugos-ci')
 
-let timer = null
-apeWatching.watchFiles([
-  'ui/**/*.jsx',
-  'ui/**/*.scss'
-], (ev, filename) => {
-  clearTimeout(timer)
-  timer = setTimeout(() => {
-    childProcess.fork('ci/compile.js', {
-      stdio: 'inherit'
-    })
-  }, 300)
-})
+exampleWatch('ci/compile.js', {})
