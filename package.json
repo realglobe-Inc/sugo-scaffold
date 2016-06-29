@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/realglobe-Inc/sugo-scaffold#readme",
   "dependencies": {
+    "argx": "^2.0.2",
     "askconfig": "^3.0.2",
     "co": "^4.6.0",
     "filemode": "^2.0.1",
