@@ -44,8 +44,8 @@
     "ape-updating": "^4.0.1",
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
-    "sugo-demo-agent": "^1.0.3",
-    "sugo-demo-endpoint": "^1.0.5",
+    "sugo-demo-agent": "^1.0.4",
+    "sugo-demo-endpoint": "^1.0.7",
     "sugo-demo-example": "^1.0.21",
     "sugo-demo-interface": "^1.1.5",
     "sugo-demo-middleware": "^1.0.4"

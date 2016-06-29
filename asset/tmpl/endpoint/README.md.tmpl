@@ -122,6 +122,23 @@ server.listen(3000)
 
 ```
 
+Then call the api from agent script.
+
+```javascript
+/** This is example of client */
+
+'use strict'
+
+const sugoAgentBase = require('sugo-agent-base')
+const co = require('co')
+
+co(function * () {
+  let agent = sugoAgentBase('/foo/bar')
+  let knocked = yield agent.knock()
+  /* .. */
+}).catch((err) => console.error(err))
+
+```
 
 <!-- Section from "doc/guides/02.Usage.md.hbs" End -->
 

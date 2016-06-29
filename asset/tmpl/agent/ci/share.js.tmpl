@@ -8,11 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const pkg = require('../package.json')
+const agentShare = require('sugos-ci')
 
-apeTasking.runTasks('share', [
-  () => apeTasking.execcli('hub', [ 'init' ]),
-  () => apeTasking.execcli('hub', [ 'create', { d: pkg.description }, pkg.repository ]),
-  () => apeTasking.execcli('travis', [ 'enable', { r: pkg.repository } ])
-], true)
+agentShare({})

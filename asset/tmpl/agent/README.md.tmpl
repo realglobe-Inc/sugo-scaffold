@@ -81,7 +81,7 @@ co(function * () {
   // Check if server available
   {
     let ok = yield agent.knock() // Send HTTP HEAD request.
-    /** ... */
+  /* ... */
   }
 }).catch((err) => console.error(err))
 
