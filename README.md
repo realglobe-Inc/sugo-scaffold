@@ -154,6 +154,8 @@ This software is released under the [Apache-2.0 License](https://github.com/real
 Links
 ------
 
-+ [sugos](https://github.com/realglobe-Inc/sugos)
++ [sugos][sugos_url]
+
+[sugos_url]: https://github.com/realglobe-Inc/sugos
 
 <!-- Links End -->

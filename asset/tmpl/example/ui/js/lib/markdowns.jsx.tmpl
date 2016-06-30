@@ -60,7 +60,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, start the server
 
 &#x60;&#x60;&#x60;bash
-$ PORT&#x3D;300 ~~~~package_name~~~~ cloud
+$ PORT&#x3D;3000 ~~~~package_name~~~~ cloud
 &#x60;&#x60;&#x60;
 
 In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.
@@ -81,7 +81,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, connect the spot to cloud
 
 &#x60;&#x60;&#x60;bash
-$ HOSTNAME&#x3D;__your_cloud_hostname__ SPOT_KEY&#x3D;__your_own_spot_name__ ~~~~package_name~~~~ spot
+$ HOSTNAME&#x3D;&quot;__your_host__&quot; SPOT_KEY&#x3D;&quot;__your_spot_name__&quot; ~~~~package_name~~~~ spot
 &#x60;&#x60;&#x60;
 `)
 
@@ -98,7 +98,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, run the example terminal
 
 &#x60;&#x60;&#x60;bash
-$ HOSTNAME&#x3D;__your_cloud_hostname__ ~~~~package_name~~~~ terminal
+$ HOSTNAME&#x3D;&quot;__your_host__&quot; ~~~~package_name~~~~ terminal
 &#x60;&#x60;&#x60;
 
 Or, you can try it from UI pages on the cloud.

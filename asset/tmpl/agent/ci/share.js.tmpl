@@ -7,7 +7,7 @@
 'use strict'
 
 process.chdir(`${__dirname}/..`)
+const pkg = require('../package.json')
+const { agentShare } = require('sugos-ci')
 
-const agentShare = require('sugos-ci')
-
-agentShare({})
+agentShare(pkg, {})

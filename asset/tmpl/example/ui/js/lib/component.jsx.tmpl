@@ -214,8 +214,8 @@ const Component = React.createClass({
     const s = this
     let { location } = window
     return {
-      __your_cloud_hostname__: location && location.host,
-      __your_own_spot_name__: '__your_own_spot_name__' // TODO
+      __your_host__: location && location.host,
+      __your_spot_name__: '__your_spot_name__' // TODO
     }
   }
 })

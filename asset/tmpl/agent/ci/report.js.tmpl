@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const agentReport = require('sugos-ci')
+const { agentReport } = require('sugos-ci')
 
 agentReport({})

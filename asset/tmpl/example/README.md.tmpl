@@ -121,7 +121,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, start the server
 
 ```bash
-$ PORT=300 ~~~~package_name~~~~ cloud
+$ PORT=3000 ~~~~package_name~~~~ cloud
 ```
 
 In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.
@@ -146,7 +146,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, connect the spot to cloud
 
 ```bash
-$ HOSTNAME=__your_cloud_hostname__ SPOT_KEY=__your_own_spot_name__ ~~~~package_name~~~~ spot
+$ HOSTNAME="__your_host__" SPOT_KEY="__your_spot_name__" ~~~~package_name~~~~ spot
 ```
 
 
@@ -167,7 +167,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, run the example terminal
 
 ```bash
-$ HOSTNAME=__your_cloud_hostname__ ~~~~package_name~~~~ terminal
+$ HOSTNAME="__your_host__" ~~~~package_name~~~~ terminal
 ```
 
 Or, you can try it from UI pages on the cloud.
@@ -195,6 +195,8 @@ This software is released under the [MIT License](https://github.com/realglobe-I
 Links
 ------
 
-+ [sugos](https://github.com/realglobe-Inc/sugos)
++ [sugos][sugos_url]
+
+[sugos_url]: https://github.com/realglobe-Inc/sugos
 
 <!-- Links End -->
