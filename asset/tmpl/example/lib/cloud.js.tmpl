@@ -23,7 +23,7 @@ function cloud () {
   return co(function * () {
     let cloud = yield sugoCloud({
       port, storage,
-      public: [ 'ui' ],
+      static: [ 'ui' ],
       middlewares: [],
       endpoints: {
         // Dynamic compiler for user defined script

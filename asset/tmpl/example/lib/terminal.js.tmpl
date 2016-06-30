@@ -33,6 +33,10 @@ function terminal () {
   return co(function * () {
     let terminal = sugoTerminal(url)
     let spot = yield terminal.connect(spotKey)
+
+    let noop = spot.noop()
+    yield noop.assert()
+
     let loopCount = 0
     let loop = setInterval(co.wrap(function * main () {
       loopCount += 1

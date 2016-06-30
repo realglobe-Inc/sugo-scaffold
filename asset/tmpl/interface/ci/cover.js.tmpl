@@ -9,3 +9,5 @@
 process.chdir(`${__dirname}/..`)
 
 const { interfaceCover } = require('sugos-ci')
+
+interfaceCover({})

@@ -30,6 +30,13 @@ describe('sugo-scaffold', () => {
       force: true
     })
   }))
+
+  it('Generate agent', () => co(function * () {
+    yield sugoScaffold('agent', `${__dirname}/../tmp/foo/bar-agent`, {
+      straight: true,
+      force: true
+    })
+  }))
 })
 
 /* global describe, before, after, it */

@@ -8,10 +8,13 @@
 
 const { name, version, description } = require('../package.json')
 const co = require('co')
+const { hasBin } = require('sg-check')
 const debug = require('debug')('~~~~package_name@enumcase~~~~')
 
 /** @lends ~~~~package_name@camelcase~~~~ */
 function ~~~~package_name@camelcase~~~~ (config = {}) {
+  debug('Config: ', config)
+
   return {
 
     // ( Implement your custom methods here )
@@ -23,8 +26,27 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
      */
     ping (ctx) {
       let { params, pipe } = ctx
-      return co(function * () {
+      return co(function * pingAck () {
         return params[ 0 ] || 'pong' // Return result to remote terminal.
+      })
+    },
+
+    /**
+     * Assert spot system requirements.
+     * @param {SugoInterfaceContext} ctx
+     * @throws {Error} - System requirements failed error
+     * @returns {Promise.<boolean>} - Asserted state
+     */
+    assert (ctx) {
+      const bins = [ 'node' ] // Required commands
+      return co(function * assertAck () {
+        for (let bin of bins) {
+          let ok = yield hasBin(bin)
+          if (!ok) {
+            throw new Error(`[${name}] Command not found: ${bin}`)
+          }
+        }
+        return true
       })
     },
 
@@ -47,7 +69,20 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
           ],
           return: {
             type: 'string',
-            desc: 'pong message'
+            desc: 'Pong message'
+          }
+        },
+
+        assert: {
+          desc: 'Test if the spot fulfills system requirements',
+          params: [],
+          throws: [ {
+            type: 'Error',
+            desc: 'System requirements failed'
+          } ],
+          return: {
+            type: 'boolean',
+            desc: 'System is OK'
           }
         }
       }

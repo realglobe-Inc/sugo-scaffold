@@ -72,11 +72,12 @@ apeTasking.runTasks('tmplify', [
         let str = fs.readFileSync(filename).toString()
         let pkg = JSON.parse(str)
         fs.chmodSync(filename, '644')
-        fs.writeFileSync(filename, JSON.stringify({
+        let newPkg = {
           name: pkg.name,
           version: '1.0.0',
           description: pkg.description,
           main: pkg.main,
+          browser: pkg.browser,
           bin: pkg.bin,
           scripts: pkg.scripts,
           repository: pkg.repository.url.split(/\//g).slice(-1).join('/').replace(/\.git$/, ''),
@@ -89,7 +90,13 @@ apeTasking.runTasks('tmplify', [
           devDependencies: pkg.devDependencies,
           engines: pkg.engines,
           publishConfig: pkg.publishConfig
-        }, null, 2))
+        }
+        for (let name of Object.keys(newPkg)) {
+          if (!newPkg[ name ]) {
+            delete newPkg[ name ]
+          }
+        }
+        fs.writeFileSync(filename, JSON.stringify(newPkg, null, 2))
         yield filemode(filename, '444')
       }
     }
