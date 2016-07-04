@@ -6,7 +6,7 @@
  */
 'use strict'
 
-let restore = (text) => text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=')
+let restore = (text) => text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=').replace(/&quot;/g, '"')
 
 /** Converted from "doc/guides/00.Requirements.md.hbs" */
 exports[ '00.Requirements' ] = restore(`Requirements

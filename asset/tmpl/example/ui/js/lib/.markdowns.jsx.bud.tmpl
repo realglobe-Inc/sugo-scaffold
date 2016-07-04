@@ -33,7 +33,7 @@ module.exports = {
  */
 'use strict'
 
-let restore = (text) => text.replace(/&#x60;/g, '${'`'}').replace(/&#x3D;/g, '=')
+let restore = (text) => text.replace(/&#x60;/g, '${'`'}').replace(/&#x3D;/g, '=').replace(/&quot;/g, '"')
 
 {{#each files}}
 /** Converted from "doc/guides/{{name}}.md.hbs" */

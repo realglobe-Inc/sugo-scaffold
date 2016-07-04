@@ -30,7 +30,7 @@
     "askconfig": "^3.0.2",
     "co": "^4.6.0",
     "filemode": "^2.0.1",
-    "gitconfig": "^2.0.0",
+    "gitconfig": "^2.0.2",
     "tmplconv": "^3.0.5"
   },
   "devDependencies": {
@@ -41,12 +41,12 @@
     "ape-tasking": "^4.0.3",
     "ape-testing": "^4.0.0",
     "ape-tmpl": "^5.0.11",
-    "ape-updating": "^4.0.2",
+    "ape-updating": "^4.0.3",
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
-    "sugo-demo-agent": "^1.0.6",
-    "sugo-demo-endpoint": "^1.0.7",
-    "sugo-demo-example": "^1.0.24",
+    "sugo-demo-agent": "^1.0.8",
+    "sugo-demo-endpoint": "^1.0.8",
+    "sugo-demo-example": "^1.1.7",
     "sugo-demo-interface": "^1.1.9",
     "sugo-demo-middleware": "^1.0.4"
   },

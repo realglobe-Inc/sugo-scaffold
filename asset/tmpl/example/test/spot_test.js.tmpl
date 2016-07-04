@@ -10,12 +10,12 @@ const assert = require('assert')
 const filedel = require('filedel')
 const co = require('co')
 const injectmock = require('injectmock')
-const apemanport = require('apemanport')
-const apemansleep = require('apemansleep')
+const aport = require('aport')
+const asleep = require('asleep')
 
 describe('spot', () => {
   before(() => co(function * () {
-    let port = yield apemanport.find()
+    let port = yield aport()
     let storage = `${__dirname}/../tmp/testing-spot`
     injectmock(process.env, 'STORAGE', storage)
     injectmock(process.env, 'PORT', port)
@@ -28,7 +28,7 @@ describe('spot', () => {
   it('Spot', () => co(function * () {
     let cloudInstance = yield cloud()
     let spotInstance = yield spot()
-    yield apemansleep.sleep(300)
+    yield asleep(300)
     yield spotInstance.disconnect()
     yield cloudInstance.close()
   }))

@@ -9,11 +9,12 @@ const pkg = require('../package.json')
 const { nameColorizer } = require('apemancolor/lib/colorizers')
 
 module.exports = function configs () {
-  let { PORT, HOSTNAME, STORAGE } = process.env
+  let { PORT, HOSTNAME, STORAGE, CONTENTS } = process.env
 
   let hostname = HOSTNAME || 'localhost'
   let port = PORT || (hostname === 'localhost' ? 3000 : 80)
   let storage = STORAGE || 'tmp/storage'
+  let contents = CONTENTS || 'tmp/contents'
 
   let color = nameColorizer('#3A8')(pkg.name)
 
@@ -25,6 +26,8 @@ module.exports = function configs () {
     /** Storage of cloud server */
     storage,
     /** Dominant ui color */
-    color
+    color,
+    /** Directory for vars */
+    contents
   }
 }

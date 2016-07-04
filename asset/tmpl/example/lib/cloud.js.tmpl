@@ -11,12 +11,15 @@ const co = require('co')
 const debug = require('debug')('~~~~package_name@enumcase~~~~:cloud')
 const colorprint = require('colorprint')
 
+const compile = require('sugo-endpoint-compile')
+const file = require('sugo-endpoint-file')
+
 let configs = require('./configs')
 
 /** @lends cloud */
 function cloud () {
   debug('Example cloud invoked')
-  let { port, storage } = configs()
+  let { port, storage, contents } = configs()
 
   colorprint.notice(`[${pkg.name}] Running cloud script...`)
   colorprint.trace('Settings: %s', { port, storage })
@@ -27,7 +30,8 @@ function cloud () {
       middlewares: [],
       endpoints: {
         // Dynamic compiler for user defined script
-        '/actions/compile': require('sugo-endpoint-compile')()
+        '/dynamic/compile': compile(),
+        '/dynamic/contents/:filename': file(contents)
       }
     })
     return cloud

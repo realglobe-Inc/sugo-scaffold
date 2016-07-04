@@ -19,7 +19,9 @@ var _sugoTerminal = require('sugo-terminal');
 
 var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
 
-var _apemansleep = require('apemansleep');
+var _asleep = require('asleep');
+
+var _asleep2 = _interopRequireDefault(_asleep);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -144,7 +146,7 @@ var Playground = _react2.default.createClass({
 
                               case 16:
                                 _context.next = 18;
-                                return (0, _apemansleep.sleep)(10);
+                                return (0, _asleep2.default)(10);
 
                               case 18:
                               case 'end':
@@ -201,7 +203,7 @@ var Playground = _react2.default.createClass({
 });
 
 // Mount react component
-{
+setTimeout(function () {
   var mountRoot = document.getElementById('playground-root');
   (0, _sgReact.mount)(mountRoot, Playground, {
     spots: [].concat(window.spots || [])
@@ -210,4 +212,4 @@ var Playground = _react2.default.createClass({
   }).catch(function (err) {
     return console.error(err);
   });
-}
+}, 600);

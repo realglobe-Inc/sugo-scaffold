@@ -7,7 +7,7 @@
 'use strict';
 
 var restore = function restore(text) {
-     return text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=');
+     return text.replace(/&#x60;/g, '`').replace(/&#x3D;/g, '=').replace(/&quot;/g, '"');
 };
 
 /** Converted from "doc/guides/00.Requirements.md.hbs" */

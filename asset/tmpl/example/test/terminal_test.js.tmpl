@@ -10,12 +10,12 @@ const cloud = require('../lib/cloud.js')
 const assert = require('assert')
 const co = require('co')
 const injectmock = require('injectmock')
-const apemanport = require('apemanport')
-const apemansleep = require('apemansleep')
+const aport = require('aport')
+const asleep = require('asleep')
 
 describe('terminal', () => {
   before(() => co(function * () {
-    let port = yield apemanport.find()
+    let port = yield aport()
     let storage = `${__dirname}/../tmp/testing-terminal`
     injectmock(process.env, 'STORAGE', storage)
     injectmock(process.env, 'SPOT_KEY', 'hoge')
@@ -31,7 +31,7 @@ describe('terminal', () => {
     let cloudInstance = yield cloud()
     let spotInstance = yield spot()
     let terminalInstance = yield terminal()
-    yield apemansleep.sleep(500)
+    yield asleep(500)
     yield terminalInstance.kill()
     yield terminalInstance.disconnect()
     yield spotInstance.disconnect()
