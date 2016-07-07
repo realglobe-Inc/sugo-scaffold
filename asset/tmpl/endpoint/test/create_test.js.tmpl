@@ -7,14 +7,14 @@
 const create = require('../lib/create.js')
 const co = require('co')
 const sgServer = require('sg-server')
-const apemanrequest = require('apemanrequest')
+const arequest = require('arequest')
 const asleep = require('asleep')
 const aport = require('aport')
 const assert = require('assert')
 
 describe('create', () => {
   let server, baseUrl
-  let request = apemanrequest.create()
+  let request = arequest.create()
   before(() => co(function * () {
     let endpoint = create({})
     assert.ok(endpoint)

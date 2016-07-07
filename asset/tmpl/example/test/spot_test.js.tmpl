@@ -14,15 +14,17 @@ const aport = require('aport')
 const asleep = require('asleep')
 
 describe('spot', () => {
+  let port, storage
   before(() => co(function * () {
-    let port = yield aport()
-    let storage = `${__dirname}/../tmp/testing-spot`
+    port = yield aport()
+    storage = `${__dirname}/../tmp/testing-spot`
     injectmock(process.env, 'STORAGE', storage)
     injectmock(process.env, 'PORT', port)
   }))
 
   after(() => co(function * () {
     injectmock.restoreAll()
+    yield filedel(`${storage}/**/*.*`)
   }))
 
   it('Spot', () => co(function * () {

@@ -16,8 +16,8 @@ exports.DEFAULT_HTML = `<!--
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/playground.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+  <link rel="stylesheet" href="css/font-awesome.css"/>
+  <link rel="stylesheet" href="css/ionicons.css"/>
   <script src="js/external.cc.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

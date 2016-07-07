@@ -29,14 +29,10 @@ var port = _configs.port;
 var hostname = _configs.hostname;
 
 
-function onLoad() {
-  window.removeEventListener('DOMContentLoaded', onLoad);
-
+(0, _sgReact.once)('DOMContentLoaded', function () {
   (0, _sgReact.mount)('mount-root', _component2.default, {
     pkg: _package2.default, color: color, port: port, hostname: hostname
   }).then(function () {
     console.debug('Component mounted');
   });
-}
-
-window.addEventListener('DOMContentLoaded', onLoad);
+});
