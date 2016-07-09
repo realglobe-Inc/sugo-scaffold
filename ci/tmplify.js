@@ -16,6 +16,7 @@ const filemode = require('filemode')
 const tmplconv = require('tmplconv')
 
 const demos = {
+  'ci': 'sugo-demo-ci',
   'interface': 'sugo-demo-interface',
   'endpoint': 'sugo-demo-endpoint',
   'middleware': 'sugo-demo-middleware',

@@ -168,7 +168,7 @@ The following methods are available from remote terminals for the interface.
 <a name="method-ping"></a>
 ### .ping(pong) -> <code>string</code>
 
-Test the reachability of a interface.
+Test the reachability of an interface.
 
 | Param | Type | Description |
 | ----- | ---- | ----------- |

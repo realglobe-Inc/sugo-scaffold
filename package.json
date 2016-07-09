@@ -31,6 +31,7 @@
     "co": "^4.6.0",
     "filemode": "^2.0.1",
     "gitconfig": "^2.0.2",
+    "sugos-assets": "^1.1.9",
     "tmplconv": "^3.0.5"
   },
   "devDependencies": {
@@ -44,10 +45,11 @@
     "ape-updating": "^4.0.4",
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
-    "sugo-demo-agent": "^1.0.9",
+    "sugo-demo-agent": "^1.0.10",
+    "sugo-demo-ci": "^1.0.1",
     "sugo-demo-endpoint": "^1.0.9",
     "sugo-demo-example": "^1.1.10",
-    "sugo-demo-interface": "^1.1.9",
+    "sugo-demo-interface": "^1.1.10",
     "sugo-demo-middleware": "^1.0.4"
   },
   "engines": {
