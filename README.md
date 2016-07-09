@@ -126,6 +126,7 @@ Types
 Available template types
 
 + [agent](asset/tmpl/agent)
++ [ci](asset/tmpl/ci)
 + [endpoint](asset/tmpl/endpoint)
 + [example](asset/tmpl/example)
 + [interface](asset/tmpl/interface)
