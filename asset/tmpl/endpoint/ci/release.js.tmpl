@@ -8,9 +8,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { endpointRelease } = require('sugos-ci')
+const { release } = require('sugo-ci-endpoint')
 
-endpointRelease({
+release({
   beforeRelease: [
     './ci/build.js',
     './ci/test.js'

@@ -8,7 +8,7 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { endpointReport } = require('sugos-ci')
+const { report } = require('sugo-ci-endpoint')
 
-endpointReport({})
+report({})
 

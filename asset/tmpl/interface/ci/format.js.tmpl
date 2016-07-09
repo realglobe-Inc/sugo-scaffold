@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { interfaceFormat } = require('sugos-ci')
+const { format } = require('sugo-ci-interface')
 
-interfaceFormat({})
+format({})

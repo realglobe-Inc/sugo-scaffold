@@ -8,9 +8,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { interfaceRelease } = require('sugos-ci')
+const { release } = require('sugo-ci-interface')
 
-interfaceRelease({
+release({
   beforeRelease: [
     './ci/build.js',
     './ci/test.js'
