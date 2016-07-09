@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { agentBuild } = require('sugos-ci')
+const { build } = require('sugo-ci-agent')
 
-agentBuild({})
+build({})

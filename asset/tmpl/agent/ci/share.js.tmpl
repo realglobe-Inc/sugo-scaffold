@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 const pkg = require('../package.json')
-const { agentShare } = require('sugos-ci')
+const { share } = require('sugo-ci-agent')
 
-agentShare(pkg, {})
+share(pkg, {})

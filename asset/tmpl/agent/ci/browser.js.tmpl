@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { agentBrowser } = require('sugos-ci')
+const { browser } = require('sugo-ci-agent')
 
-agentBrowser({})
+browser({})

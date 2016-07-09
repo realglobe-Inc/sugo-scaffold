@@ -8,9 +8,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { agentRelease } = require('sugos-ci')
+const { release } = require('sugo-ci-agent')
 
-agentRelease({
+release({
   beforeRelease: [
     './ci/build.js',
     './ci/test.js'
