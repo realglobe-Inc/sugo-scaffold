@@ -8,9 +8,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { middlewareRelease } = require('sugos-ci')
+const { release } = require('sugo-ci-middleware')
 
-middlewareRelease({
+release({
   beforeRelease: [
     './ci/build.js',
     './ci/test.js'

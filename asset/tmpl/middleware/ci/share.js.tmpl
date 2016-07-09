@@ -8,7 +8,7 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { middlewareShare } = require('sugos-ci')
+const { share } = require('sugo-ci-middleware')
 const pkg = require('../package.json')
 
-middlewareShare(pkg, {})
+share(pkg, {})

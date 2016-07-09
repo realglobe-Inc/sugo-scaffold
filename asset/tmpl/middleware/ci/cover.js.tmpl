@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { middlewareCover } = require('sugos-ci')
+const { cover } = require('sugo-ci-middleware')
 
-middlewareCover({})
+cover({})

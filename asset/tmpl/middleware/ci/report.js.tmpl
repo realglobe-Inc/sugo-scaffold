@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { middlewareReport } = require('sugos-ci')
+const { report } = require('sugo-ci-middleware')
 
-middlewareReport({})
+report({})

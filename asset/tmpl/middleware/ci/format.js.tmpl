@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { middlewareFormat } = require('sugos-ci')
+const { format } = require('sugo-ci-middleware')
 
-middlewareFormat({})
+format({})
