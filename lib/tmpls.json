@@ -4,5 +4,6 @@
   "endpoint": "asset/tmpl/endpoint",
   "example": "asset/tmpl/example",
   "interface": "asset/tmpl/interface",
-  "middleware": "asset/tmpl/middleware"
+  "middleware": "asset/tmpl/middleware",
+  "site": "asset/tmpl/site"
 }

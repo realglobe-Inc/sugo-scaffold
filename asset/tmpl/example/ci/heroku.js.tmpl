@@ -9,9 +9,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { exampleHeroku } = require('sugos-ci')
+const { heroku } = require('sugo-ci-example')
 const { join } = require('path')
 
-exampleHeroku({
+heroku({
   cwd: join(__dirname, '..')
 })

@@ -1,0 +1,65 @@
+/**
+ * majika 設定ファイル
+ */
+'use strict'
+
+const common = {
+  beforeInstall: [
+    'echo "registry = https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual" > .npmrc',
+    'curl -u`sugos-secrets get -r jfrog:deployer:username`:`sugos-secrets get -r jfrog:deployer:password` "https://realglobe.artifactoryonline.com/realglobe/api/npm/auth" >> .npmrc'
+  ],
+  buildScript: [
+    'npm install mocha istanbul babel-cli node-sass -g',
+    './ci/build.js',
+    'rm .npmrc'
+  ],
+  additionalDependencies: [
+    'mocha',
+    'node-sass',
+    'babel-core',
+    'babel-loader',
+    'babel-polyfill',
+    'babel-register',
+    'babel-preset-react',
+    'babel-preset-es2015',
+    'babel-preset-react-hmre',
+    'webpack',
+    'webpack-hot-middleware',
+    'postcss-loader',
+    'style-loader',
+    'css-loader',
+    'sass-loader',
+    'autoprefixer',
+    'extract-text-webpack-plugin',
+    'json-loader'
+  ]
+}
+
+module.exports = {
+  dockerRepositoryPrefix: 'realglobe-docker-vertual.jfrog.io/',
+  dockerBuildArgs: {
+    additionalOptions: ['--force-rm=true'],
+    beforeInstall: common.beforeInstall,
+    buildScript: common.buildScript
+  },
+  travisCreateArgs: {
+    beforeInstall: common.beforeInstall,
+    buildScript: common.buildScript
+  },
+  heroku: {
+    additionalDependencies: common.additionalDependencies.reduce((obj, module) => Object.assign(obj, {[module]: '*'}), {}),
+    preDeploy: common.beforeInstall,
+    postinstall: [
+      'npm run build'
+    ],
+    env: {
+      NODE_ENV: {
+        value: 'production'
+      }
+    },
+    addons: [
+      'heroku-redis:hobby-dev'
+    ]
+  },
+  additionalDependencies: common.additionalDependencies
+}

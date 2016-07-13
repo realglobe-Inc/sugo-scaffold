@@ -8,9 +8,9 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { exampleRelease } = require('sugos-ci')
+const { release } = require('sugo-ci-example')
 
-exampleRelease({
+release({
   beforeRelease: [
     './ci/build.js',
     './ci/ghpages.js',

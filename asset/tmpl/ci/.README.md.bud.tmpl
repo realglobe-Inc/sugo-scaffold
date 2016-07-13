@@ -8,7 +8,7 @@ const { readmeMdBud } = require('ape-tmpl')
 const { commentsInFile } = require('ape-doc')
 const stringcase = require('stringcase')
 const pkg = require('./package.json')
-const expandglob = require('expandglob')
+const aglob = require('aglob')
 
 module.exports = readmeMdBud({
   pkg,
@@ -27,7 +27,7 @@ module.exports = readmeMdBud({
   overview: 'doc/overview.md',
   links: require('./doc/links'),
   vars: {
-    funcs: expandglob.sync('lib/*.js')
+    funcs: aglob.sync('lib/*.js')
       .filter((filename) => !/index\.js$/.test(filename))
       .map((filename) => {
         let [comments] = commentsInFile(filename)

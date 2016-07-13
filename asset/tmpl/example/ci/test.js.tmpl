@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { exampleTest } = require('sugos-ci')
+const { test } = require('sugo-ci-example')
 
-exampleTest({})
+test({})

@@ -21,7 +21,8 @@ const demos = {
   'endpoint': 'sugo-demo-endpoint',
   'middleware': 'sugo-demo-middleware',
   'example': 'sugo-demo-example',
-  'agent': 'sugo-demo-agent'
+  'agent': 'sugo-demo-agent',
+  'site': 'sugo-demo-site'
 }
 
 let prefix = '~~~~'

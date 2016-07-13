@@ -24,6 +24,7 @@ module.exports = readmeMdBud({
   overview: 'doc/overview.md',
   links: require('./doc/links'),
   vars: {
+    org: pkg.repository.split('/').shift(),
     bannerHeight: 40
   }
 })

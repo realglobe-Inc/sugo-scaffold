@@ -1,0 +1,50 @@
+import {equal} from 'assert'
+import sugoCloud from 'sugo-cloud'
+import sugoSpot from 'sugo-spot'
+import 'babel-polyfill'
+import co from 'co'
+import spots from '../../ui/js/actions/spots'
+import env from '../../env'
+import noopInterface from 'sugo-interface-noop'
+
+const {connectSpots} = spots
+
+const PORT = env.port.CLOUD
+const CLOUD_URL = `http://localhost:${PORT}`
+const SPOT_URL = `${CLOUD_URL}/spots`
+
+describe('action spots', () => {
+  before(() => {
+    return co(function * () {
+      yield sugoCloud({
+        port: PORT
+      })
+      let spot = sugoSpot(SPOT_URL, {
+        key: 'spot-01',
+        interfaces: {
+          noop: noopInterface({})
+        }
+      })
+      yield spot.connect()
+    }).catch(err => Promise.reject(err))
+  })
+
+  after((done) => {
+    done()
+  })
+
+  it('connectSpots で一つのスポットに接続できる', () => {
+    return co(function * () {
+      let dispatch = ({spots}) => {
+        let {key} = spots[0]
+        equal(key, 'spot-01')
+      }
+      let getState = () => ({spots: []})
+      yield connectSpots()(dispatch, getState)
+    }).catch(err => {
+      return Promise.reject(err)
+    })
+  })
+})
+
+/* global describe it before after*/

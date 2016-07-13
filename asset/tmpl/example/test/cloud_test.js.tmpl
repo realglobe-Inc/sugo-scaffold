@@ -10,11 +10,11 @@ const co = require('co')
 const injectmock = require('injectmock')
 const aport = require('aport')
 const asleep = require('asleep')
-const apemanrequest = require('apemanrequest')
+const arequest = require('arequest')
 const filedel = require('filedel')
 
 describe('cloud', () => {
-  let request = apemanrequest.create({ jar: true })
+  let request = arequest.create({ jar: true })
   let port
   before(() => co(function * () {
     port = yield aport()

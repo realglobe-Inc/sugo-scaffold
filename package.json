@@ -31,6 +31,7 @@
     "co": "^4.6.0",
     "filemode": "^2.0.1",
     "gitconfig": "^2.0.2",
+    "sugo-demo-site": "^0.1.2",
     "sugos-assets": "^1.1.9",
     "tmplconv": "^3.0.5"
   },
