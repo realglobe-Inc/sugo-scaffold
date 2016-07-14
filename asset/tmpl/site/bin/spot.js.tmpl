@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const {CLOUD_URL, SPOT_KEY} = process.env
+
+if (!CLOUD_URL || !SPOT_KEY) {
+  console.error('you need HOSTNAME and SPOT_KEY')
+  process.exit(1)
+}
+
+const SPOT_URL = `${CLOUD_URL}/spots`
+
+const co = require('co')
+const sugoSpot = require('sugo-spot')
+const noopInterface = require('sugo-interface-noop')
+
+co(function * () {
+  let spot = sugoSpot(SPOT_URL, {
+    key: SPOT_KEY,
+    interfaces: {
+      noop: noopInterface({})
+    }
+  })
+  yield spot.connect()
+}).catch((err) => console.error(err))

@@ -1,6 +1,6 @@
 {
   "name": "sugo-scaffold",
-  "version": "1.4.11",
+  "version": "1.4.12",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
@@ -29,27 +29,28 @@
     "argx": "^2.0.2",
     "askconfig": "^3.0.2",
     "co": "^4.6.0",
-    "filemode": "^2.0.2",
+    "filemode": "^2.0.1",
     "gitconfig": "^2.0.2",
-    "sugos-assets": "^1.1.13",
-    "tmplconv": "^3.0.7"
+    "sugo-demo-site": "^0.1.2",
+    "sugos-assets": "^1.1.9",
+    "tmplconv": "^3.0.5"
   },
   "devDependencies": {
     "ape-covering": "^3.0.3",
-    "ape-formatting": "^1.0.2",
+    "ape-formatting": "^1.0.0",
     "ape-releasing": "^4.0.1",
     "ape-reporting": "^3.0.1",
     "ape-tasking": "^4.0.3",
-    "ape-testing": "^4.0.1",
-    "ape-tmpl": "^5.0.12",
+    "ape-testing": "^4.0.0",
+    "ape-tmpl": "^5.0.11",
     "ape-updating": "^4.0.4",
-    "coz": "^6.0.5",
+    "coz": "^6.0.3",
     "injectmock": "^2.0.0",
     "sugo-demo-agent": "^1.0.11",
-    "sugo-demo-ci": "^1.0.4",
+    "sugo-demo-ci": "^1.0.3",
     "sugo-demo-endpoint": "^1.0.10",
-    "sugo-demo-example": "^1.1.15",
-    "sugo-demo-interface": "^1.1.12",
+    "sugo-demo-example": "^1.1.10",
+    "sugo-demo-interface": "^1.1.11",
     "sugo-demo-middleware": "^1.0.5"
   },
   "engines": {

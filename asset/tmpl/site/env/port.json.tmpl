@@ -1,0 +1,15 @@
+{
+  "default": {
+    "CLOUD": 3000
+  },
+  "development": {
+    "CLOUD": 3000,
+    "BUILD_SERVER": 3002
+  },
+  "test": {
+    "CLOUD": 3001
+  },
+  "production": {
+    "CLOUD": #{process.env.PORT}
+  }
+}

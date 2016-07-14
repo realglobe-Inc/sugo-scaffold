@@ -1,0 +1,37 @@
+/**
+ *  The button of refreshing connection of the spots.
+ */
+import React from 'react'
+import {connect} from 'react-redux'
+import {connectSpots} from '../actions'
+import SgButton from 'sg-react-components/lib/sg_button'
+
+let RefreshConnectionButton = React.createClass({
+  propTypes: {
+    onClick: React.PropTypes.func
+  },
+
+  render () {
+    const s = this
+    const {onClick} = s.props
+    return (
+      <div className='refresh-connection-button'>
+        <SgButton onTap={onClick} >
+          Refresh
+        </SgButton>
+      </div>
+    )
+  }
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onClick () {
+      dispatch(connectSpots())
+    }
+  }
+}
+
+RefreshConnectionButton = connect(null, mapDispatchToProps)(RefreshConnectionButton)
+
+export default RefreshConnectionButton

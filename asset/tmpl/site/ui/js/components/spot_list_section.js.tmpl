@@ -1,0 +1,18 @@
+/**
+ * The section of spot list.
+ */
+import React from 'react'
+import SpotList from '../containers/spot_list'
+
+const SpotListSection = React.createClass({
+  render () {
+    return (
+      <div className='spot-list-section'>
+        <h2 className='app-theme-dark-color'>Connected Spots List</h2>
+        <SpotList />
+      </div>
+    )
+  }
+})
+
+export default SpotListSection

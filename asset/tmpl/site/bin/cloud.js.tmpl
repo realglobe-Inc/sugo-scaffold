@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const sugoCloud = require('sugo-cloud')
+const co = require('co')
+
+const env = require('../env')
+
+co(function * () {
+  let cloud = yield sugoCloud({
+    port: env.port.CLOUD,
+    public: [ 'public' ],
+    middlewares: [],
+    storage: {
+      redis: {
+        url: env.redis.URL,
+        db: 1
+      }
+    }
+  })
+  return cloud
+}).catch(err => console.error(err))

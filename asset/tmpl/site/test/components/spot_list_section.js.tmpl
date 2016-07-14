@@ -1,0 +1,13 @@
+import React from 'react'
+import { shallow, mount, render } from 'enzyme'
+import { equal, ok } from 'assert'
+import SpotListSection from '../../ui/js/components/spot_list_section'
+
+describe('<SpotListSection />', () => {
+  it('renders', () => {
+    const wrapper = shallow(<SpotListSection />)
+    ok(wrapper.find('SpotList'))
+  })
+})
+
+/* global describe it */

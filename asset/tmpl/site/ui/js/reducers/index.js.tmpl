@@ -1,0 +1,27 @@
+/**
+ * Top level reducer.
+ * The state shape is below.
+ * {
+ *   spots: [
+ *     {
+ *       key: 'spot-01',
+ *       terminal: Terminal
+ *     }
+ *   ],
+ *   dominantColor: '#5ff',
+ *   modal_window: false
+ * }
+ */
+
+import { combineReducers } from 'redux'
+import spots from './spots'
+import dominantColor from './dominant_color'
+import modalWindow from './modal_window'
+
+const Reducer = combineReducers({
+  spots,
+  dominantColor,
+  modalWindow
+})
+
+export default Reducer
