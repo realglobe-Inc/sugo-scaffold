@@ -12,7 +12,7 @@ const { SgExampleStyle } = require('sugo-react-example')
 const React = require('react')
 const installIcons = require('apeman-react-icon/install')
 
-const { exampleCompile } = require('sugos-ci')
+const { compile } = require('sugo-ci-example')
 const { color } = require('../lib/configs')()
 
 let theme = SgExampleStyle.styleContent(
@@ -21,6 +21,6 @@ let theme = SgExampleStyle.styleContent(
 
 installIcons(`${__dirname}/../ui`)
   .then(() =>
-    exampleCompile(theme, {})
+    compile(theme, {})
   )
 

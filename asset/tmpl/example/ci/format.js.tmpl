@@ -8,7 +8,7 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { exampleFormat } = require('sugos-ci')
+const { format } = require('sugo-ci-example')
 
-exampleFormat({})
+format({})
 

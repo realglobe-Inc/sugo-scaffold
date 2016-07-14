@@ -183,6 +183,13 @@ Test if the spot fulfills system requirements
 
 <!-- Section from "doc/guides/03.Methods.md.hbs" End -->
 
+<!-- Section from "doc/guides/04.Events.md.hbs" Start -->
+
+<a name="section-doc-guides-04-events-md"></a>
+
+
+<!-- Section from "doc/guides/04.Events.md.hbs" End -->
+
 
 <!-- Sections Start -->
 

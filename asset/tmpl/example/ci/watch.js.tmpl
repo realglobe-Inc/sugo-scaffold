@@ -8,6 +8,6 @@
 
 process.chdir(`${__dirname}/..`)
 
-const { exampleWatch } = require('sugos-ci')
+const { watch } = require('sugo-ci-example')
 
-exampleWatch('ci/compile.js', {})
+watch('ci/compile.js', {})

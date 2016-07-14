@@ -10,6 +10,6 @@ process.chdir(`${__dirname}/..`)
 
 const { name } = require('../package.json')
 const { color } = require('../lib/configs')()
-const { exampleFavicon } = require('sugos-ci')
+const { favicon } = require('sugo-ci-example')
 
-exampleFavicon(name, color, {})
+favicon(name, color, {})
