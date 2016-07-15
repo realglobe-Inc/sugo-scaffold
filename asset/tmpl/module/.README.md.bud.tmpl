@@ -16,7 +16,7 @@ module.exports = readmeMdBud({
     travisCom: true,
     travisComToken: 'aeFzCpBZebyaRijpCFmm',
     codeclimate: false,
-    codeclimateCoverage: true,
+    codeclimateCoverage: false,
     gemnasium: false,
     npm: true,
     standard: true
@@ -24,10 +24,10 @@ module.exports = readmeMdBud({
   overview: 'doc/overview.md',
   links: require('./doc/links'),
   vars: {
-    tmpls: require('./lib/tmpls')
+    spec: require('./lib')({}).$spec,
+    bannerHeight: 40
   }
 })
-
 if (!module.parent) {
   require('coz').render(__filename)
 }

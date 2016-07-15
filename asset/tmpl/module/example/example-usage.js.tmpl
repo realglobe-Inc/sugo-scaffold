@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+/**
+ * Example usage of the terminal
+ */
+'use strict'
+
+const ~~~~package_name@camelcase~~~~ = require('~~~~package_name~~~~')
+const sugoSpot = require('sugo-actors')
+const co = require('co')
+
+co(function * () {
+  let actors = sugoSpot('http://my-sugo-cloud.example.com/actorss', {
+    key: 'my-actors-01',
+    interfaces: {
+      // Register the interface
+      module01: ~~~~package_name@camelcase~~~~({})
+    }
+  })
+  yield actors.connect()
+}).catch((err) => console.error(err))

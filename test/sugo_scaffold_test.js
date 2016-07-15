@@ -17,8 +17,8 @@ describe('sugo-scaffold', () => {
 
   }))
 
-  it('Generate interface', () => co(function * () {
-    yield sugoScaffold('interface', `${__dirname}/../tmp/foo/bar-interface`, {
+  it('Generate module', () => co(function * () {
+    yield sugoScaffold('module', `${__dirname}/../tmp/foo/bar-module`, {
       straight: true,
       force: true
     })

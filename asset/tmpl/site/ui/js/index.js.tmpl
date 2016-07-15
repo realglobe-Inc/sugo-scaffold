@@ -16,8 +16,8 @@ const rootEl = document.getElementById('site')
 const middlewares = [thunkMiddleware]
 
 if (process.env.NODE_ENV !== 'production') {
-  // const logger = createLogger()
-  // middlewares.push(logger)
+  const logger = createLogger()
+  middlewares.push(logger)
 }
 
 let store = createStore(
