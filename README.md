@@ -129,8 +129,8 @@ Available template types
 + [ci](asset/tmpl/ci)
 + [endpoint](asset/tmpl/endpoint)
 + [example](asset/tmpl/example)
-+ [interface](asset/tmpl/interface)
 + [middleware](asset/tmpl/middleware)
++ [module](asset/tmpl/module)
 + [site](asset/tmpl/site)
 
 
