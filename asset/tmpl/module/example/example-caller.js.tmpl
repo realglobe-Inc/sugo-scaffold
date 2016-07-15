@@ -13,7 +13,7 @@ co(function * () {
   let caller = sugoCaller('http://my-sugo-cloud.example.com/callers', {})
   let actor = caller.connect('my-actor-01')
 
-  // Access to the interface
+  // Access to the module
   let module01 = actor.module01()
 
   // Send ping

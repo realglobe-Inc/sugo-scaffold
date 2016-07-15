@@ -1,6 +1,6 @@
 {
   "name": "sugo-scaffold",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
@@ -41,7 +41,7 @@
     "ape-reporting": "^3.0.1",
     "ape-tasking": "^4.0.3",
     "ape-testing": "^4.0.0",
-    "ape-tmpl": "^5.0.11",
+    "ape-tmpl": "^5.0.13",
     "ape-updating": "^4.0.4",
     "coz": "^6.0.3",
     "injectmock": "^2.0.0",
@@ -50,7 +50,7 @@
     "sugo-demo-endpoint": "^1.0.11",
     "sugo-demo-example": "^1.1.10",
     "sugo-demo-middleware": "^1.0.5",
-    "sugo-demo-module": "^2.0.0",
+    "sugo-demo-module": "^3.0.0",
     "sugo-demo-site": "^0.1.4"
   },
   "engines": {

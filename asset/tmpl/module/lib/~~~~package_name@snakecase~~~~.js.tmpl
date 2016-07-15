@@ -19,23 +19,21 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
 
     /**
      * Ping a message.
-     * @param {SugoModuleContext} ctx
+     * @param {string} pong
      * @returns {Promise.<string>} - Pong message
      */
-    ping (ctx) {
-      let { params, pipe } = ctx
+    ping (pong = 'pong') {
       return co(function * pingAck () {
-        return params[ 0 ] || 'pong' // Return result to a remote caller.
+        return pong // Return result to a remote caller.
       })
     },
 
     /**
      * Assert spot system requirements.
-     * @param {SugoModuleContext} ctx
      * @throws {Error} - System requirements failed error
      * @returns {Promise.<boolean>} - Asserted state
      */
-    assert (ctx) {
+    assert () {
       const bins = [ 'node' ] // Required commands
       return co(function * assertAck () {
         for (let bin of bins) {
@@ -47,12 +45,6 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
         return true
       })
     },
-
-
-
-    // ( Implement your custom methods here )
-
-
 
     /**
      * Interface specification
@@ -86,13 +78,6 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
             desc: 'System is OK'
           }
         }
-
-
-
-        // ( Describe your custom methods here )
-
-
-
       },
 
       events: null
@@ -101,9 +86,3 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
 }
 
 module.exports = ~~~~package_name@camelcase~~~~
-
-/**
- * @typedef {Object} SugoModuleContext
- * @property {Array} params - Invoke parameters.
- * @property {EventEmitter} pipe - Pipe to a remote caller.
- */

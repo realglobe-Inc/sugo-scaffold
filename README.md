@@ -54,6 +54,7 @@ Scaffold generator for SUGOS
 <!-- Section from "doc/guides/01.Installation.md.hbs" Start -->
 
 <a name="section-doc-guides-01-installation-md"></a>
+
 Installation
 -----
 
@@ -67,6 +68,7 @@ $ npm install sugo-scaffold --save
 <!-- Section from "doc/guides/02.Usage.md.hbs" Start -->
 
 <a name="section-doc-guides-02-usage-md"></a>
+
 Usage
 ---------
 
@@ -96,6 +98,7 @@ sugoScaffold(
 <!-- Section from "doc/guides/03.CLI.md.hbs" Start -->
 
 <a name="section-doc-guides-03-c-l-i-md"></a>
+
 CLI Usage
 ---------
 
@@ -120,6 +123,7 @@ sugo-scaffold interface "my-projects/my-custom-interface"
 <!-- Section from "doc/guides/04.Templates.md.hbs" Start -->
 
 <a name="section-doc-guides-04-templates-md"></a>
+
 Types
 ---------
 

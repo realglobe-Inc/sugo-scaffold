@@ -30,7 +30,7 @@ describe('~~~~package_name~~~~', () => {
 
   it('Try ping-pong', () => co(function * () {
     let module = ~~~~package_name@camelcase~~~~({})
-    let pong = yield module.ping({ params: [ 'pong' ] })
+    let pong = yield module.ping('pong')
     assert.equal(pong, 'pong')
   }))
 
