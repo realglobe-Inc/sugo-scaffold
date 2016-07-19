@@ -14,7 +14,7 @@ co(function * () {
   let actor = caller.connect('my-actor-01')
 
   // Access to the module
-  let module01 = actor.module01()
+  let module01 = actor.get('module01')
 
   // Send ping
   let pong = yield module01.ping()

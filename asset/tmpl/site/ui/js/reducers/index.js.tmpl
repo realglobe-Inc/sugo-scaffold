@@ -2,10 +2,10 @@
  * Top level reducer.
  * The state shape is below.
  * {
- *   spots: [
+ *   actors: [
  *     {
- *       key: 'spot-01',
- *       terminal: Terminal
+ *       key: 'actor-01',
+ *       caller: Caller
  *     }
  *   ],
  *   dominantColor: '#5ff',
@@ -14,12 +14,12 @@
  */
 
 import { combineReducers } from 'redux'
-import spots from './spots'
+import actors from './actors'
 import dominantColor from './dominant_color'
 import modalWindow from './modal_window'
 
 const Reducer = combineReducers({
-  spots,
+  actors,
   dominantColor,
   modalWindow
 })

@@ -8,9 +8,9 @@
 let d = (module) => module.default || module
 
 module.exports = {
+  get actor () { return d(require('./actor')) },
+  get caller () { return d(require('./caller')) },
   get cloud () { return d(require('./cloud')) },
   get configs () { return d(require('./configs')) },
-  get spot () { return d(require('./spot')) },
-  get terminal () { return d(require('./terminal')) },
   get ui () { return d(require('./ui')) }
 }

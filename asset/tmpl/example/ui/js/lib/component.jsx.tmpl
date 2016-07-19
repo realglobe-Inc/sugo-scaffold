@@ -29,7 +29,7 @@ import apemanReactBasic from 'apeman-react-basic'
 import asleep from 'asleep'
 import co from 'co'
 import os from 'os'
-import sugoTerminal from 'sugo-terminal'
+import sugoCaller from 'sugo-caller'
 import sgReact from 'sg-react'
 import sugoObserver from 'sugo-observer'
 
@@ -40,7 +40,8 @@ const RequirePool = {
   co,
   os,
   asleep,
-  'sugo-terminal': sugoTerminal,
+  'react': React,
+  'sugo-caller': sugoCaller,
   'sugo-observer': sugoObserver,
   'sg-react': sgReact,
   'sg-react-components': sgReactComponents,
@@ -77,8 +78,8 @@ const Component = React.createClass({
       refreshing: false,
       tooltip: null,
       cloud: {},
-      terminals: [],
-      spots: [],
+      callers: [],
+      actors: [],
       globals: {
         require (name) {
           if (RequirePool[ name ]) {
@@ -94,18 +95,18 @@ const Component = React.createClass({
     const s = this
     let { state, props } = s
     let { pkg } = props
-    let { tab, script, html, globals, cloud, spots, terminals } = state
+    let { tab, script, html, globals, cloud, actors, callers } = state
     return (
       <div>
         <SgExample>
           <SgExampleHeader { ...{ tab, pkg } }
-            spots={ spots }
-            runSpot={ () => s.setState({ tooltip: markdowns[ '12.Run Spot' ] }) }
+            actors={ actors }
+            Actor={ () => s.setState({ tooltip: markdowns[ '12.Run Actor' ] }) }
             onTabChange={ (e) => s.setTab(e.tab) }/>
           <SgExampleBody hidden={ tab !== 'DEMO' }>
             <SgExampleAbout pkg={ pkg }/>
-            <SgExampleStatus spots={ spots }
-                             terminals={ terminals }
+            <SgExampleStatus actors={ actors }
+                             callers={ callers }
                              cloud={ cloud }
                              spinning={ state.refreshing }
                              onRefresh={ s.refreshStatus }
@@ -123,8 +124,8 @@ const Component = React.createClass({
           <SgExampleBody hidden={ tab !== 'GUIDES' }>
             <SgExampleInstruction src={ [
               markdowns[ '11.Setup Cloud' ],
-              markdowns[ '12.Run Spot' ],
-              markdowns[ '13.Use Terminal' ]
+              markdowns[ '12.Run Actor' ],
+              markdowns[ '13.Use Caller' ]
             ] } vars={ s.getMarkdownVars() }/>
             <SgExampleLinks links={ require('../../../doc/links.json') }/>
           </SgExampleBody>
@@ -202,11 +203,11 @@ const Component = React.createClass({
       return
     }
     s.tryAsync('refreshing', co(function * () {
-      let spots = yield cloudAgent.spots()
-      let terminals = yield cloudAgent.terminals()
+      let actors = yield cloudAgent.actors()
+      let callers = yield cloudAgent.callers()
       let cloud = { host: location.host }
-      let globals = Object.assign(state.globals, { spots })
-      s.setState({ spots, terminals, cloud, globals })
+      let globals = Object.assign(state.globals, { actors })
+      s.setState({ actors, callers, cloud, globals })
     }))
   },
 
@@ -246,7 +247,7 @@ const Component = React.createClass({
     let { location } = window
     return {
       __your_host__: location && location.host,
-      __your_spot_name__: '__your_spot_name__' // TODO
+      __your_actor_name__: '__your_actor_name__' // TODO
     }
   }
 })

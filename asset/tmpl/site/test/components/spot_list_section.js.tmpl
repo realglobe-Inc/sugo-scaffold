@@ -1,12 +1,12 @@
 import React from 'react'
 import { shallow, mount, render } from 'enzyme'
 import { equal, ok } from 'assert'
-import SpotListSection from '../../ui/js/components/spot_list_section'
+import ActorListSection from '../../ui/js/components/actor_list_section'
 
-describe('<SpotListSection />', () => {
+describe('<ActorListSection />', () => {
   it('renders', () => {
-    const wrapper = shallow(<SpotListSection />)
-    ok(wrapper.find('SpotList'))
+    const wrapper = shallow(<ActorListSection />)
+    ok(wrapper.find('ActorList'))
   })
 })
 

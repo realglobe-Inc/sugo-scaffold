@@ -1,0 +1,18 @@
+/**
+ * The section of actor list.
+ */
+import React from 'react'
+import ActorList from '../containers/actor_list'
+
+const ActorListSection = React.createClass({
+  render () {
+    return (
+      <div className='actor-list-section'>
+        <h2 className='app-theme-dark-color'>Connected Actors List</h2>
+        <ActorList />
+      </div>
+    )
+  }
+})
+
+export default ActorListSection

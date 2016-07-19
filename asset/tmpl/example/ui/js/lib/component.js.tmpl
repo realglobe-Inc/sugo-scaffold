@@ -48,9 +48,9 @@ var _os = require('os');
 
 var _os2 = _interopRequireDefault(_os);
 
-var _sugoTerminal = require('sugo-terminal');
+var _sugoCaller = require('sugo-caller');
 
-var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
+var _sugoCaller2 = _interopRequireDefault(_sugoCaller);
 
 var _sgReact = require('sg-react');
 
@@ -76,7 +76,8 @@ var RequirePool = {
   co: _co2.default,
   os: _os2.default,
   asleep: _asleep2.default,
-  'sugo-terminal': _sugoTerminal2.default,
+  'react': _react2.default,
+  'sugo-caller': _sugoCaller2.default,
   'sugo-observer': _sugoObserver2.default,
   'sg-react': _sgReact2.default,
   'sg-react-components': _sgReactComponents2.default,
@@ -116,8 +117,8 @@ var Component = _react2.default.createClass({
       refreshing: false,
       tooltip: null,
       cloud: {},
-      terminals: [],
-      spots: [],
+      callers: [],
+      actors: [],
       globals: {
         require: function require(name) {
           if (RequirePool[name]) {
@@ -138,8 +139,8 @@ var Component = _react2.default.createClass({
     var html = state.html;
     var globals = state.globals;
     var cloud = state.cloud;
-    var spots = state.spots;
-    var terminals = state.terminals;
+    var actors = state.actors;
+    var callers = state.callers;
 
     return _react2.default.createElement(
       'div',
@@ -148,9 +149,9 @@ var Component = _react2.default.createClass({
         _sugoReactExample.SgExample,
         null,
         _react2.default.createElement(_sugoReactExample.SgExampleHeader, _extends({ tab: tab, pkg: pkg }, {
-          spots: spots,
-          runSpot: function runSpot() {
-            return s.setState({ tooltip: _markdowns2.default['12.Run Spot'] });
+          actors: actors,
+          Actor: function Actor() {
+            return s.setState({ tooltip: _markdowns2.default['12.Run Actor'] });
           },
           onTabChange: function onTabChange(e) {
             return s.setTab(e.tab);
@@ -159,8 +160,8 @@ var Component = _react2.default.createClass({
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'DEMO' },
           _react2.default.createElement(_sugoReactExample.SgExampleAbout, { pkg: pkg }),
-          _react2.default.createElement(_sugoReactExample.SgExampleStatus, { spots: spots,
-            terminals: terminals,
+          _react2.default.createElement(_sugoReactExample.SgExampleStatus, { actors: actors,
+            callers: callers,
             cloud: cloud,
             spinning: state.refreshing,
             onRefresh: s.refreshStatus
@@ -178,7 +179,7 @@ var Component = _react2.default.createClass({
         _react2.default.createElement(
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
-          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Spot'], _markdowns2.default['13.Use Terminal']], vars: s.getMarkdownVars() }),
+          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
           _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
@@ -227,7 +228,7 @@ var Component = _react2.default.createClass({
 
   setTab: function setTab(tab) {
     var s = this;
-    var valid = tab && !! ~['DEMO', 'GUIDES'].indexOf(tab);
+    var valid = tab && !!~['DEMO', 'GUIDES'].indexOf(tab);
     s.setState({ tab: valid ? tab : 'DEMO' });
     window.location.hash = String(tab).toLowerCase();
   },
@@ -279,25 +280,25 @@ var Component = _react2.default.createClass({
       return;
     }
     s.tryAsync('refreshing', (0, _co2.default)(regeneratorRuntime.mark(function _callee2() {
-      var spots, terminals, cloud, globals;
+      var actors, callers, cloud, globals;
       return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return cloudAgent.spots();
+              return cloudAgent.actors();
 
             case 2:
-              spots = _context2.sent;
+              actors = _context2.sent;
               _context2.next = 5;
-              return cloudAgent.terminals();
+              return cloudAgent.callers();
 
             case 5:
-              terminals = _context2.sent;
+              callers = _context2.sent;
               cloud = { host: location.host };
-              globals = Object.assign(state.globals, { spots: spots });
+              globals = Object.assign(state.globals, { actors: actors });
 
-              s.setState({ spots: spots, terminals: terminals, cloud: cloud, globals: globals });
+              s.setState({ actors: actors, callers: callers, cloud: cloud, globals: globals });
 
             case 9:
             case 'end':
@@ -373,9 +374,10 @@ var Component = _react2.default.createClass({
 
     return {
       __your_host__: location && location.host,
-      __your_spot_name__: '__your_spot_name__' // TODO
+      __your_actor_name__: '__your_actor_name__' // TODO
     };
   }
 });
 
 exports.default = Component;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

@@ -57,7 +57,7 @@ Install the CLI
 $ npm install ~~~~package_name~~~~ -g
 &#x60;&#x60;&#x60;
 
-Then, start the server
+Then, run the server
 
 &#x60;&#x60;&#x60;bash
 $ PORT&#x3D;3000 ~~~~package_name~~~~ cloud
@@ -68,8 +68,8 @@ In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) 
 [nginx_url]: https://www.nginx.com/
 `)
 
-/** Converted from "doc/guides/12.Run Spot.md.hbs" */
-exports[ '12.Run Spot' ] = restore(`### Run Spot
+/** Converted from "doc/guides/12.Connect Actor.md.hbs" */
+exports[ '12.Connect Actor' ] = restore(`### Connect Actor
 
 Install the CLI
 
@@ -78,15 +78,15 @@ Install the CLI
 $ npm install ~~~~package_name~~~~ -g
 &#x60;&#x60;&#x60;
 
-Then, connect the spot to cloud
+Then, connect the actor to cloud
 
 &#x60;&#x60;&#x60;bash
-$ HOSTNAME&#x3D;&quot;__your_host__&quot; SPOT_KEY&#x3D;&quot;__your_spot_name__&quot; ~~~~package_name~~~~ spot
+$ HOSTNAME&#x3D;&quot;__your_host__&quot; ACTOR_KEY&#x3D;&quot;__your_actor_name__&quot; ~~~~package_name~~~~ actor
 &#x60;&#x60;&#x60;
 `)
 
-/** Converted from "doc/guides/13.Use Terminal.md.hbs" */
-exports[ '13.Use Terminal' ] = restore(`### Use Terminal
+/** Converted from "doc/guides/13.Connect Caller.md.hbs" */
+exports[ '13.Connect Caller' ] = restore(`### Connect Caller
 
 
 Install the CLI
@@ -95,10 +95,10 @@ Install the CLI
 $ npm install ~~~~package_name~~~~ -g
 &#x60;&#x60;&#x60;
 
-Then, run the example terminal
+Then, run the example caller
 
 &#x60;&#x60;&#x60;bash
-$ HOSTNAME&#x3D;&quot;__your_host__&quot; ~~~~package_name~~~~ terminal
+$ HOSTNAME&#x3D;&quot;__your_host__&quot; ~~~~package_name~~~~ caller
 &#x60;&#x60;&#x60;
 
 Or, you can try it from UI pages on the cloud.

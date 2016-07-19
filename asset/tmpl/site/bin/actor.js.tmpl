@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const {CLOUD_URL, ACTOR_KEY} = process.env
+
+if (!CLOUD_URL || !ACTOR_KEY) {
+  console.error('you need CLOUD_URL and ACTOR_KEY')
+  process.exit(1)
+}
+
+const ACTOR_URL = `${CLOUD_URL}/actors`
+
+const co = require('co')
+const sugoActor = require('sugo-actor')
+const noopModule = require('sugo-module-noop')
+
+co(function * () {
+  let actor = sugoActor(ACTOR_URL, {
+    key: ACTOR_KEY,
+    modules: {
+      noop: noopModule({})
+    }
+  })
+  yield actor.connect()
+}).catch((err) => console.error(err))

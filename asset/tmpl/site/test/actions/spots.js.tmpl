@@ -1,31 +1,31 @@
 import {equal} from 'assert'
 import sugoCloud from 'sugo-cloud'
-import sugoSpot from 'sugo-spot'
+import sugoActor from 'sugo-actor'
 import 'babel-polyfill'
 import co from 'co'
-import spots from '../../ui/js/actions/spots'
+import actors from '../../ui/js/actions/actors'
 import env from '../../env'
-import noopInterface from 'sugo-interface-noop'
+import noopModule from 'sugo-module-noop'
 
-const {connectSpots} = spots
+const {connectActors} = actors
 
 const PORT = env.port.CLOUD
 const CLOUD_URL = `http://localhost:${PORT}`
-const SPOT_URL = `${CLOUD_URL}/spots`
+const ACTOR_URL = `${CLOUD_URL}/actors`
 
-describe('action spots', () => {
+describe('action actors', () => {
   before(() => {
     return co(function * () {
       yield sugoCloud({
         port: PORT
       })
-      let spot = sugoSpot(SPOT_URL, {
-        key: 'spot-01',
-        interfaces: {
-          noop: noopInterface({})
+      let actor = sugoActor(ACTOR_URL, {
+        key: 'actor-01',
+        modules: {
+          noop: noopModule({})
         }
       })
-      yield spot.connect()
+      yield actor.connect()
     }).catch(err => Promise.reject(err))
   })
 
@@ -33,14 +33,14 @@ describe('action spots', () => {
     done()
   })
 
-  it('connectSpots で一つのスポットに接続できる', () => {
+  it('connectActors で一つのアクターに接続できる', () => {
     return co(function * () {
-      let dispatch = ({spots}) => {
-        let {key} = spots[0]
-        equal(key, 'spot-01')
+      let dispatch = ({actors}) => {
+        let {key} = actors[0]
+        equal(key, 'actor-01')
       }
-      let getState = () => ({spots: []})
-      yield connectSpots()(dispatch, getState)
+      let getState = () => ({actors: []})
+      yield connectActors()(dispatch, getState)
     }).catch(err => {
       return Promise.reject(err)
     })

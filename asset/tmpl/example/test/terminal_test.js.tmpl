@@ -1,11 +1,11 @@
 /**
- * Test case for terminal.
+ * Test case for caller.
  * Runs with mocha.
  */
 'use strict'
 
-const terminal = require('../lib/terminal.js')
-const spot = require('../lib/spot.js')
+const caller = require('../lib/caller.js')
+const actor = require('../lib/actor.js')
 const cloud = require('../lib/cloud.js')
 const assert = require('assert')
 const co = require('co')
@@ -13,12 +13,12 @@ const injectmock = require('injectmock')
 const aport = require('aport')
 const asleep = require('asleep')
 
-describe('terminal', () => {
+describe('caller', () => {
   before(() => co(function * () {
     let port = yield aport()
-    let storage = `${__dirname}/../tmp/testing-terminal`
+    let storage = `${__dirname}/../tmp/testing-caller`
     injectmock(process.env, 'STORAGE', storage)
-    injectmock(process.env, 'SPOT_KEY', 'hoge')
+    injectmock(process.env, 'ACTOR_KEY', 'hoge')
     injectmock(process.env, 'PORT', port)
     injectmock(process.env, 'INTERVAL', 120)
   }))
@@ -29,12 +29,12 @@ describe('terminal', () => {
 
   it('Terminal', () => co(function * () {
     let cloudInstance = yield cloud()
-    let spotInstance = yield spot()
-    let terminalInstance = yield terminal()
+    let actorInstance = yield actor()
+    let callerInstance = yield caller()
     yield asleep(500)
-    yield terminalInstance.kill()
-    yield terminalInstance.disconnect()
-    yield spotInstance.disconnect()
+    yield callerInstance.kill()
+    yield callerInstance.disconnect()
+    yield actorInstance.disconnect()
     yield cloudInstance.close()
   }))
 })

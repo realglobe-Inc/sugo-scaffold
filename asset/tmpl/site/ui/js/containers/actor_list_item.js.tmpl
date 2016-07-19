@@ -1,5 +1,5 @@
 /**
- * List Item Component of a spot.
+ * List Item Component of a actor.
  */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -8,26 +8,26 @@ import {modalWindow, toggleRequesting} from '../actions'
 import co from 'co'
 import classnames from 'classnames'
 
-const debug = require('debug')('sg:site:spot_list_item')
+const debug = require('debug')('sg:site:actor_list_item')
 
-let SpotListItem = React.createClass({
+let ActorListItem = React.createClass({
   propTypes: {
-    spot: React.PropTypes.object
+    actor: React.PropTypes.object
   },
 
   render () {
     const s = this
     let {props} = s
-    let {spot} = props
-    let {requesting} = spot
+    let {actor} = props
+    let {requesting} = actor
     return (
-      <div className={classnames('spot-list-item', requesting ? 'requesting' : '')}>
-        <div className='spot-list-item-key'>
-          {spot.key}
+      <div className={classnames('actor-list-item', requesting ? 'requesting' : '')}>
+        <div className='actor-list-item-key'>
+          {actor.key}
         </div>
         <div>
           <i className={classnames(
-            'spot-list-item-spinning',
+            'actor-list-item-spinning',
             requesting ? 'visible' : 'hidden',
             'fa',
             'fa-spinner',
@@ -36,7 +36,7 @@ let SpotListItem = React.createClass({
             'fa-fw'
           )}></i>
         </div>
-        <SgButton className='spot-list-item-button' onTap={s.onPing} disabled={requesting}>
+        <SgButton className='actor-list-item-button' onTap={s.onPing} disabled={requesting}>
           Ping
         </SgButton>
       </div>
@@ -45,11 +45,11 @@ let SpotListItem = React.createClass({
 
   onPing () {
     const s = this
-    const {spot, startPingRequest, openPongWindow} = s.props
+    const {actor, startPingRequest, openPongWindow} = s.props
     co(function * () {
       debug('ping')
       startPingRequest()
-      let res = yield spot.terminal.noop().ping()
+      let res = yield actor.caller.get('noop').ping()
       if (res === 'pong') {
         debug(res)
         openPongWindow()
@@ -64,14 +64,14 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     openPongWindow () {
       dispatch(modalWindow())
-      dispatch(toggleRequesting(props.spot.key))
+      dispatch(toggleRequesting(props.actor.key))
     },
     startPingRequest () {
-      dispatch(toggleRequesting(props.spot.key))
+      dispatch(toggleRequesting(props.actor.key))
     }
   }
 }
 
-SpotListItem = connect(null, mapDispatchToProps)(SpotListItem)
+ActorListItem = connect(null, mapDispatchToProps)(ActorListItem)
 
-export default SpotListItem
+export default ActorListItem

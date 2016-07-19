@@ -15,9 +15,9 @@ var _co = require('co');
 
 var _co2 = _interopRequireDefault(_co);
 
-var _sugoTerminal = require('sugo-terminal');
+var _sugoCaller = require('sugo-caller');
 
-var _sugoTerminal2 = _interopRequireDefault(_sugoTerminal);
+var _sugoCaller2 = _interopRequireDefault(_sugoCaller);
 
 var _asleep = require('asleep');
 
@@ -42,11 +42,11 @@ var Playground = _react2.default.createClass({
 
   getInitialState: function getInitialState() {
     var s = this;
-    var spots = s.props.spots;
+    var actors = s.props.actors;
 
     return {
-      /** Key of spot to connect */
-      spotKey: spots.length > 0 ? spots[0].key : null,
+      /** Key of actor to connect */
+      actorKey: actors.length > 0 ? actors[0].key : null,
       /** Date ping send */
       pingAt: null,
       /** Date pong received */
@@ -57,8 +57,8 @@ var Playground = _react2.default.createClass({
     var s = this;
     var state = s.state;
     var props = s.props;
-    var spots = props.spots;
-    var spotKey = state.spotKey;
+    var actors = props.actors;
+    var actorKey = state.actorKey;
     var pingAt = state.pingAt;
     var pongAt = state.pongAt;
 
@@ -68,20 +68,20 @@ var Playground = _react2.default.createClass({
       _react2.default.createElement(
         _apemanReactBasic.ApSelectableArticle,
         {
-          options: (spots || []).reduce(function (options, spot) {
-            return Object.assign(options, _defineProperty({}, spot.key, spot.key));
+          options: (actors || []).reduce(function (options, actor) {
+            return Object.assign(options, _defineProperty({}, actor.key, actor.key));
           }, {}),
-          name: 'spotKey',
+          name: 'actorKey',
           label: 'Spot: ',
-          alt: 'No spot found! You need to connect one before playing',
-          value: spotKey,
+          alt: 'No actor found! You need to connect one before playing',
+          value: actorKey,
           onChange: function onChange(e) {
-            return s.setState({ spotKey: e.target.value });
+            return s.setState({ actorKey: e.target.value });
           }
         },
         _react2.default.createElement(
           _apemanReactBasic.ApSelectableArticle.Content,
-          { contentFor: String(spotKey) },
+          { contentFor: String(actorKey) },
           _react2.default.createElement(
             'div',
             { className: 'playground-row' },
@@ -104,8 +104,8 @@ var Playground = _react2.default.createClass({
                   _apemanReactBasic.ApBigButton,
                   {
                     onTap: function onTap() {
-                      return s.withTerminal(regeneratorRuntime.mark(function sendPing(terminal) {
-                        var spot, noop, pong;
+                      return s.withTerminal(regeneratorRuntime.mark(function sendPing(caller) {
+                        var actor, noop, pong;
                         return regeneratorRuntime.wrap(function sendPing$(_context) {
                           while (1) {
                             switch (_context.prev = _context.next) {
@@ -121,11 +121,11 @@ var Playground = _react2.default.createClass({
 
                               case 3:
                                 _context.next = 5;
-                                return terminal.connect(spotKey);
+                                return caller.connect(actorKey);
 
                               case 5:
-                                spot = _context.sent;
-                                noop = spot.noop();
+                                actor = _context.sent;
+                                noop = actor.get('noop');
 
                                 // Do ping-pong
 
@@ -142,7 +142,7 @@ var Playground = _react2.default.createClass({
 
                                 // Tear down
                                 _context.next = 16;
-                                return spot.disconnect();
+                                return actor.disconnect();
 
                               case 16:
                                 _context.next = 18;
@@ -181,7 +181,7 @@ var Playground = _react2.default.createClass({
     var protocol = _window$location.protocol;
     var host = _window$location.host;
 
-    s.terminal = (0, _sugoTerminal2.default)(protocol + '//' + host + '/terminals');
+    s.caller = (0, _sugoCaller2.default)(protocol + '//' + host + '/callers');
   },
 
 
@@ -191,12 +191,12 @@ var Playground = _react2.default.createClass({
 
   withTerminal: function withTerminal(handler) {
     var s = this;
-    var terminal = s.terminal;
+    var caller = s.caller;
 
-    if (!terminal) {
+    if (!caller) {
       return;
     }
-    (0, _co2.default)(handler, terminal).catch(function (err) {
+    (0, _co2.default)(handler, caller).catch(function (err) {
       return console.error(err);
     });
   }
@@ -206,10 +206,11 @@ var Playground = _react2.default.createClass({
 setTimeout(function () {
   var mountRoot = document.getElementById('playground-root');
   (0, _sgReact.mount)(mountRoot, Playground, {
-    spots: [].concat(window.spots || [])
+    actors: [].concat(window.actors || [])
   }).then(function () {
     console.debug('Playground mounted');
   }).catch(function (err) {
     return console.error(err);
   });
 }, 600);
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

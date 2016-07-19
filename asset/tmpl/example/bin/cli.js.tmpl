@@ -31,14 +31,14 @@ program
   .action(() => run(`${__dirname}/cloud.js`))
 
 program
-  .command('spot')
-  .description('Run example spot')
-  .action(() => run(`${__dirname}/spot.js`))
+  .command('actor')
+  .description('Run example actor')
+  .action(() => run(`${__dirname}/actor.js`))
 
 program
-  .command('terminal')
-  .description('Run example terminal')
-  .action(() => run(`${__dirname}/terminal.js`))
+  .command('caller')
+  .description('Run example caller')
+  .action(() => run(`${__dirname}/caller.js`))
 
 program.parse(process.argv)
 

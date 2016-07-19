@@ -1,38 +1,38 @@
 /**
- * Run spot
- * @function spot
+ * Run actor
+ * @function actor
  * @returns {Promise}
  */
 'use strict'
 
 const pkg = require('../package.json')
-const sugoSpot = require('sugo-spot')
+const sugoActor = require('sugo-actor')
 const co = require('co')
-const debug = require('debug')('~~~~package_name@enumcase~~~~:spot')
-const noop = require('sugo-interface-noop')
+const debug = require('debug')('~~~~package_name@enumcase~~~~:actor')
+const noop = require('sugo-module-noop')
 const colorprint = require('colorprint')
 const pudding = require('pudding')({ lang: 'en' })
 
 let configs = require('./configs')
 
-/** @lends spot */
-function spot () {
-  debug('Example spot invoked')
+/** @lends actor */
+function actor () {
+  debug('Example actor invoked')
   let { port, hostname } = configs()
-  let url = `http://${hostname}:${port}/spots`
+  let url = `http://${hostname}:${port}/actors`
 
-  let { SPOT_KEY } = process.env
+  let { ACTOR_KEY } = process.env
 
-  let context = spot.newContext()
-  let key = SPOT_KEY || context.key
+  let context = actor.newContext()
+  let key = ACTOR_KEY || context.key
 
-  colorprint.notice(`[${pkg.name}] Running spot script...`)
+  colorprint.notice(`[${pkg.name}] Running actor script...`)
   colorprint.trace('Settings: %s', { port, hostname, key })
 
   return co(function * () {
-    let instance = sugoSpot(url, {
+    let instance = sugoActor(url, {
       key,
-      interfaces: {
+      modules: {
         noop: noop()
       },
       force: true
@@ -42,12 +42,12 @@ function spot () {
   })
 }
 
-Object.assign(spot, {
+Object.assign(actor, {
   newContext () {
     return pudding.explode({
       key: '${spinalcase([this.color, this.fish].join("-")).trim()}'
-    }, 1)[0]
+    }, 1)[ 0 ]
   }
 })
 
-module.exports = spot
+module.exports = actor

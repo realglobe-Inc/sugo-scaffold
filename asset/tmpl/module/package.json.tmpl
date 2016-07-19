@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "~~~~package_description~~~~",
   "main": "lib",
+  "browser": "sims/browser",
   "scripts": {
-    "prepublish": "./ci/build.js",
+    "prepublish": "./ci/build.js && ./ci/browser.js",
     "test": "./ci/test.js"
   },
   "repository": "~~~~github_repository~~~~",
@@ -28,8 +29,10 @@
     "sg-check": "^1.0.3"
   },
   "devDependencies": {
+    "ababel": "^1.0.17",
+    "ababel-es2015": "^1.0.1",
     "ape-tmpl": "^5.0.13",
-    "coz": "^6.0.5",
+    "coz": "^6.0.11",
     "injectmock": "^2.0.0",
     "sg-schemas": "^2.0.4",
     "sg-validator": "^1.0.0",

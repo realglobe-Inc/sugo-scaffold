@@ -1,14 +1,16 @@
 /**
- * Test case for index.
+ * Test case for actor.
  * Runs with mocha.
  */
 'use strict'
 
-const index = require('../lib/index.js')
+const actor = require('../lib/actor.js')
 const assert = require('assert')
 const co = require('co')
 
-describe('index', () => {
+describe('actor', function () {
+  this.timeout(3000)
+
   before(() => co(function * () {
 
   }))
@@ -17,9 +19,8 @@ describe('index', () => {
 
   }))
 
-  it('Create instance from index', () => co(function * () {
-    let module_ = index({})
-    assert.ok(module_)
+  it('Actor', () => co(function * () {
+
   }))
 })
 

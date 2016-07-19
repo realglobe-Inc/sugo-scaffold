@@ -1,10 +1,10 @@
 /**
- * Test case for spot.
+ * Test case for actor.
  * Runs with mocha.
  */
 'use strict'
 
-const spot = require('../lib/spot.js')
+const actor = require('../lib/actor.js')
 const cloud = require('../lib/cloud.js')
 const assert = require('assert')
 const filedel = require('filedel')
@@ -13,11 +13,11 @@ const injectmock = require('injectmock')
 const aport = require('aport')
 const asleep = require('asleep')
 
-describe('spot', () => {
+describe('actor', () => {
   let port, storage
   before(() => co(function * () {
     port = yield aport()
-    storage = `${__dirname}/../tmp/testing-spot`
+    storage = `${__dirname}/../tmp/testing-actor`
     injectmock(process.env, 'STORAGE', storage)
     injectmock(process.env, 'PORT', port)
   }))
@@ -29,9 +29,9 @@ describe('spot', () => {
 
   it('Spot', () => co(function * () {
     let cloudInstance = yield cloud()
-    let spotInstance = yield spot()
+    let actorInstance = yield actor()
     yield asleep(300)
-    yield spotInstance.disconnect()
+    yield actorInstance.disconnect()
     yield cloudInstance.close()
   }))
 })

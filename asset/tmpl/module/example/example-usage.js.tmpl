@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Example usage of the terminal
+ * Example usage of the caller
  */
 'use strict'
 

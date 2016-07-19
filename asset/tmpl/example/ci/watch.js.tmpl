@@ -10,4 +10,4 @@ process.chdir(`${__dirname}/..`)
 
 const { watch } = require('sugo-ci-example')
 
-watch('ci/compile.js', {})
+watch(require.resolve('./build.js'), {})

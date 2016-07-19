@@ -2,7 +2,7 @@
  * Demo SUGO-Module
  * @function ~~~~package_name@camelcase~~~~
  * @param {Object} config - Configuration
- * @returns {Object} - Interface settings
+ * @returns {Object} - Module settings
  */
 'use strict'
 
@@ -29,7 +29,7 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
     },
 
     /**
-     * Assert spot system requirements.
+     * Assert actor system requirements.
      * @throws {Error} - System requirements failed error
      * @returns {Promise.<boolean>} - Asserted state
      */
@@ -47,8 +47,8 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
     },
 
     /**
-     * Interface specification
-     * @see https://github.com/realglobe-Inc/sg-schemas/blob/master/lib/interface_spec.json
+     * Module specification
+     * @see https://github.com/realglobe-Inc/sg-schemas/blob/master/lib/module_spec.json
      */
     $spec: {
       name,
@@ -56,7 +56,7 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
       desc: description,
       methods: {
         ping: {
-          desc: 'Test the reachability of an interface.',
+          desc: 'Test the reachability of a module.',
           params: [
             { name: 'pong', type: 'string', desc: 'Pong message to return' }
           ],
@@ -67,7 +67,7 @@ function ~~~~package_name@camelcase~~~~ (config = {}) {
         },
 
         assert: {
-          desc: 'Test if the spot fulfills system requirements',
+          desc: 'Test if the actor fulfills system requirements',
           params: [],
           throws: [ {
             type: 'Error',
