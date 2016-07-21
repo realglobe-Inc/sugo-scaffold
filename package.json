@@ -35,12 +35,11 @@
     "tmplconv": "^3.0.5"
   },
   "devDependencies": {
-    "ape-covering": "^3.0.3",
+    "amocha": "^1.0.8",
     "ape-formatting": "^1.0.0",
     "ape-releasing": "^4.0.2",
     "ape-reporting": "^3.0.1",
     "ape-tasking": "^4.0.7",
-    "ape-testing": "^4.0.0",
     "ape-tmpl": "^5.0.13",
     "ape-updating": "^4.0.4",
     "coz": "^6.0.11",
