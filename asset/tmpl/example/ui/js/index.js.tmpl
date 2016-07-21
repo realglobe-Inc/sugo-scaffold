@@ -5569,17 +5569,6 @@ var ApCatalog = _react2.default.createClass({
     }
 });
 
-// --------------------
-// Lifecycle
-// --------------------
-
-// ------------------
-// Custom
-// ------------------
-
-// ------------------
-// Private
-// ------------------
 exports.default = ApCatalog;
 
 },{"classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-catalog/lib/ap_catalog_item.js":[function(require,module,exports){
@@ -11507,7 +11496,7 @@ var ApForm = _react2.default.createClass({
         'span',
         { className: 'ap-form-errors' },
         Object.keys(errors || {}).filter(function (name) {
-          return ! ~skip.indexOf(name);
+          return !~skip.indexOf(name);
         }).map(function (name) {
           return _react2.default.createElement(
             'span',
@@ -18913,6 +18902,9 @@ var ApFormMixin = {
   getFormValue: function getFormValue(name) {
     var s = this;
     var values = s.getFormValues();
+    if (!values) {
+      return undefined;
+    }
     return values && values[name];
   },
 
@@ -37476,6 +37468,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -37527,12 +37521,16 @@ var ApView = _react2.default.createClass({
     var className = (0, _classnames2.default)('ap-view', {
       'ap-view-wide': !!props.wide
     }, props.className);
+    var divProps = Object.assign({}, props);
+    delete divProps.wide;
+    delete divProps.spinning;
+    delete divProps.spinner;
     return _react2.default.createElement(
       'div',
-      { id: props.id,
-        title: props.title,
+      _extends({}, divProps, {
         className: className,
-        style: Object.assign({}, props.style) },
+        style: Object.assign({}, props.style)
+      }),
       _react2.default.createElement(
         'div',
         { className: 'ap-view-inner' },
@@ -50866,7 +50864,7 @@ function isObject(val) {
   };
 
   function hiddenTextarea() {
-    var te = elt("textarea", null, null, "position: absolute; padding: 0; width: 1px; height: 1em; outline: none");
+    var te = elt("textarea", null, null, "position: absolute; bottom: -1em; padding: 0; width: 1px; height: 1em; outline: none");
     var div = elt("div", [te], null, "overflow: hidden; position: relative; width: 3px; height: 0px;");
     // The textarea is kept positioned near the cursor to prevent the
     // fact that it'll be scrolled into view on input from scrolling
@@ -52333,6 +52331,16 @@ function isObject(val) {
     return {node: node, start: start, end: end, collapse: collapse, coverStart: mStart, coverEnd: mEnd};
   }
 
+  function getUsefulRect(rects, bias) {
+    var rect = nullRect
+    if (bias == "left") for (var i = 0; i < rects.length; i++) {
+      if ((rect = rects[i]).left != rect.right) break
+    } else for (var i = rects.length - 1; i >= 0; i--) {
+      if ((rect = rects[i]).left != rect.right) break
+    }
+    return rect
+  }
+
   function measureCharInner(cm, prepared, ch, bias) {
     var place = nodeAndOffsetInLineMap(prepared.map, ch, bias);
     var node = place.node, start = place.start, end = place.end, collapse = place.collapse;
@@ -52342,17 +52350,10 @@ function isObject(val) {
       for (var i = 0; i < 4; i++) { // Retry a maximum of 4 times when nonsense rectangles are returned
         while (start && isExtendingChar(prepared.line.text.charAt(place.coverStart + start))) --start;
         while (place.coverStart + end < place.coverEnd && isExtendingChar(prepared.line.text.charAt(place.coverStart + end))) ++end;
-        if (ie && ie_version < 9 && start == 0 && end == place.coverEnd - place.coverStart) {
+        if (ie && ie_version < 9 && start == 0 && end == place.coverEnd - place.coverStart)
           rect = node.parentNode.getBoundingClientRect();
-        } else if (ie && cm.options.lineWrapping) {
-          var rects = range(node, start, end).getClientRects();
-          if (rects.length)
-            rect = rects[bias == "right" ? rects.length - 1 : 0];
-          else
-            rect = nullRect;
-        } else {
-          rect = range(node, start, end).getBoundingClientRect() || nullRect;
-        }
+        else
+          rect = getUsefulRect(range(node, start, end).getClientRects(), bias)
         if (rect.left || rect.right || start == 0) break;
         end = start;
         start = start - 1;
@@ -54064,7 +54065,7 @@ function isObject(val) {
 
   // Revert a change stored in a document's history.
   function makeChangeFromHistory(doc, type, allowSelectionOnly) {
-    if (doc.cm && doc.cm.state.suppressEdits) return;
+    if (doc.cm && doc.cm.state.suppressEdits && !allowSelectionOnly) return;
 
     var hist = doc.history, event, selAfter = doc.sel;
     var source = type == "undo" ? hist.done : hist.undone, dest = type == "undo" ? hist.undone : hist.done;
@@ -56589,6 +56590,7 @@ function isObject(val) {
     var content = elt("span", null, null, webkit ? "padding-right: .1px" : null);
     var builder = {pre: elt("pre", [content], "CodeMirror-line"), content: content,
                    col: 0, pos: 0, cm: cm,
+                   trailingSpace: false,
                    splitSpaces: (ie || webkit) && cm.getOption("lineWrapping")};
     lineView.measure = {};
 
@@ -56650,7 +56652,7 @@ function isObject(val) {
   // the line map. Takes care to render special characters separately.
   function buildToken(builder, text, style, startStyle, endStyle, title, css) {
     if (!text) return;
-    var displayText = builder.splitSpaces ? text.replace(/ {3,}/g, splitSpaces) : text;
+    var displayText = builder.splitSpaces ? splitSpaces(text, builder.trailingSpace) : text
     var special = builder.cm.state.specialChars, mustWrap = false;
     if (!special.test(text)) {
       builder.col += text.length;
@@ -56695,6 +56697,7 @@ function isObject(val) {
         builder.pos++;
       }
     }
+    builder.trailingSpace = displayText.charCodeAt(text.length - 1) == 32
     if (style || startStyle || endStyle || mustWrap || css) {
       var fullStyle = style || "";
       if (startStyle) fullStyle += startStyle;
@@ -56706,11 +56709,17 @@ function isObject(val) {
     builder.content.appendChild(content);
   }
 
-  function splitSpaces(old) {
-    var out = " ";
-    for (var i = 0; i < old.length - 2; ++i) out += i % 2 ? " " : "\u00a0";
-    out += " ";
-    return out;
+  function splitSpaces(text, trailingBefore) {
+    if (text.length > 1 && !/  /.test(text)) return text
+    var spaceBefore = trailingBefore, result = ""
+    for (var i = 0; i < text.length; i++) {
+      var ch = text.charAt(i)
+      if (ch == " " && spaceBefore && (i == text.length - 1 || text.charCodeAt(i + 1) == 32))
+        ch = "\u00a0"
+      result += ch
+      spaceBefore = ch == " "
+    }
+    return result
   }
 
   // Work around nonsense dimensions being reported for stretches of
@@ -56747,6 +56756,7 @@ function isObject(val) {
       builder.content.appendChild(widget);
     }
     builder.pos += size;
+    builder.trailingSpace = false
   }
 
   // Outputs a number of spans to make up a line, taking highlighting
@@ -58194,8 +58204,9 @@ function isObject(val) {
     if (badBidiRects != null) return badBidiRects;
     var txt = removeChildrenAndAdd(measure, document.createTextNode("A\u062eA"));
     var r0 = range(txt, 0, 1).getBoundingClientRect();
-    if (!r0 || r0.left == r0.right) return false; // Safari returns null in some cases (#2780)
     var r1 = range(txt, 1, 2).getBoundingClientRect();
+    removeChildren(measure);
+    if (!r0 || r0.left == r0.right) return false; // Safari returns null in some cases (#2780)
     return badBidiRects = (r1.right - r0.right < 3);
   }
 
@@ -58561,7 +58572,7 @@ function isObject(val) {
 
   // THE END
 
-  CodeMirror.version = "5.16.0";
+  CodeMirror.version = "5.17.0";
 
   return CodeMirror;
 });
@@ -59936,8 +59947,8 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     var maybeop = noComma ? maybeoperatorNoComma : maybeoperatorComma;
     if (atomicTypes.hasOwnProperty(type)) return cont(maybeop);
     if (type == "function") return cont(functiondef, maybeop);
-    if (type == "keyword c") return cont(noComma ? maybeexpressionNoComma : maybeexpression);
-    if (type == "(") return cont(pushlex(")"), maybeexpression, comprehension, expect(")"), poplex, maybeop);
+    if (type == "keyword c" || type == "async") return cont(noComma ? maybeexpressionNoComma : maybeexpression);
+    if (type == "(") return cont(pushlex(")"), maybeexpression, expect(")"), poplex, maybeop);
     if (type == "operator" || type == "spread") return cont(noComma ? expressionNoComma : expression);
     if (type == "[") return cont(pushlex("]"), arrayLiteral, poplex, maybeop);
     if (type == "{") return contCommasep(objprop, "}", null, maybeop);
@@ -60013,6 +60024,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "variable") {cx.marked = "property"; return cont();}
   }
   function objprop(type, value) {
+    if (type == "async") return cont(objprop);
     if (type == "variable" || cx.style == "keyword") {
       cx.marked = "property";
       if (value == "get" || value == "set") return cont(getterSetter);
@@ -60044,7 +60056,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       if (type == ",") {
         var lex = cx.state.lexical;
         if (lex.info == "call") lex.pos = (lex.pos || 0) + 1;
-        return cont(what, proceed);
+        return cont(function(type, value) {
+          if (type == end || value == end) return pass()
+          return pass(what)
+        }, proceed);
       }
       if (type == end || value == end) return cont();
       return cont(expect(end));
@@ -60187,16 +60202,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function arrayLiteral(type) {
     if (type == "]") return cont();
-    return pass(expressionNoComma, maybeArrayComprehension);
-  }
-  function maybeArrayComprehension(type) {
-    if (type == "for") return pass(comprehension, expect("]"));
-    if (type == ",") return cont(commasep(maybeexpressionNoComma, "]"));
-    return pass(commasep(expressionNoComma, "]"));
-  }
-  function comprehension(type) {
-    if (type == "for") return cont(forspec, comprehension);
-    if (type == "if") return cont(expression, comprehension);
+    return pass(expressionNoComma, commasep(expressionNoComma, "]"));
   }
 
   function isContinuedStatement(state, textAfter) {
@@ -60512,7 +60518,9 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     list2: "variable-3",
     list3: "keyword",
     hr: "hr",
-    image: "tag",
+    image: "image",
+    imageAltText: "image-alt-text",
+    imageMarker: "image-marker",
     formatting: "formatting",
     linkInline: "link",
     linkEmail: "link",
@@ -60762,6 +60770,9 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
       if (state.strikethrough) { styles.push(tokenTypes.strikethrough); }
       if (state.linkText) { styles.push(tokenTypes.linkText); }
       if (state.code) { styles.push(tokenTypes.code); }
+      if (state.image) { styles.push(tokenTypes.image); }
+      if (state.imageAltText) { styles.push(tokenTypes.imageAltText, "link"); }
+      if (state.imageMarker) { styles.push(tokenTypes.imageMarker); }
     }
 
     if (state.header) { styles.push(tokenTypes.header, tokenTypes.header + "-" + state.header); }
@@ -60881,12 +60892,29 @@ CodeMirror.defineMode("markdown", function(cmCfg, modeCfg) {
     }
 
     if (ch === '!' && stream.match(/\[[^\]]*\] ?(?:\(|\[)/, false)) {
-      stream.match(/\[[^\]]*\]/);
-      state.inline = state.f = linkHref;
-      return tokenTypes.image;
+      state.imageMarker = true;
+      state.image = true;
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      return getType(state);
     }
 
-    if (ch === '[' && stream.match(/[^\]]*\](\(.*\)| ?\[.*?\])/, false)) {
+    if (ch === '[' && state.imageMarker) {
+      state.imageMarker = false;
+      state.imageAltText = true
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      return getType(state);
+    }
+
+    if (ch === ']' && state.imageAltText) {
+      if (modeCfg.highlightFormatting) state.formatting = "image";
+      var type = getType(state);
+      state.imageAltText = false;
+      state.image = false;
+      state.inline = state.f = linkHref;
+      return type;
+    }
+
+    if (ch === '[' && stream.match(/[^\]]*\](\(.*\)| ?\[.*?\])/, false) && !state.image) {
       state.linkText = true;
       if (modeCfg.highlightFormatting) state.formatting = "link";
       return getType(state);
@@ -104282,10 +104310,6 @@ module.exports = SugoAgentFile;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var co = require('co');
@@ -104350,7 +104374,7 @@ var ActorAccess = function () {
       var bundle = {
         get: getModule,
         has: hasModule,
-        // TODO remove 
+        /** @deprecated */
         module: function module() {
           console.warn('[SUGO-Caller] `.module(name)` is now deprecated. Use `.get(name)` instead');
           return getModule.apply(undefined, arguments);
@@ -104364,7 +104388,7 @@ var ActorAccess = function () {
         var _loop = function _loop() {
           var moduleName = _step.value;
 
-          // TODO remove 
+          /** @deprecated */
           bundle[moduleName] = function accessToModule() {
             var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -104422,8 +104446,11 @@ var ActorAccess = function () {
           var $listen = function $listen(event, callback) {
             return connector.listen(moduleName, event, callback);
           };
-          s.modules[moduleName] = new ActorAccessModule(methods, {
-            $invoke: $invoke, $fire: $fire, $listen: $listen
+          var $delisten = function $delisten(event, callback) {
+            return connector.delisten(moduleName, event, callback);
+          };
+          s.modules[moduleName] = actorAccessModule(methods, {
+            $invoke: $invoke, $fire: $fire, $listen: $listen, $delisten: $delisten
           });
         };
 
@@ -104455,122 +104482,158 @@ var ActorAccess = function () {
  */
 
 
-var ActorAccessModule = function (_EventEmitter) {
-  _inherits(ActorAccessModule, _EventEmitter);
+function actorAccessModule(methods, connection) {
+  var emitter = new EventEmitter();
+  var module = function callDefault() {
+    return module.default.apply(module, arguments);
+  };
+  var $invoke = connection.$invoke;
+  var $fire = connection.$fire;
+  var $listen = connection.$listen;
+  var $delisten = connection.$delisten;
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
 
-  function ActorAccessModule($methods) {
-    var props = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  try {
+    var _loop3 = function _loop3() {
+      var name = _step3.value;
 
-    _classCallCheck(this, ActorAccessModule);
+      module[name] = co.wrap(regeneratorRuntime.mark(function methodRedirect() {
+        for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+          params[_key] = arguments[_key];
+        }
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ActorAccessModule).call(this));
+        return regeneratorRuntime.wrap(function methodRedirect$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return $invoke(name, params);
 
-    var s = _this;
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
+              case 2:
+                return _context.abrupt('return', _context.sent);
 
-    try {
-      var _loop3 = function _loop3() {
-        var name = _step3.value;
-
-        s[name] = co.wrap(regeneratorRuntime.mark(function methodRedirect() {
-          for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
-            params[_key] = arguments[_key];
-          }
-
-          return regeneratorRuntime.wrap(function methodRedirect$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return s.$invoke(name, params);
-
-                case 2:
-                  return _context.abrupt('return', _context.sent);
-
-                case 3:
-                case 'end':
-                  return _context.stop();
-              }
+              case 3:
+              case 'end':
+                return _context.stop();
             }
-          }, methodRedirect, this);
-        }));
-      };
+          }
+        }, methodRedirect, this);
+      }));
+    };
 
-      for (var _iterator3 = Object.keys($methods || {})[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        _loop3();
+    for (var _iterator3 = Object.keys(methods || {})[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      _loop3();
+    }
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
       }
-    } catch (err) {
-      _didIteratorError3 = true;
-      _iteratorError3 = err;
     } finally {
-      try {
-        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-          _iterator3.return();
-        }
-      } finally {
-        if (_didIteratorError3) {
-          throw _iteratorError3;
-        }
+      if (_didIteratorError3) {
+        throw _iteratorError3;
       }
     }
-
-    var _emit = s.emit.bind(s);
-    var _on = s.on.bind(s);
-    Object.assign(s, props, {
-      emit: function emit(event, data) {
-        s.$fire(event, data);
-        return _emit.call.apply(_emit, [s].concat(Array.prototype.slice.call(arguments)));
-      },
-      on: function on(event, handler) {
-        s.$listen(event, handler);
-        return _on.call.apply(_on, [s].concat(Array.prototype.slice.call(arguments)));
-      }
-    });
-    return _this;
   }
 
-  /**
-   * Invoke a command for module.
-   * Should be overridden.
-   * @abstract
-   */
+  Object.assign(module, {
+    emit: function emit(event, data) {
+      $fire(event, data);
+      return emitter.emit.apply(emitter, arguments);
+    },
+    on: function on(event, listener) {
+      return module.addListener.apply(module, arguments);
+    },
+    off: function off(event, listener) {
+      return module.removeListener.apply(module, arguments);
+    },
+    addListener: function addListener(event, listener) {
+      $listen(event, listener);
+      return emitter.addListener.apply(emitter, arguments);
+    },
+    removeListener: function removeListener(event, listener) {
+      $delisten(event, listener);
+      return emitter.removeListener.apply(emitter, arguments);
+    },
+    removeAllListeners: function removeAllListeners(event) {
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
 
+      try {
+        for (var _iterator4 = module.listeners(event)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var listener = _step4.value;
 
-  _createClass(ActorAccessModule, [{
-    key: '$invoke',
-    value: function $invoke(name, params) {
-      throw new Error('Not implemented!');
+          $delisten(event, listener);
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      return emitter.removeAllListeners.apply(emitter, arguments);
+    },
+    once: function once(event, listener) {
+      var listenerWrap = function listenerWrap() {
+        listener.apply(undefined, arguments);
+        module.off(event, listenerWrap());
+      };
+      return module.on(event, listenerWrap);
     }
+  });
+  var inherits = ['listeners', 'listenerCount', 'setMaxListeners', 'getMaxListeners', 'eventNames'];
+  var _iteratorNormalCompletion5 = true;
+  var _didIteratorError5 = false;
+  var _iteratorError5 = undefined;
 
-    /**
-     * Fire an event
-     * Should be overridden.
-     * @abstract
-     */
+  try {
+    var _loop4 = function _loop4() {
+      var inherit = _step5.value;
 
-  }, {
-    key: '$fire',
-    value: function $fire(event, data) {
-      throw new Error('Not implemented!');
+      if (emitter[inherit]) {
+        module[inherit] = emitter[inherit].bind(emitter);
+      } else {
+        module[inherit] = function () {
+          throw new Error(inherit + ' is not supported!');
+        };
+      }
+    };
+
+    for (var _iterator5 = inherits[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+      _loop4();
     }
-
-    /**
-     * Listen to an event.
-     * Should be overridden.
-     * @abstract
-     */
-
-  }, {
-    key: '$listen',
-    value: function $listen(event, callback) {
-      throw new Error('Not implemented!');
+  } catch (err) {
+    _didIteratorError5 = true;
+    _iteratorError5 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion5 && _iterator5.return) {
+        _iterator5.return();
+      }
+    } finally {
+      if (_didIteratorError5) {
+        throw _iteratorError5;
+      }
     }
-  }]);
+  }
 
-  return ActorAccessModule;
-}(EventEmitter);
+  return module;
+}
 
 module.exports = ActorAccess;
 
@@ -104692,26 +104755,26 @@ var SugoCaller = function (_EventEmitter) {
       return co(regeneratorRuntime.mark(function _callee2() {
         var pipeListeners, _ref, payload, specs, vError, access, bundle;
 
-        return regeneratorRuntime.wrap(function _callee2$(_context5) {
+        return regeneratorRuntime.wrap(function _callee2$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 socket = sgSocketClient(s.url);
                 pipeListeners = {};
-                _context5.next = 4;
+                _context6.next = 4;
                 return socket.waitToConnect();
 
               case 4:
-                _context5.next = 6;
+                _context6.next = 6;
                 return socket.call(JOIN, { key: key });
 
               case 6:
-                _ref = _context5.sent;
+                _ref = _context6.sent;
                 payload = _ref.payload;
                 specs = payload.specs;
 
                 if (!s.accesses[key]) {
-                  _context5.next = 11;
+                  _context6.next = 11;
                   break;
                 }
 
@@ -104721,7 +104784,7 @@ var SugoCaller = function (_EventEmitter) {
                 vError = s.validator.validateInterfaceSpecs(specs);
 
                 if (!vError) {
-                  _context5.next = 14;
+                  _context6.next = 14;
                   break;
                 }
 
@@ -104740,15 +104803,16 @@ var SugoCaller = function (_EventEmitter) {
                         while (1) {
                           switch (_context.prev = _context.next) {
                             case 0:
-                              _context.next = 2;
+                              s.assertConnection();
+                              _context.next = 3;
                               return socket.call(PERFORM, { key: key, method: method, params: params, module: module });
 
-                            case 2:
+                            case 3:
                               _ref2 = _context.sent;
                               payload = _ref2.payload;
                               return _context.abrupt('return', payload);
 
-                            case 5:
+                            case 6:
                             case 'end':
                               return _context.stop();
                           }
@@ -104760,9 +104824,10 @@ var SugoCaller = function (_EventEmitter) {
                         while (1) {
                           switch (_context2.prev = _context2.next) {
                             case 0:
-                              socket.emit(PIPE, { event: event, data: data, module: module });
+                              s.assertConnection();
+                              socket.emit(PIPE, { key: key, event: event, data: data, module: module });
 
-                            case 1:
+                            case 2:
                             case 'end':
                               return _context2.stop();
                           }
@@ -104774,15 +104839,42 @@ var SugoCaller = function (_EventEmitter) {
                         while (1) {
                           switch (_context3.prev = _context3.next) {
                             case 0:
+                              s.assertConnection();
                               pipeListeners[module] = pipeListeners[module] || {};
                               pipeListeners[module][event] = (pipeListeners[module][event] || []).concat(listener);
 
-                            case 2:
+                            case 3:
                             case 'end':
                               return _context3.stop();
                           }
                         }
                       }, registerListener, this);
+                    })),
+                    delisten: co.wrap(regeneratorRuntime.mark(function deregisterListener(module, event, listener) {
+                      return regeneratorRuntime.wrap(function deregisterListener$(_context4) {
+                        while (1) {
+                          switch (_context4.prev = _context4.next) {
+                            case 0:
+                              s.assertConnection();
+
+                              if (pipeListeners[module][event]) {
+                                _context4.next = 3;
+                                break;
+                              }
+
+                              return _context4.abrupt('return');
+
+                            case 3:
+                              pipeListeners[module][event] = pipeListeners[module][event].filter(function (filterling) {
+                                return filterling !== listener;
+                              });
+
+                            case 4:
+                            case 'end':
+                              return _context4.stop();
+                          }
+                        }
+                      }, deregisterListener, this);
                     }))
                   }
                 });
@@ -104823,36 +104915,37 @@ var SugoCaller = function (_EventEmitter) {
                 Object.assign(bundle, {
                   disconnect: function disconnect() {
                     return co(regeneratorRuntime.mark(function _callee() {
-                      return regeneratorRuntime.wrap(function _callee$(_context4) {
+                      return regeneratorRuntime.wrap(function _callee$(_context5) {
                         while (1) {
-                          switch (_context4.prev = _context4.next) {
+                          switch (_context5.prev = _context5.next) {
                             case 0:
-                              _context4.next = 2;
+                              _context5.next = 2;
                               return socket.call(LEAVE, { key: key });
 
                             case 2:
                               delete s.accesses[key];
                               socket.close();
-                              _context4.next = 6;
+                              _context5.next = 6;
                               return socket.waitToDisconnect();
 
                             case 6:
                               pipeListeners = {};
+                              delete s.socket;
 
-                            case 7:
+                            case 8:
                             case 'end':
-                              return _context4.stop();
+                              return _context5.stop();
                           }
                         }
                       }, _callee, this);
                     }));
                   }
                 });
-                return _context5.abrupt('return', bundle);
+                return _context6.abrupt('return', bundle);
 
               case 21:
               case 'end':
-                return _context5.stop();
+                return _context6.stop();
             }
           }
         }, _callee2, this);
@@ -104877,100 +104970,108 @@ var SugoCaller = function (_EventEmitter) {
       return co(regeneratorRuntime.mark(function _callee3() {
         var access, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, _key, _access;
 
-        return regeneratorRuntime.wrap(function _callee3$(_context6) {
+        return regeneratorRuntime.wrap(function _callee3$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
                 if (!key) {
-                  _context6.next = 9;
+                  _context7.next = 9;
                   break;
                 }
 
                 access = s.accesses[key];
 
                 if (access) {
-                  _context6.next = 4;
+                  _context7.next = 4;
                   break;
                 }
 
                 throw new Error('Not connected to: ' + key);
 
               case 4:
-                _context6.next = 6;
+                _context7.next = 6;
                 return access.bundle.disconnect();
 
               case 6:
                 delete s.accesses[key];
-                _context6.next = 37;
+                _context7.next = 37;
                 break;
 
               case 9:
                 _iteratorNormalCompletion2 = true;
                 _didIteratorError2 = false;
                 _iteratorError2 = undefined;
-                _context6.prev = 12;
+                _context7.prev = 12;
                 _iterator2 = Object.keys(s.accesses)[Symbol.iterator]();
 
               case 14:
                 if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-                  _context6.next = 22;
+                  _context7.next = 22;
                   break;
                 }
 
                 _key = _step2.value;
                 _access = s.accesses[_key];
-                _context6.next = 19;
+                _context7.next = 19;
                 return _access.bundle.disconnect();
 
               case 19:
                 _iteratorNormalCompletion2 = true;
-                _context6.next = 14;
+                _context7.next = 14;
                 break;
 
               case 22:
-                _context6.next = 28;
+                _context7.next = 28;
                 break;
 
               case 24:
-                _context6.prev = 24;
-                _context6.t0 = _context6['catch'](12);
+                _context7.prev = 24;
+                _context7.t0 = _context7['catch'](12);
                 _didIteratorError2 = true;
-                _iteratorError2 = _context6.t0;
+                _iteratorError2 = _context7.t0;
 
               case 28:
-                _context6.prev = 28;
-                _context6.prev = 29;
+                _context7.prev = 28;
+                _context7.prev = 29;
 
                 if (!_iteratorNormalCompletion2 && _iterator2.return) {
                   _iterator2.return();
                 }
 
               case 31:
-                _context6.prev = 31;
+                _context7.prev = 31;
 
                 if (!_didIteratorError2) {
-                  _context6.next = 34;
+                  _context7.next = 34;
                   break;
                 }
 
                 throw _iteratorError2;
 
               case 34:
-                return _context6.finish(31);
+                return _context7.finish(31);
 
               case 35:
-                return _context6.finish(28);
+                return _context7.finish(28);
 
               case 36:
                 s.accesses = {};
 
               case 37:
               case 'end':
-                return _context6.stop();
+                return _context7.stop();
             }
           }
         }, _callee3, this, [[12, 24, 28, 36], [29,, 31, 35]]);
       }));
+    }
+  }, {
+    key: 'assertConnection',
+    value: function assertConnection() {
+      var s = this;
+      if (!s.socket) {
+        throw new Error('Not connected!!');
+      }
     }
   }]);
 
@@ -105090,11 +105191,12 @@ var co = require('co');
 
 var apRequest = require('apeman-brws-request');
 
-var _require = require('./constants/url_constants');
+var _require = require('sugo-constants');
 
-var ACTOR_URL = _require.ACTOR_URL;
-var CALLER_URL = _require.CALLER_URL;
-var OBSERVER_URL = _require.OBSERVER_URL;
+var CloudUrls = _require.CloudUrls;
+var ACTOR_URL = CloudUrls.ACTOR_URL;
+var CALLER_URL = CloudUrls.CALLER_URL;
+var OBSERVER_URL = CloudUrls.OBSERVER_URL;
 
 var SugoCloudAgent = function () {
   function SugoCloudAgent() {
@@ -105240,7 +105342,39 @@ Object.assign(agent, {
 });
 
 module.exports = agent;
-},{"./constants/url_constants":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-cloud/sims/browser/constants/url_constants.js","apeman-brws-request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-cloud/sims/browser/constants/url_constants.js":[function(require,module,exports){
+
+},{"apeman-brws-request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","sugo-constants":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/actor_events.js":[function(require,module,exports){
+/**
+ * Events for actor
+ * @namespace ActorEvents
+ */
+'use strict';
+
+/** Setup actor */
+
+exports.SETUP = 'actor:setup';
+
+/** Teardown actor */
+exports.TEARDOWN = 'actor:teardown';
+
+/** Update actor */
+exports.UPDATE = 'actor:update';
+
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/caller_events.js":[function(require,module,exports){
+/**
+ * Events for caller
+ * @namespace CallerEvents
+ */
+'use strict';
+
+/** Jon caller */
+
+exports.JOIN = 'caller:join';
+
+/** Leave caller */
+exports.LEAVE = 'caller:leave';
+
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/cloud_urls.js":[function(require,module,exports){
 /**
  * Constants of url
  * @namespace UrlConstants
@@ -105255,6 +105389,47 @@ module.exports = Object.assign(exports, {
   /** URL for observers */
   OBSERVER_URL: '/observers'
 });
+
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/index.js":[function(require,module,exports){
+/**
+ * Constant variables for SUGOS
+ * @module sugo-constants
+ */
+
+'use strict';
+
+var d = function d(module) {
+  return module.default || module;
+};
+
+module.exports = {
+  get ActorEvents() {
+    return d(require('./actor_events'));
+  },
+  get CallerEvents() {
+    return d(require('./caller_events'));
+  },
+  get CloudUrls() {
+    return d(require('./cloud_urls'));
+  },
+  get ReservedNames() {
+    return d(require('./reserved_names'));
+  }
+};
+
+},{"./actor_events":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/actor_events.js","./caller_events":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/caller_events.js","./cloud_urls":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/cloud_urls.js","./reserved_names":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/reserved_names.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/reserved_names.js":[function(require,module,exports){
+/**
+ *  Names reserved
+ */
+'use strict';
+
+/** Reserved module names */
+
+exports.MODULE = 'module';
+
+/** Reserved method names */
+exports.METHOD = 'emit,addListener,removeListener,removeAllListeners,listeners,listenerCount,setMaxListeners,getMaxListeners,eventNames,on,off,once';
+
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-observer/sims/browser/create.js":[function(require,module,exports){
 /**
  * Create an observer instance
@@ -112483,7 +112658,7 @@ module.exports = yeast;
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json":[function(require,module,exports){
 module.exports={
   "name": "~~~~package_name~~~~",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "~~~~package_description~~~~",
   "main": "lib",
   "bin": "./bin/cli.js",
@@ -112513,8 +112688,6 @@ module.exports={
   },
   "homepage": "https://github.com/realglobe-Inc/~~~~package_name~~~~#readme",
   "dependencies": {
-    "apeman-brws-react": "^3.0.1",
-    "apeman-brws-request": "^2.1.9",
     "apeman-react-basic": "^8.0.1",
     "apemancolor": "^1.2.1",
     "asleep": "^1.0.3",
@@ -112531,13 +112704,13 @@ module.exports={
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "sg-compiler": "^1.0.0",
-    "sg-react": "^1.0.6",
+    "sg-react": "^1.0.10",
     "sg-react-components": "^1.3.3",
     "sugo-actor": "^3.0.2",
     "sugo-agent-compile": "^1.0.8",
     "sugo-agent-file": "^1.0.6",
-    "sugo-caller": "^2.0.2",
-    "sugo-cloud": "^2.0.0",
+    "sugo-caller": "^2.1.3",
+    "sugo-cloud": "^2.0.3",
     "sugo-endpoint-compile": "^2.0.5",
     "sugo-endpoint-file": "^1.0.7",
     "sugo-module-noop": "^3.0.1",
@@ -112549,6 +112722,7 @@ module.exports={
     "ababel-es2015": "^1.0.1",
     "ababel-react": "^1.0.1",
     "aglob": "^1.0.1",
+    "amocha": "^1.0.8",
     "ape-tmpl": "^5.0.12",
     "ape-updating": "^4.0.4",
     "apeman-react-icon": "^3.0.5",
@@ -112556,7 +112730,7 @@ module.exports={
     "arequest": "^2.0.5",
     "coz": "^6.0.5",
     "injectmock": "^2.0.0",
-    "sugo-ci-example": "^2.0.2",
+    "sugo-ci-example": "^2.0.5",
     "sugos-assets": "^2.0.1"
   },
   "engines": {

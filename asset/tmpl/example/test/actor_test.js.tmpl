@@ -5,22 +5,34 @@
 'use strict'
 
 const actor = require('../lib/actor.js')
+const cloud = require('../lib/cloud.js')
 const assert = require('assert')
+const filedel = require('filedel')
 const co = require('co')
+const injectmock = require('injectmock')
+const aport = require('aport')
+const asleep = require('asleep')
 
-describe('actor', function () {
-  this.timeout(3000)
-
+describe('actor', () => {
+  let port, storage
   before(() => co(function * () {
-
+    port = yield aport()
+    storage = `${__dirname}/../tmp/testing-actor`
+    injectmock(process.env, 'STORAGE', storage)
+    injectmock(process.env, 'PORT', port)
   }))
 
   after(() => co(function * () {
-
+    injectmock.restoreAll()
+    yield filedel(`${storage}/**/*.*`)
   }))
 
-  it('Actor', () => co(function * () {
-
+  it('Spot', () => co(function * () {
+    let cloudInstance = yield cloud()
+    let actorInstance = yield actor()
+    yield asleep(300)
+    yield actorInstance.disconnect()
+    yield cloudInstance.close()
   }))
 })
 

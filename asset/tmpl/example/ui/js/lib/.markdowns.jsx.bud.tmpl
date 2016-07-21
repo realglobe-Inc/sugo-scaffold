@@ -9,7 +9,7 @@
 
 const pkg = require('../../../package.json')
 const path = require('path')
-const expandglob = require('expandglob')
+const aglob = require('aglob')
 
 const baseDir = `${__dirname}/../../..`
 
@@ -18,7 +18,7 @@ module.exports = {
   mode: '644',
   data: {
     pkg,
-    files: expandglob
+    files: aglob
       .sync(`${baseDir}/doc/guides/*.md.hbs`)
       .map((filename) => ({
         filename,
