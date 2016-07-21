@@ -8,12 +8,10 @@
 
 process.chdir(`${__dirname}/..`)
 
-const apeTasking = require('ape-tasking')
-const ababelES2015 = require('ababel-es2015')
+const { browser } = require('sugo-ci-module')
 
-apeTasking.runTasks('browser', [
-  () => ababelES2015('**/*.js', {
-    cwd: 'lib',
-    out: 'sims/browser'
-  })
-], true)
+browser({
+  cwd: 'lib',
+  out: 'sims/browser'
+})
+

@@ -7,7 +7,7 @@
 'use strict'
 
 const { runTasks } = require('ape-tasking')
-const { runMocha } = require('ape-testing')
+const amocha = require('amocha')
 const defaults = require('defaults')
 
 /** @lends test */
@@ -18,7 +18,7 @@ function test (options = {}) {
     timeout: 4000
   })
   return runTasks(taskName, [
-    () => runMocha(pattern, {
+    () => amocha(pattern, {
       timeout
     })
   ], true)

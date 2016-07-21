@@ -45,11 +45,11 @@
     "coz": "^6.0.14",
     "injectmock": "^2.0.0",
     "sugo-demo-agent": "^1.0.11",
-    "sugo-demo-ci": "^1.0.3",
+    "sugo-demo-ci": "^1.0.5",
     "sugo-demo-endpoint": "^1.0.11",
-    "sugo-demo-example": "^1.1.17",
+    "sugo-demo-example": "^1.1.18",
     "sugo-demo-middleware": "^1.0.5",
-    "sugo-demo-module": "^3.0.3",
+    "sugo-demo-module": "^3.0.5",
     "sugo-demo-site": "^1.1.4"
   },
   "engines": {

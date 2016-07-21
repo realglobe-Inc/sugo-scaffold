@@ -8,7 +8,7 @@ const { readmeMdBud } = require('ape-tmpl')
 const pkg = require('./package.json')
 
 module.exports = readmeMdBud({
-  pkg: pkg,
+  pkg,
   repo: pkg.repository,
   sections: 'doc/guides/*.md.hbs',
   badges: {

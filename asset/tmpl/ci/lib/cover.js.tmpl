@@ -8,7 +8,7 @@
 
 const defaults = require('defaults')
 const { runTasks } = require('ape-tasking')
-const { measureCoverage } = require('ape-covering')
+const { coverage } = require('amocha')
 
 /** @lends cover */
 function cover (options = {}) {
@@ -18,9 +18,8 @@ function cover (options = {}) {
     pattern: 'test/*_test.js'
   })
   return runTasks(taskName, [
-    () => measureCoverage('_mocha', [
-      '-t', timeout, pattern
-    ], {
+    () => coverage(pattern, {
+      timeout,
       dir: 'coverage'
     })
   ], true)
