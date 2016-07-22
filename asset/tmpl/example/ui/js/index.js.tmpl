@@ -70,150 +70,7 @@ function after(count, callback, err_cb) {
 
 function noop() {}
 
-},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/create.js":[function(require,module,exports){
-/**
- * Create an element
- * @function create
- * @param {Object} Component
- * @param {Object} props
- * @returns {Object}
- */
-'use strict';
-
-var React = require('react');
-
-/** @lends create */
-function create(Component, props) {
-  props = Object.assign({}, props); // Copy props to cut prototype chain
-  return React.createElement(Component, props);
-}
-
-module.exports = create;
-},{"react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/index.js":[function(require,module,exports){
-/**
- * React.js utilify for browser.
- * @module apeman-brws-react
- */
-
-'use strict';
-
-var d = function d(module) {
-  return module.default || module;
-};
-
-module.exports = {
-  get create() {
-    return d(require('./create'));
-  },
-  get mount() {
-    return d(require('./mount'));
-  },
-  get once() {
-    return d(require('./once'));
-  }
-};
-},{"./create":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/create.js","./mount":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/mount.js","./once":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/once.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/mount.js":[function(require,module,exports){
-/**
- * Mount an element into dom
- * @function mount
- * @param {string|Object} container - Container element or it's id
- * @param {Object} element - React element to mount.
- * @returns {Promise}
- */
-'use strict';
-
-var _require = require('apeman-brws-window');
-
-var get = _require.get;
-
-var ReactDOM = require('react-dom');
-
-function mount(container, element) {
-  if (!container) {
-    return Promise.reject(new Error('Container not found'));
-  }
-  if (typeof container === 'string') {
-    var document = get('document', { strict: true });
-    var found = document.getElementById(container);
-    if (!container) {
-      return Promise.reject(new Error('Container not found: ' + container));
-    }
-    container = found;
-  }
-
-  return new Promise(function (resolve, reject) {
-    return ReactDOM.render(element, container, function () {
-      return resolve();
-    });
-  });
-}
-module.exports = mount;
-},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js","react-dom":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react-dom/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/once.js":[function(require,module,exports){
-/**
- * Bind window event once
- * @function once
- * @param {string} event - Event to bind
- * @param {function} handler - Event handler
- */
-'use strict';
-
-var _require = require('apeman-brws-window');
-
-var get = _require.get;
-
-/** @lends once */
-
-function once(event, handler) {
-  var window = get('window', { strict: true });
-  var binding = function onceWrap() {
-    window.removeEventListener(event, binding);
-    handler.apply(undefined, arguments);
-  };
-  window.addEventListener(event, binding);
-}
-
-module.exports = once;
-},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/get.js":[function(require,module,exports){
-/**
- * Get object from window
- * @function get
- * @param {string} name - Name of object
- * @param {Object} [options] - Optional settings
- * @param {boolean} [options.strict] - Throws error when not found.
- * @returns {?Object}
- */
-'use strict'
-
-let _window = () => typeof window === 'undefined' ? null : window
-
-/** @lends get */
-function get (name, options = {}) {
-  let window = _window()
-  let found = window && window[ name ]
-  let failed = options.strict && !found
-  if (failed) {
-    throw new Error(`${name} not found!`)
-  }
-  return found
-}
-
-module.exports = get
-
-},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js":[function(require,module,exports){
-/**
- * window accessor for browser
- * @module apeman-brws-window
- */
-
-'use strict'
-
-let d = (module) => module.default || module
-
-module.exports = {
-  get get () { return d(require('./get')) }
-}
-
-},{"./get":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/get.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-accordion/lib/ap_accordion.js":[function(require,module,exports){
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-accordion/lib/ap_accordion.js":[function(require,module,exports){
 /**
  * apeman react package for accordion components.
  * @class ApAccordion
@@ -100145,90 +100002,7 @@ var SgVideo = _react2.default.createClass({
 
 exports.default = SgVideo;
 
-},{"classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/index.js":[function(require,module,exports){
-/**
- * React utility for SUGOS
- * @module sg-react
- */
-
-'use strict';
-
-var d = function d(module) {
-  return module.default || module;
-};
-
-module.exports = {
-  get mount() {
-    return d(require('./mount'));
-  },
-  get once() {
-    return d(require('./once'));
-  }
-};
-},{"./mount":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/mount.js","./once":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/once.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/mount.js":[function(require,module,exports){
-/**
- * Mount a react component into DOM tree.
- * @function mount
- * @param {string} containerId - DOMElement Id of the container to mount
- * @param {ReactComponent} Component - A component class to render
- * @param {Object} props - Properties
- * @returns {Promise} - A promise
- */
-'use strict';
-
-var React = require('react');
-var ReactDOM = require('react-dom');
-
-var _require = require('apeman-brws-window');
-
-var get = _require.get;
-
-/** @lends mount */
-
-function mount(container, Component, props) {
-  var window = get('window');
-  if (!window) {
-    return Promise.reject(new Error('Window not found'));
-  }
-  if (!container) {
-    return Promise.reject(new Error('Container not found'));
-  }
-  var document = window.document;
-
-  if (typeof container === 'string') {
-    var found = document.getElementById(container);
-    if (!container) {
-      return Promise.reject(new Error('Container not found: ' + container));
-    }
-    container = found;
-  }
-  props = Object.assign({}, props); // Copy props to cut prototype chain
-  var element = React.createElement(Component, props);
-
-  return new Promise(function (resolve, reject) {
-    return ReactDOM.render(element, container, function () {
-      return resolve();
-    });
-  });
-}
-
-module.exports = mount;
-},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","react-dom":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react-dom/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/once.js":[function(require,module,exports){
-/**
- * Bind window event once
- * @function once
- * @param {string} event - Event to bind
- * @param {function} handler - Event handler
- */
-'use strict';
-
-var _require = require('apeman-brws-react');
-
-var once = _require.once;
-
-
-module.exports = once;
-},{"apeman-brws-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/index.js":[function(require,module,exports){
+},{"classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/index.js":[function(require,module,exports){
 /**
  * React utility for SUGOS
  * @module sg-react
@@ -112851,7 +112625,7 @@ module.exports = yeast;
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json":[function(require,module,exports){
 module.exports={
   "name": "~~~~package_name~~~~",
-  "version": "1.1.21",
+  "version": "1.1.22",
   "description": "~~~~package_description~~~~",
   "main": "lib",
   "bin": "./bin/cli.js",
@@ -113358,7 +113132,7 @@ var hostname = _configs.hostname;
   });
 });
 
-},{"../../../lib/configs":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/lib/configs.js","../../../package.json":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json","./component":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/component.js","babel-polyfill":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/babel-polyfill/lib/index.js","sg-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/markdowns.js":[function(require,module,exports){
+},{"../../../lib/configs":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/lib/configs.js","../../../package.json":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json","./component":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/component.js","babel-polyfill":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/babel-polyfill/lib/index.js","sg-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/markdowns.js":[function(require,module,exports){
 
 /**
  * !! This is an auto-generated file and do not edit manually !! 

@@ -9,7 +9,7 @@ const common = {
     'curl -u${NPM_USER}:${NPM_PASSWORD} "https://realglobe.artifactoryonline.com/realglobe/api/npm/auth" >> .npmrc'
   ],
   buildScript: [
-    'npm install mocha istanbul babel-cli node-sass -g',
+    'npm install node-sass -g',
     './ci/build.js',
     'rm .npmrc'
   ]
@@ -35,7 +35,7 @@ module.exports = {
     logo: 'http://realglobe-inc.github.io/~~~~package_name~~~~/images/favicon.png',
     preDeploy: [
       'npm shrinkwrap',
-      './ci/compile.js && ./ci/build.js',
+      'npm run prepublish',
       'curl -u`sugos-secrets get -r jfrog:deployer:username`:`sugos-secrets get -r jfrog:deployer:password` https://realglobe.artifactoryonline.com/realglobe/api/npm/auth > .npmrc',
       'echo "registry = https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual" >> .npmrc'
     ],
