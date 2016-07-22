@@ -100,9 +100,9 @@ const Component = React.createClass({
       <div>
         <SgExample>
           <SgExampleHeader { ...{ tab, pkg } }
-            actors={ actors }
-            Actor={ () => s.setState({ tooltip: markdowns[ '12.Run Actor' ] }) }
-            onTabChange={ (e) => s.setTab(e.tab) }/>
+                           actors={ actors }
+                           runActor={ () => s.setState({ tooltip: markdowns[ '12.Connect Actor' ] }) }
+                           onTabChange={ (e) => s.setTab(e.tab) }/>
           <SgExampleBody hidden={ tab !== 'DEMO' }>
             <SgExampleAbout pkg={ pkg }/>
             <SgExampleStatus actors={ actors }
@@ -112,19 +112,19 @@ const Component = React.createClass({
                              onRefresh={ s.refreshStatus }
             />
             <SgExamplePlayground { ...{ html, script, globals } }
-              compile={ s.compileScript }
-              onChange={ s.handleChange }
-              pipeConsole={ true }
-              closed={ !state.playground }
-              onToggle={ s.togglePlayground }
-              defaultHtml={ DEFAULT_HTML }
-              defaultScript={ DEFAULT_SCRIPT }
+                                 compile={ s.compileScript }
+                                 onChange={ s.handleChange }
+                                 pipeConsole={ true }
+                                 closed={ !state.playground }
+                                 onToggle={ s.togglePlayground }
+                                 defaultHtml={ DEFAULT_HTML }
+                                 defaultScript={ DEFAULT_SCRIPT }
             />
           </SgExampleBody>
           <SgExampleBody hidden={ tab !== 'GUIDES' }>
             <SgExampleInstruction src={ [
               markdowns[ '11.Setup Cloud' ],
-              markdowns[ '12.Run Actor' ],
+              markdowns[ '12.Connect Actor' ],
               markdowns[ '13.Use Caller' ]
             ] } vars={ s.getMarkdownVars() }/>
             <SgExampleLinks links={ require('../../../doc/links.json') }/>

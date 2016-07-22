@@ -150,8 +150,8 @@ var Component = _react2.default.createClass({
         null,
         _react2.default.createElement(_sugoReactExample.SgExampleHeader, _extends({ tab: tab, pkg: pkg }, {
           actors: actors,
-          Actor: function Actor() {
-            return s.setState({ tooltip: _markdowns2.default['12.Run Actor'] });
+          runActor: function runActor() {
+            return s.setState({ tooltip: _markdowns2.default['12.Connect Actor'] });
           },
           onTabChange: function onTabChange(e) {
             return s.setTab(e.tab);
@@ -179,7 +179,7 @@ var Component = _react2.default.createClass({
         _react2.default.createElement(
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
-          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
+          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Connect Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
           _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),

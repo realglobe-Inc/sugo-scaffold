@@ -173,251 +173,7 @@ function once(event, handler) {
 }
 
 module.exports = once;
-},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/ap_request.js":[function(require,module,exports){
-/**
- * @class ApRequest
- */
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var superagent = require('superagent');
-var objnest = require('objnest');
-
-/** @lends ApRequest */
-
-var ApRequest = function () {
-  function ApRequest(conf) {
-    _classCallCheck(this, ApRequest);
-
-    var s = this;
-    /**  Default headers */
-    s.defaults = null;
-    /** Timeout durations */
-    s.timeout = 30 * 1000;
-    Object.assign(s, conf || {});
-  }
-
-  _createClass(ApRequest, [{
-    key: '_send',
-    value: function _send(instance) {
-      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-      var s = this;
-      var pipe = options.pipe;
-
-      delete options.pipe;
-      return ApRequest.toPromise(instance.set(Object.assign({}, s.defaults, options.headers)).timeout(options.timeout || s.timeout), { pipe: pipe });
-    }
-
-    /**
-     * Send GET request.
-     * @param {string} url - URL to send.
-     * @param {object} [query] - Query string data
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'get',
-    value: function get(url, query, options) {
-      var s = this;
-      options = options || {};
-      return s._send(superagent.get(url).query(objnest.flatten(query || {})), options);
-    }
-
-    /**
-     * Send HEAD request.
-     * @param {string} url - URL to send.
-     * @param {object} [query] - Query string data
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'head',
-    value: function head(url, query, options) {
-      var s = this;
-      options = options || {};
-      return s._send(superagent.head(url).query(objnest.flatten(query || {})), options);
-    }
-
-    /**
-     * Send OPTIONS request.
-     * @param {string} url - URL to send.
-     * @param {object} [query] - Query string data
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'options',
-    value: function options(url, query, _options) {
-      var s = this;
-      _options = _options || {};
-      return s._send(superagent.options(url).query(objnest.flatten(query || {})), _options);
-    }
-
-    /**
-     * Send POST request.
-     * @param {string} url - URL to send.
-     * @param {object} data - Send data.
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'post',
-    value: function post(url, data, options) {
-      var s = this;
-      options = options || {};
-      return s._send(superagent.post(url, ApRequest.format(data)), options);
-    }
-
-    /**
-     * Send PATCH request.
-     * @param {string} url - URL to send.
-     * @param {object} data - Send data.
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'patch',
-    value: function patch(url, data, options) {
-      var s = this;
-      options = options || {};
-      return s._send(superagent.patch(url, ApRequest.format(data)), options);
-    }
-
-    /**
-     * Send DELETE request.
-     * @param {string} url - URL to send.
-     * @param {object} data - Send data.
-     * @param {object} [options] - Optional settings
-     * @returns {Promise}
-     */
-
-  }, {
-    key: 'delete',
-    value: function _delete(url, data, options) {
-      var s = this;
-      options = options || {};
-      return s._send(superagent.delete(url).send(data), options);
-    }
-  }]);
-
-  return ApRequest;
-}();
-
-Object.assign(ApRequest, {
-  /**
-   * Format sending data
-   * @param {object} data - Data to format
-   * @returns {object} - Formatted src.
-   */
-
-  format: function format(data) {
-    var result = {};
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
-
-    try {
-      for (var _iterator = Object.keys(data || {})[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-        var key = _step.value;
-
-        var skip = data[key] === null || data[key] === undefined;
-        if (skip) {
-          continue;
-        }
-        result[key] = data[key];
-      }
-    } catch (err) {
-      _didIteratorError = true;
-      _iteratorError = err;
-    } finally {
-      try {
-        if (!_iteratorNormalCompletion && _iterator.return) {
-          _iterator.return();
-        }
-      } finally {
-        if (_didIteratorError) {
-          throw _iteratorError;
-        }
-      }
-    }
-
-    return result;
-  },
-
-  /**
-   * Convert promise
-   * @param instance
-   * @param {Object} [options]
-   * @returns {Promise}
-   */
-  toPromise: function toPromise(instance) {
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-    var pipe = options.pipe;
-
-    return new Promise(function (resolve, reject) {
-      if (pipe) {
-        instance.pipe(pipe).on('close', function () {
-          return resolve();
-        }).on('error', function (err) {
-          return reject();
-        });
-      } else {
-        instance.end(function (err, res) {
-          return err ? reject(err) : resolve(res);
-        });
-      }
-    });
-  },
-
-  superagent: superagent
-});
-
-module.exports = ApRequest;
-},{"objnest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/objnest/sims/browser/index.js","superagent":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/superagent/lib/client.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/create.js":[function(require,module,exports){
-/**
- * @function create
- */
-
-'use strict';
-
-var ApRequest = require('./ap_request');
-
-/** @lends create */
-function create(conf) {
-  return new ApRequest(conf);
-}
-
-module.exports = create;
-},{"./ap_request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/ap_request.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/index.js":[function(require,module,exports){
-/**
- * HTTP request module for browser.
- * @module apeman-brws-request
- */
-
-"use strict";
-
-var create = require('./create');
-var ApRequest = require('./ap_request');
-
-var lib = create({});
-
-Object.assign(lib, {
-  ApRequest: ApRequest,
-  create: create,
-  superagent: ApRequest.superagent
-});
-
-module.exports = lib;
-},{"./ap_request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/ap_request.js","./create":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/create.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/get.js":[function(require,module,exports){
+},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/get.js":[function(require,module,exports){
 /**
  * Get object from window
  * @function get
@@ -5114,7 +4870,7 @@ var ApCaptchaSvg = _react2.default.createClass({
 
 exports.default = ApCaptchaSvg;
 
-},{"randomval":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-captcha/lib/index.js":[function(require,module,exports){
+},{"randomval":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-captcha/lib/index.js":[function(require,module,exports){
 /**
  * apeman react package for captcha component.
  * @module apeman-react-captcha
@@ -6439,7 +6195,7 @@ var ApCheckbox = _react2.default.createClass({
     return {
       id: null,
       name: null,
-      value: null,
+      value: '',
       title: '',
       checked: false,
       onChange: null,
@@ -6777,6 +6533,8 @@ var _ap_console_button2 = _interopRequireDefault(_ap_console_button);
 
 var _sprintfJs = require('sprintf-js');
 
+var _os = require('os');
+
 var _debug = require('debug');
 
 var _debug2 = _interopRequireDefault(_debug);
@@ -7015,7 +6773,12 @@ var ApConsole = _react2.default.createClass({
         var _window = window;
         var _console = _window.console;
 
-        var consoleArgs = [format].concat(_toConsumableArray(args));
+        var consoleArgs = [format].concat(_toConsumableArray(args)).map(function (arg) {
+          if (arg instanceof Error) {
+            return arg = [arg.message, arg.stack].join(_os.EOL);
+          }
+          return arg;
+        });
         if (_console[level]) {
           _console[level].apply(_console, _toConsumableArray(consoleArgs));
         } else {
@@ -7076,7 +6839,7 @@ var ApConsole = _react2.default.createClass({
 
 exports.default = ApConsole;
 
-},{"./ap_console_button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_button.js","./ap_console_line":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_line.js","apeman-react-mixin-resize":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-resize/lib/index.js","apeman-react-mixin-scroll":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-scroll/lib/index.js","apeman-react-scroll":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-scroll/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","debug":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/debug/browser.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","sprintf-js":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sprintf-js/src/sprintf.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_button.js":[function(require,module,exports){
+},{"./ap_console_button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_button.js","./ap_console_line":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_line.js","apeman-react-mixin-resize":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-resize/lib/index.js","apeman-react-mixin-scroll":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-scroll/lib/index.js","apeman-react-scroll":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-scroll/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","debug":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/debug/browser.js","os":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/os-browserify/browser.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","sprintf-js":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sprintf-js/src/sprintf.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/ap_console_button.js":[function(require,module,exports){
 /**
  * Button for console
  * @class ApConsoleButton
@@ -7609,7 +7372,7 @@ var _apemanReactMixinLayout = require('apeman-react-mixin-layout');
 
 var _apemanReactDraggable = require('apeman-react-draggable');
 
-var _apemanBrwsWindow = require('apeman-brws-window');
+var _bwindow = require('bwindow');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7637,7 +7400,7 @@ var ApDevtool = _react2.default.createClass({
 
   getInitialState: function getInitialState() {
     var s = this;
-    var isClientSide = !!(0, _apemanBrwsWindow.get)('window');
+    var isClientSide = !!(0, _bwindow.get)('window');
     return {
       enabled: isClientSide && !s.isProductionEnv(),
       open: false
@@ -7861,7 +7624,7 @@ var ApDevtool = _react2.default.createClass({
 
 exports.default = ApDevtool;
 
-},{"apeman-brws-window":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-window/lib/index.js","apeman-react-button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-button/lib/index.js","apeman-react-draggable":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-draggable/lib/index.js","apeman-react-mixin-env":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-env/lib/index.js","apeman-react-mixin-layout":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-layout/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","react-dom":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react-dom/index.js","stringcase":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/stringcase/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-devtool/lib/ap_devtool_style.js":[function(require,module,exports){
+},{"apeman-react-button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-button/lib/index.js","apeman-react-draggable":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-draggable/lib/index.js","apeman-react-mixin-env":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-env/lib/index.js","apeman-react-mixin-layout":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-layout/lib/index.js","bwindow":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","react-dom":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react-dom/index.js","stringcase":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/stringcase/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-devtool/lib/ap_devtool_style.js":[function(require,module,exports){
 /**
  * Style for ApDevtool.
  * @class ApDevtoolStyle
@@ -46705,7 +46468,255 @@ module.exports = (function() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/browser-resolve/empty.js":[function(require,module,exports){
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/brequest.js":[function(require,module,exports){
+/**
+ * @class BRequest
+ */
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var superagent = require('superagent');
+var objnest = require('objnest');
+
+/** @lends BRequest */
+
+var BRequest = function () {
+  function BRequest(conf) {
+    _classCallCheck(this, BRequest);
+
+    var s = this;
+    /**  Default headers */
+    s.defaults = null;
+    /** Timeout durations */
+    s.timeout = 30 * 1000;
+    Object.assign(s, conf || {});
+  }
+
+  _createClass(BRequest, [{
+    key: '_send',
+    value: function _send(instance) {
+      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      var s = this;
+      var pipe = options.pipe;
+
+      delete options.pipe;
+      return BRequest.toPromise(instance.set(Object.assign({}, s.defaults, options.headers)).timeout(options.timeout || s.timeout), { pipe: pipe });
+    }
+
+    /**
+     * Send GET request.
+     * @param {string} url - URL to send.
+     * @param {object} [query] - Query string data
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'get',
+    value: function get(url, query) {
+      var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+      var s = this;
+      return s._send(superagent.get(url).query(objnest.flatten(query || {})), options);
+    }
+
+    /**
+     * Send HEAD request.
+     * @param {string} url - URL to send.
+     * @param {object} [query] - Query string data
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'head',
+    value: function head(url, query) {
+      var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
+      var s = this;
+      return s._send(superagent.head(url).query(objnest.flatten(query || {})), options);
+    }
+
+    /**
+     * Send OPTIONS request.
+     * @param {string} url - URL to send.
+     * @param {object} [query] - Query string data
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'options',
+    value: function options(url, query, _options) {
+      var s = this;
+      _options = _options || {};
+      return s._send(superagent.options(url).query(objnest.flatten(query || {})), _options);
+    }
+
+    /**
+     * Send POST request.
+     * @param {string} url - URL to send.
+     * @param {object} data - Send data.
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'post',
+    value: function post(url, data, options) {
+      var s = this;
+      options = options || {};
+      return s._send(superagent.post(url, BRequest.format(data)), options);
+    }
+
+    /**
+     * Send PATCH request.
+     * @param {string} url - URL to send.
+     * @param {object} data - Send data.
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'patch',
+    value: function patch(url, data, options) {
+      var s = this;
+      options = options || {};
+      return s._send(superagent.patch(url, BRequest.format(data)), options);
+    }
+
+    /**
+     * Send DELETE request.
+     * @param {string} url - URL to send.
+     * @param {object} data - Send data.
+     * @param {object} [options] - Optional settings
+     * @returns {Promise}
+     */
+
+  }, {
+    key: 'delete',
+    value: function _delete(url, data, options) {
+      var s = this;
+      options = options || {};
+      return s._send(superagent.delete(url).send(data), options);
+    }
+  }]);
+
+  return BRequest;
+}();
+
+Object.assign(BRequest, {
+  /**
+   * Format sending data
+   * @param {object} data - Data to format
+   * @returns {object} - Formatted src.
+   */
+  format: function format(data) {
+    var result = {};
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = Object.keys(data || {})[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var key = _step.value;
+
+        var skip = data[key] === null || data[key] === undefined;
+        if (skip) {
+          continue;
+        }
+        result[key] = data[key];
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    return result;
+  },
+
+  /**
+   * Convert promise
+   * @param instance
+   * @param {Object} [options]
+   * @returns {Promise}
+   */
+  toPromise: function toPromise(instance) {
+    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var pipe = options.pipe;
+
+    return new Promise(function (resolve, reject) {
+      if (pipe) {
+        instance.pipe(pipe).on('close', function () {
+          return resolve();
+        }).on('error', function (err) {
+          return reject(err);
+        });
+      } else {
+        instance.end(function (err, res) {
+          return err ? reject(err) : resolve(res);
+        });
+      }
+    });
+  },
+
+  superagent: superagent
+});
+
+module.exports = BRequest;
+
+},{"objnest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/objnest/sims/browser/index.js","superagent":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/superagent/lib/client.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/create.js":[function(require,module,exports){
+/**
+ * @function create
+ */
+
+'use strict';
+
+var BRequest = require('./brequest');
+
+/** @lends create */
+function create(conf) {
+  return new BRequest(conf);
+}
+
+module.exports = create;
+
+},{"./brequest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/brequest.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/index.js":[function(require,module,exports){
+/**
+ * HTTP client for browsers
+ * @module brequest
+ */
+
+"use strict";
+
+var create = require('./create');
+var BRequest = require('./brequest');
+
+var lib = create({});
+
+Object.assign(lib, {
+  BRequest: BRequest,
+  create: create,
+  superagent: BRequest.superagent
+});
+
+module.exports = lib;
+
+},{"./brequest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/brequest.js","./create":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/create.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/browser-resolve/empty.js":[function(require,module,exports){
 
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/buffer/index.js":[function(require,module,exports){
 (function (global){
@@ -48425,7 +48436,86 @@ function isnan (val) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"base64-js":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/base64-js/lib/b64.js","ieee754":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/ieee754/index.js","isarray":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/isarray/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/chopcal/lib/ceil.js":[function(require,module,exports){
+},{"base64-js":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/base64-js/lib/b64.js","ieee754":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/ieee754/index.js","isarray":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/isarray/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/get.js":[function(require,module,exports){
+/**
+ * Get object from window
+ * @function get
+ * @param {string} name - Name of object
+ * @param {Object} [options] - Optional settings
+ * @param {boolean} [options.strict] - Throws error when not found.
+ * @returns {?Object}
+ */
+'use strict';
+
+var _window = function _window() {
+  return typeof window === 'undefined' ? null : window;
+};
+
+/** @lends get */
+function get(name) {
+  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var window = _window();
+  var found = window && window[name];
+  var failed = options.strict && !found;
+  if (failed) {
+    throw new Error(name + ' not found!');
+  }
+  return found;
+}
+
+module.exports = get;
+
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/index.js":[function(require,module,exports){
+/**
+ * Browser window accessor
+ * @module bwindow
+ */
+
+'use strict';
+
+var d = function d(module) {
+  return module.default || module;
+};
+
+module.exports = {
+  get get() {
+    return d(require('./get'));
+  },
+  get once() {
+    return d(require('./once'));
+  }
+};
+
+},{"./get":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/get.js","./once":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/once.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/once.js":[function(require,module,exports){
+/**
+ * Bind window event once
+ * @function once
+ * @param {string} event - Event to bind
+ * @param {function} handler - Event handler
+ * @returns {function} - Function to cancel the binding
+ */
+'use strict';
+
+var get = require('./get');
+
+/** @lends once */
+function once(event, handler) {
+  var window = get('window', { strict: true });
+  var binding = function onceWrap() {
+    window.removeEventListener(event, binding);
+    handler.apply(undefined, arguments);
+  };
+  window.addEventListener(event, binding);
+  var cancel = function cancel() {
+    return window.removeEventListener(event, binding);
+  };
+  return Object.assign(cancel, { cancel: cancel });
+}
+
+module.exports = once;
+
+},{"./get":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/get.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/chopcal/lib/ceil.js":[function(require,module,exports){
 /**
  * Chop to ceil.
  * @function ceil
@@ -78416,147 +78506,158 @@ var objectKeys = Object.keys || function (obj) {
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/querystring-es3/decode.js","./encode":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/querystring-es3/encode.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/index.js":[function(require,module,exports){
+},{"./decode":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/querystring-es3/decode.js","./encode":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/querystring-es3/encode.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/index.js":[function(require,module,exports){
 /**
  * 
  * @module randomval
  */
 
-"use strict";
+'use strict';
+
+var d = function d(module) {
+  return module.default || module;
+};
 
 module.exports = {
-    get randomBool() { return require('./random_bool'); },
-    get randomDate() { return require('./random_date'); },
-    get randomHash() { return require('./random_hash'); },
-    get randomInt() { return require('./random_int'); },
-    get random() { return require('./random'); }
+  get randomBool() {
+    return d(require('./random_bool'));
+  },
+  get randomDate() {
+    return d(require('./random_date'));
+  },
+  get randomHash() {
+    return d(require('./random_hash'));
+  },
+  get randomInt() {
+    return d(require('./random_int'));
+  },
+  get random() {
+    return d(require('./random'));
+  }
 };
-},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random.js","./random_bool":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_bool.js","./random_date":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_date.js","./random_hash":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_hash.js","./random_int":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_int.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random.js":[function(require,module,exports){
+
+},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random.js","./random_bool":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_bool.js","./random_date":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_date.js","./random_hash":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_hash.js","./random_int":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_int.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random.js":[function(require,module,exports){
 /**
  * Random val context.
- * @memberof module:randomval/lib
  * @function random
  * @returns {number} Random number between 0 and 1.
  */
 
-"use strict";
+'use strict';
 
 /** @lends random */
+
 function random() {
-    return Math.random();
+  return Math.random();
 }
 
 module.exports = random;
 
-},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_bool.js":[function(require,module,exports){
+},{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_bool.js":[function(require,module,exports){
 /**
  * Random boolean value.
- * @memberof module:randomval/lib
  * @function randomBool
  * @returns {boolean} - Random boolean.
  */
 
-"use strict";
+'use strict';
 
 var random = require('./random');
 
 /** @lends randomBool */
 function randomBool() {
-    return random() > random();
+  return random() > random();
 }
 
 module.exports = randomBool;
 
-
-},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_date.js":[function(require,module,exports){
+},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_date.js":[function(require,module,exports){
 /**
  * Random boolean value.
- * @memberof module:randomval/lib
  * @function randomDate
  * @param {Date} [min=_now()] - Min date.
  * @param {Date} [max=_aYearLater(min)] -  Max date.
  * @returns {date} - Random date.
  */
 
-"use strict";
+'use strict';
 
 var randomInt = require('./random_int');
 
 /** @lends randomDate */
 function randomDate(min, max) {
-    if (typeof min === 'undefined') {
-        min = _now();
-    }
-    if (typeof max === 'undefined') {
-        max = _aYearLater(min);
-    }
-    min = new Date(min).getTime();
-    max = new Date(max).getTime();
+  if (typeof min === 'undefined') {
+    min = _now();
+  }
+  if (typeof max === 'undefined') {
+    max = _aYearLater(min);
+  }
+  min = new Date(min).getTime();
+  max = new Date(max).getTime();
 
-    return new Date(randomInt(min, max));
+  return new Date(randomInt(min, max));
 }
 
 module.exports = randomDate;
 
 function _now() {
-    return new Date();
+  return new Date();
 }
 function _aYearLater(date) {
-    var base = new Date(date).getTime();
-    return new Date(base + 365 * 24 * 60 * 60 * 1000);
+  var base = new Date(date).getTime();
+  return new Date(base + 365 * 24 * 60 * 60 * 1000);
 }
-},{"./random_int":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_int.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_hash.js":[function(require,module,exports){
+
+},{"./random_int":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_int.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_hash.js":[function(require,module,exports){
 /**
  * Random hash value.
- * @memberof module:randomval/lib
  * @function randomHash
  * @param {number} [len=32] - Hash length.
  * @returns {string} - Random hash string.
  */
 
-"use strict";
+'use strict';
 
 var uuid = require('uuid');
 
 /** @lends randomHash */
 function randomHash(len) {
-    var val = uuid().replace(/\-/g, '');
-    while (val.length < len) {
-        val += randomHash();
-    }
-    return val.substr(0, len);
+  var val = uuid().replace(/\-/g, '');
+  while (val.length < len) {
+    val += randomHash();
+  }
+  return val.substr(0, len);
 }
 
 module.exports = randomHash;
 
-
-},{"uuid":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/uuid/uuid.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random_int.js":[function(require,module,exports){
+},{"uuid":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/uuid/uuid.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random_int.js":[function(require,module,exports){
 /**
  * Random int value.
- * @memberof module:randomval/lib
  * @function randomInt
  * @param {number} [min=Number.MIN_SAFE_INTEGER] - Min value.
  * @param {number} [max=Number.MAX_SAFE_INTEGER] - Max value.
  * @returns {number} - Random int.
  */
 
-"use strict";
+'use strict';
 
 var random = require('./random');
 
 /** @lends randomInt */
 function randomInt(min, max) {
-    if (typeof min === 'undefined') {
-        min = Number.MIN_SAFE_INTEGER || -9007199254740991;
-    }
-    if (typeof max === 'undefined') {
-        max = Number.MAX_SAFE_INTEGER || 9007199254740991;
-    }
-    return parseInt((max - min) * random() + min);
+  if (typeof min === 'undefined') {
+    min = Number.MIN_SAFE_INTEGER || -9007199254740991;
+  }
+  if (typeof max === 'undefined') {
+    max = Number.MAX_SAFE_INTEGER || 9007199254740991;
+  }
+  return parseInt((max - min) * random() + min);
 }
 
 module.exports = randomInt;
-},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/lib/random.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/rangecal/lib/amount.js":[function(require,module,exports){
+
+},{"./random":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/randomval/sims/browser/random.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/rangecal/lib/amount.js":[function(require,module,exports){
 /**
  * Get amount in range.
  * @function amount
@@ -100127,7 +100228,93 @@ var once = _require.once;
 
 
 module.exports = once;
-},{"apeman-brws-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-schemas/sims/browser/index.js":[function(require,module,exports){
+},{"apeman-brws-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-react/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/index.js":[function(require,module,exports){
+/**
+ * React utility for SUGOS
+ * @module sg-react
+ */
+
+'use strict';
+
+var d = function d(module) {
+  return module.default || module;
+};
+
+module.exports = {
+  get mount() {
+    return d(require('./mount'));
+  },
+  get once() {
+    return d(require('./once'));
+  }
+};
+
+},{"./mount":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/mount.js","./once":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/once.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/mount.js":[function(require,module,exports){
+/**
+ * Mount a react component into DOM tree.
+ * @function mount
+ * @param {string} containerId - DOMElement Id of the container to mount
+ * @param {ReactComponent} Component - A component class to render
+ * @param {Object} props - Properties
+ * @returns {Promise} - A promise
+ */
+'use strict';
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var _require = require('bwindow');
+
+var get = _require.get;
+
+/** @lends mount */
+
+function mount(container, Component, props) {
+  var window = get('window');
+  if (!window) {
+    return Promise.reject(new Error('Window not found'));
+  }
+  if (!container) {
+    return Promise.reject(new Error('Container not found'));
+  }
+  var document = window.document;
+
+  if (typeof container === 'string') {
+    var found = document.getElementById(container);
+    if (!container) {
+      return Promise.reject(new Error('Container not found: ' + container));
+    }
+    container = found;
+  }
+  props = Object.assign({}, props); // Copy props to cut prototype chain
+  var element = React.createElement(Component, props);
+
+  return new Promise(function (resolve, reject) {
+    return ReactDOM.render(element, container, function () {
+      return resolve();
+    });
+  });
+}
+
+module.exports = mount;
+
+},{"bwindow":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","react-dom":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react-dom/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/once.js":[function(require,module,exports){
+/**
+ * Bind window event once
+ * @function once
+ * @param {string} event - Event to bind
+ * @param {function} handler - Event handler
+ */
+'use strict';
+
+var _require = require('bwindow');
+
+var once = _require.once;
+
+
+module.exports = once;
+
+},{"bwindow":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/bwindow/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-schemas/sims/browser/index.js":[function(require,module,exports){
 /**
  * Scheams for SUGOS
  * @module sg-schemas
@@ -103780,6 +103967,7 @@ function create() {
 }
 
 module.exports = create;
+
 },{"./sugo_agent_base":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/sugo_agent_base.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/index.js":[function(require,module,exports){
 /**
  * Base class of HTTP clients for SUGOS
@@ -103799,6 +103987,7 @@ Object.assign(lib, SugoAgentBase, {
 });
 
 module.exports = lib;
+
 },{"./create":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/create.js","./sugo_agent_base":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/sugo_agent_base.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/sugo_agent_base.js":[function(require,module,exports){
 /**
  * Base for sugo agent
@@ -103810,7 +103999,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var apRequest = require('apeman-brws-request');
+var brequest = require('brequest');
 var co = require('co');
 
 var _require = require('url');
@@ -103827,7 +104016,7 @@ var SugoAgentBase = function () {
 
     var s = this;
     s.url = url;
-    s.request = apRequest.create({ jar: true });
+    s.request = brequest.create({ jar: true });
   }
 
   /**
@@ -103896,7 +104085,8 @@ var SugoAgentBase = function () {
 Object.assign(SugoAgentBase, {});
 
 module.exports = SugoAgentBase;
-},{"apeman-brws-request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","url":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/url/url.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/create.js":[function(require,module,exports){
+
+},{"brequest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","url":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/url/url.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/create.js":[function(require,module,exports){
 /**
  * Create an instance
  * @function create
@@ -103916,6 +104106,7 @@ function create() {
 }
 
 module.exports = create;
+
 },{"./sugo_agent_compile":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/sugo_agent_compile.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/index.js":[function(require,module,exports){
 /**
  * Client for sugo-endpoint-compile
@@ -103935,6 +104126,7 @@ Object.assign(lib, SugoAgentCompile, {
 });
 
 module.exports = lib;
+
 },{"./create":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/create.js","./sugo_agent_compile":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/sugo_agent_compile.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/sugo_agent_compile.js":[function(require,module,exports){
 /**
  * Client for sugo-endpoint-compile
@@ -104022,6 +104214,7 @@ var SugoAgentCompile = function (_SugoAgentBase) {
 }(SugoAgentBase);
 
 module.exports = SugoAgentCompile;
+
 },{"co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","sugo-agent-base":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-base/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-file/sims/browser/create.js":[function(require,module,exports){
 /**
  * Create an instance
@@ -105189,7 +105382,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var co = require('co');
 
-var apRequest = require('apeman-brws-request');
+var brequest = require('brequest');
 
 var _require = require('sugo-constants');
 
@@ -105213,7 +105406,7 @@ var SugoCloudAgent = function () {
     value: function get(path, query) {
       var s = this;
       var url = s.baseUrl ? s.baseUrl + path : path;
-      return apRequest.get(url, query);
+      return brequest.get(url, query);
     }
 
     /**
@@ -105343,7 +105536,7 @@ Object.assign(agent, {
 
 module.exports = agent;
 
-},{"apeman-brws-request":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-brws-request/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","sugo-constants":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/actor_events.js":[function(require,module,exports){
+},{"brequest":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/brequest/sims/browser/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","sugo-constants":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-constants/sims/browser/actor_events.js":[function(require,module,exports){
 /**
  * Events for actor
  * @namespace ActorEvents
@@ -106591,7 +106784,7 @@ var SgExamplePlayground = _react2.default.createClass({
     }
     s.setState({ scriptError: null });
     return new Promise(function (resolve) {
-      return(
+      return (
         // Wait for console
         setTimeout(function () {
           return resolve();
@@ -112658,7 +112851,7 @@ module.exports = yeast;
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json":[function(require,module,exports){
 module.exports={
   "name": "~~~~package_name~~~~",
-  "version": "1.1.18",
+  "version": "1.1.21",
   "description": "~~~~package_description~~~~",
   "main": "lib",
   "bin": "./bin/cli.js",
@@ -112688,7 +112881,7 @@ module.exports={
   },
   "homepage": "https://github.com/realglobe-Inc/~~~~package_name~~~~#readme",
   "dependencies": {
-    "apeman-react-basic": "^8.0.1",
+    "apeman-react-basic": "^8.0.2",
     "apemancolor": "^1.2.1",
     "asleep": "^1.0.3",
     "babel-polyfill": "^6.9.1",
@@ -112703,19 +112896,19 @@ module.exports={
     "pudding": "^3.0.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "sg-compiler": "^1.0.0",
-    "sg-react": "^1.0.10",
+    "sg-compiler": "^1.0.2",
+    "sg-react": "^1.0.11",
     "sg-react-components": "^1.3.3",
-    "sugo-actor": "^3.0.2",
+    "sugo-actor": "^3.0.6",
     "sugo-agent-compile": "^1.0.8",
     "sugo-agent-file": "^1.0.6",
     "sugo-caller": "^2.1.3",
-    "sugo-cloud": "^2.0.3",
-    "sugo-endpoint-compile": "^2.0.5",
+    "sugo-cloud": "^2.0.4",
+    "sugo-endpoint-compile": "^2.0.6",
     "sugo-endpoint-file": "^1.0.7",
     "sugo-module-noop": "^3.0.3",
     "sugo-observer": "^2.0.0",
-    "sugo-react-example": "^2.0.2"
+    "sugo-react-example": "^2.0.3"
   },
   "devDependencies": {
     "ababel": "^1.0.18",
@@ -112741,7 +112934,6 @@ module.exports={
     "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
   }
 }
-
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/component.js":[function(require,module,exports){
 /**
  * Root component to mount.
@@ -112895,8 +113087,8 @@ var Component = _react2.default.createClass({
         null,
         _react2.default.createElement(_sugoReactExample.SgExampleHeader, _extends({ tab: tab, pkg: pkg }, {
           actors: actors,
-          Actor: function Actor() {
-            return s.setState({ tooltip: _markdowns2.default['12.Run Actor'] });
+          runActor: function runActor() {
+            return s.setState({ tooltip: _markdowns2.default['12.Connect Actor'] });
           },
           onTabChange: function onTabChange(e) {
             return s.setTab(e.tab);
@@ -112924,7 +113116,7 @@ var Component = _react2.default.createClass({
         _react2.default.createElement(
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
-          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Run Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
+          _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Connect Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
           _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
@@ -113126,7 +113318,7 @@ var Component = _react2.default.createClass({
 
 exports.default = Component;
 
-},{"../../../doc/links.json":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/doc/links.json","./markdowns":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/markdowns.js","./snippets":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/snippets.js","apeman-react-basic":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-basic/lib/index.js","asleep":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/asleep/asleep.js","babel-polyfill":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/babel-polyfill/lib/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","os":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/os-browserify/browser.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","sg-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/browser/index.js","sg-react-components":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react-components/lib/index.js","sugo-agent-compile":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/index.js","sugo-agent-file":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-file/sims/browser/index.js","sugo-caller":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-caller/sims/browser/index.js","sugo-cloud/agent":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-cloud/sims/browser/agent.js","sugo-observer":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-observer/sims/browser/index.js","sugo-react-example":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/entrypoint.js":[function(require,module,exports){
+},{"../../../doc/links.json":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/doc/links.json","./markdowns":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/markdowns.js","./snippets":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/snippets.js","apeman-react-basic":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-basic/lib/index.js","asleep":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/asleep/asleep.js","babel-polyfill":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/babel-polyfill/lib/index.js","co":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/co/index.js","os":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/os-browserify/browser.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js","sg-react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react/sims/browser/index.js","sg-react-components":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sg-react-components/lib/index.js","sugo-agent-compile":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-compile/sims/browser/index.js","sugo-agent-file":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-agent-file/sims/browser/index.js","sugo-caller":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-caller/sims/browser/index.js","sugo-cloud/agent":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-cloud/sims/browser/agent.js","sugo-observer":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-observer/sims/browser/index.js","sugo-react-example":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/index.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/entrypoint.js":[function(require,module,exports){
 /**
  * Entrypoint of lib scripts.
  * Mount react component in to DOM when loaded.

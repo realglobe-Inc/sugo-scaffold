@@ -49,6 +49,7 @@ let hoge = () => 'This is hoge'
           }
         }
       })
+      console.log('Compiled body', body)
       assert.equal(statusCode, 200)
       assert.ok(body.data)
     }
