@@ -47,7 +47,8 @@ apeTasking.runTasks('tmplify', [
           '.DS_Store',
           '.svg',
           'ci/demo.js',
-          'node_modules/**/*.*'
+          'node_modules/**/*.*',
+          '**/*.map'
         ],
         data: Object.assign({
           'github_repository': demoPkg.repository.url.split(/\//g).slice(-2).join('/').replace(/\.git$/, ''),
