@@ -1,6 +1,6 @@
 {
   "name": "sugo-scaffold",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
@@ -49,7 +49,7 @@
     "sugo-demo-endpoint": "^1.0.11",
     "sugo-demo-example": "^1.1.22",
     "sugo-demo-middleware": "^1.0.5",
-    "sugo-demo-module": "^4.0.2",
+    "sugo-demo-module": "^4.0.4",
     "sugo-demo-site": "^1.1.4"
   },
   "engines": {

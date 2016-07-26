@@ -6,7 +6,7 @@
  */
 'use strict'
 
-const { ~~~~module_name~~~~ } = require('~~~~package_name~~~~')
+const ~~~~package_name@camelcase~~~~ = require('~~~~package_name~~~~')
 const sugoActor = require('sugo-actor')
 const co = require('co')
 
@@ -15,7 +15,7 @@ co(function * () {
     key: 'my-actor-01',
     modules: {
       // Register the module
-      module01: new ~~~~module_name~~~~({})
+      module01: ~~~~package_name@camelcase~~~~({})
     }
   })
   yield actor.connect()
