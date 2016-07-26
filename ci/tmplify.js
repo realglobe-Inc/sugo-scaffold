@@ -49,14 +49,14 @@ apeTasking.runTasks('tmplify', [
           'ci/demo.js',
           'node_modules/**/*.*'
         ],
-        data: {
+        data: Object.assign({
           'github_repository': demoPkg.repository.url.split(/\//g).slice(-2).join('/').replace(/\.git$/, ''),
           'package_name': demoPkg.name,
           'package_description': demoPkg.description,
           'author_name': demoPkg.author.name,
           'author_email': demoPkg.author.email,
           'author_url': demoPkg.author.url
-        },
+        }, require('../lib/data')[ type ] || {}),
         prefix,
         suffix
       })

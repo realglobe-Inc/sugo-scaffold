@@ -17,9 +17,16 @@ describe('index', () => {
 
   }))
 
-  it('Create instance from index', () => co(function * () {
-    let module_ = index({})
-    assert.ok(module_)
+  it('Eval props', () => co(function * () {
+    assert.ok(index)
+    for (let name of Object.keys(index)) {
+      assert.ok(index[ name ], name)
+    }
+  }))
+
+  it('Eval browser index', () => co(function * () {
+    let index = require('../shim/browser')
+    assert.ok(index)
   }))
 })
 

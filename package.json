@@ -27,7 +27,7 @@
   "homepage": "https://github.com/realglobe-Inc/sugo-scaffold#readme",
   "dependencies": {
     "argx": "^2.0.2",
-    "askconfig": "^3.0.2",
+    "askconfig": "^3.0.4",
     "co": "^4.6.0",
     "filemode": "^2.0.1",
     "gitconfig": "^2.0.2",
@@ -44,12 +44,12 @@
     "ape-updating": "^4.0.4",
     "coz": "^6.0.14",
     "injectmock": "^2.0.0",
-    "sugo-demo-agent": "^1.0.11",
+    "sugo-demo-agent": "^1.0.12",
     "sugo-demo-ci": "^1.0.5",
     "sugo-demo-endpoint": "^1.0.11",
     "sugo-demo-example": "^1.1.22",
     "sugo-demo-middleware": "^1.0.5",
-    "sugo-demo-module": "^3.0.5",
+    "sugo-demo-module": "^4.0.2",
     "sugo-demo-site": "^1.1.4"
   },
   "engines": {

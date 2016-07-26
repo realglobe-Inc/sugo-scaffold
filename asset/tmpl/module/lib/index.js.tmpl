@@ -1,16 +1,19 @@
 /**
  * ~~~~package_description~~~~
  * @module ~~~~package_name~~~~
+ * @version 4.0.2
  */
 
 'use strict'
 
-const ~~~~package_name@camelcase~~~~ = require('./~~~~package_name@snakecase~~~~')
+const create = require('./create')
+const ~~~~module_name~~~~ = require('./~~~~module_name@snakecase~~~~')
 
-let lib = ~~~~package_name@camelcase~~~~.bind(this)
+let lib = create.bind(this)
 
-Object.assign(lib, ~~~~package_name@camelcase~~~~, {
-  ~~~~package_name@camelcase~~~~
+Object.assign(lib, ~~~~module_name~~~~, {
+  create,
+  ~~~~module_name~~~~
 })
 
 module.exports = lib

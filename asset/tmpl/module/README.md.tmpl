@@ -106,11 +106,12 @@ Register a module to actor.
 #!/usr/bin/env node
 
 /**
- * Example usage of the caller
+ * Example usage to register module on actor
+ * @see https://github.com/realglobe-Inc/sugo-actor
  */
 'use strict'
 
-const ~~~~package_name@camelcase~~~~ = require('~~~~package_name~~~~')
+const { ~~~~module_name~~~~ } = require('~~~~package_name~~~~')
 const sugoActor = require('sugo-actor')
 const co = require('co')
 
@@ -119,7 +120,7 @@ co(function * () {
     key: 'my-actor-01',
     modules: {
       // Register the module
-      module01: ~~~~package_name@camelcase~~~~({})
+      module01: new ~~~~module_name~~~~({})
     }
   })
   yield actor.connect()
@@ -133,7 +134,8 @@ Then, call the module from a remote caller.
 #!/usr/bin/env node
 
 /**
- * Example control from a remote caller
+ * Example to call from caller
+ * @see https://github.com/realglobe-Inc/sugo-caller
  */
 'use strict'
 
@@ -151,7 +153,6 @@ co(function * () {
   // Send ping
   let pong = yield module01.ping()
   assert.ok(pong)
-
 }).catch((err) => console.error(err))
 
 ```

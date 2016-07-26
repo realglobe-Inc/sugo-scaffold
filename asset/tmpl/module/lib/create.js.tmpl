@@ -1,0 +1,15 @@
+/**
+ * Create a module instance
+ * @function create
+ * @returns {~~~~module_name~~~~}
+ */
+'use strict'
+
+const ~~~~module_name~~~~ = require('./~~~~module_name@snakecase~~~~')
+
+/** @lends create */
+function create (...args) {
+  return new ~~~~module_name~~~~(...args)
+}
+
+module.exports = create

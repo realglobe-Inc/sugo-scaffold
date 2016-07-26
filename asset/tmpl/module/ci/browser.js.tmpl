@@ -12,6 +12,6 @@ const { browser } = require('sugo-ci-module')
 
 browser({
   cwd: 'lib',
-  out: 'sims/browser'
+  out: 'shim/browser'
 })
 
