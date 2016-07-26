@@ -1,0 +1,20 @@
+/**
+ * ~~~~package_description~~~~
+ * @module ~~~~package_name~~~~
+ * @version 4.0.2
+ */
+
+'use strict';
+
+var create = require('./create');
+var ~~~~module_name~~~~ = require('./~~~~module_name@snakecase~~~~');
+
+var lib = create.bind(undefined);
+
+Object.assign(lib, ~~~~module_name~~~~, {
+  create: create,
+  ~~~~module_name~~~~: ~~~~module_name~~~~
+});
+
+module.exports = lib;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

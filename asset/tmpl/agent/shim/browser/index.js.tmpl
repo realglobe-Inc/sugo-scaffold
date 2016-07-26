@@ -1,0 +1,19 @@
+/**
+ * ~~~~package_description~~~~
+ * @module ~~~~package_name~~~~
+ */
+
+'use strict';
+
+var create = require('./create');
+var ~~~~package_name@pascalcase~~~~ = require('./~~~~package_name@snakecase~~~~');
+
+var lib = create.bind(undefined);
+
+Object.assign(lib, ~~~~package_name@pascalcase~~~~, {
+  create: create,
+  ~~~~package_name@pascalcase~~~~: ~~~~package_name@pascalcase~~~~
+});
+
+module.exports = lib;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

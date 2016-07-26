@@ -1,0 +1,20 @@
+/**
+ * Create a module instance
+ * @function create
+ * @returns {~~~~module_name~~~~}
+ */
+'use strict';
+
+var ~~~~module_name~~~~ = require('./~~~~module_name@snakecase~~~~');
+
+/** @lends create */
+function create() {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return new (Function.prototype.bind.apply(~~~~module_name~~~~, [null].concat(args)))();
+}
+
+module.exports = create;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==
