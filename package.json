@@ -47,9 +47,9 @@
     "sugo-demo-agent": "^1.0.12",
     "sugo-demo-ci": "^1.0.5",
     "sugo-demo-endpoint": "^1.0.11",
-    "sugo-demo-example": "^1.1.22",
+    "sugo-demo-example": "^1.1.23",
     "sugo-demo-middleware": "^1.0.5",
-    "sugo-demo-module": "^4.0.4",
+    "sugo-demo-module": "^4.0.5",
     "sugo-demo-site": "^1.1.4"
   },
   "engines": {
