@@ -29,14 +29,13 @@ module.exports = {
     },
     logo: 'http://realglobe-inc.github.io/~~~~package_name~~~~/images/favicon.png',
     preDeploy: [
-      'npm shrinkwrap',
       'npm run prepublish',
       'curl -u`sugos-secrets get -r jfrog:deployer:username`:`sugos-secrets get -r jfrog:deployer:password` https://realglobe.artifactoryonline.com/realglobe/api/npm/auth > .npmrc',
       'echo "registry = https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual" >> .npmrc'
     ],
     postDeploy: [
       'rm -rf tmp',
-      'rm -rf ui/js/lib/*.js',// Cleanup compiled
+      'rm -rf ui/js/lib/*.js', // Cleanup compiled
       'npm update',
       './ci/build.js'
     ]

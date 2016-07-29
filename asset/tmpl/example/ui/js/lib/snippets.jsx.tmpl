@@ -18,6 +18,7 @@ exports.DEFAULT_HTML = `<!--
   <link rel="stylesheet" href="css/playground.css">
   <link rel="stylesheet" href="css/font-awesome.css"/>
   <link rel="stylesheet" href="css/ionicons.css"/>
+  <script src="js/polyfill.js"></script>
   <script src="js/external.cc.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -34,8 +35,6 @@ exports.DEFAULT_SCRIPT = `/**
  * Default script for playground
  */
 'use strict'
-
-import 'babel-polyfill'
 
 import React, {PropTypes as types} from 'react'
 import {mount} from 'sg-react'
@@ -152,15 +151,16 @@ const Playground = React.createClass({
 })
 
 // Mount react component
-co(function * () {
-  let mountRoot
-  while (!mountRoot) {
-    mountRoot = document.getElementById('playground-root')
-    yield asleep(100)
+let timer = setInterval(() => {
+  let container = document.getElementById('playground-root')
+  if (!container) {
+    return
   }
-  yield mount(mountRoot, Playground, {
+  mount(container, Playground, Object.assign({}, {
     actors: [].concat(window.actors || [])
-  })
-}).catch((err) => console.error(err))
+  })).catch((err) => console.error(err))
+  clearTimeout(timer)
+}, 100)
+
 `
 

@@ -13,26 +13,7 @@ const common = {
     './ci/build.js',
     'rm .npmrc'
   ],
-  additionalDependencies: [
-    'mocha',
-    'node-sass',
-    'babel-core',
-    'babel-loader',
-    'babel-polyfill',
-    'babel-register',
-    'babel-preset-react',
-    'babel-preset-es2015',
-    'babel-preset-react-hmre',
-    'webpack',
-    'webpack-hot-middleware',
-    'postcss-loader',
-    'style-loader',
-    'css-loader',
-    'sass-loader',
-    'autoprefixer',
-    'extract-text-webpack-plugin',
-    'json-loader'
-  ]
+  additionalDependencies: []
 }
 
 module.exports = {
@@ -47,7 +28,6 @@ module.exports = {
     buildScript: common.buildScript
   },
   heroku: {
-    additionalDependencies: common.additionalDependencies.reduce((obj, module) => Object.assign(obj, {[module]: '*'}), {}),
     preDeploy: common.beforeInstall,
     postinstall: [
       'npm run build'
@@ -60,6 +40,5 @@ module.exports = {
     addons: [
       'heroku-redis:hobby-dev'
     ]
-  },
-  additionalDependencies: common.additionalDependencies
+  }
 }

@@ -1,0 +1,86 @@
+#site {
+  height: 100%; }
+
+.app {
+  position: relative;
+  height: 100%; }
+
+.actor-list-section {
+  padding: 8px; }
+  .actor-list-section h2 {
+    padding-bottom: 4px;
+    padding-left: 8px;
+    border-bottom: 2px solid #bbb; }
+
+.actor-list-item {
+  max-width: 500px;
+  color: #666;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 3px -1px #ccc;
+  text-align: right; }
+  .actor-list-item.requesting {
+    background-color: #eee; }
+
+.actor-list-item-key {
+  display: inline-block;
+  float: left;
+  margin-top: 13px; }
+
+.actor-list-item-spinning {
+  display: inline-block;
+  float: left;
+  margin-top: 13px;
+  margin-left: 8px; }
+
+.actor-list-empty {
+  width: 100%;
+  margin-top: 40px;
+  text-align: center;
+  color: #bbb; }
+
+.refresh-connection-button {
+  width: 100%;
+  text-align: center; }
+
+.pong-window-background {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.pong-window {
+  width: 200px;
+  height: 150px;
+  box-shadow: 8px 8px 15px 1px #666;
+  background: #fff;
+  border-radius: 1%;
+  text-align: center;
+  color: #666; }
+  .pong-window p {
+    margin: 30px;
+    font-size: 2em; }
+
+.hidden {
+  visibility: hidden; }
+
+.visible {
+  visibility: visible; }
