@@ -4,8 +4,7 @@
  */
 'use strict'
 
-require('babel-polyfill')
-
+import 'babel-polyfill'
 import React, {PropTypes as types} from 'react'
 
 import cloudAgent from 'sugo-cloud/agent'
@@ -131,7 +130,7 @@ const Component = React.createClass({
               markdowns[ '12.Connect Actor' ],
               markdowns[ '13.Use Caller' ]
             ] } vars={ s.getMarkdownVars() }/>
-            <SgExampleLinks links={ links } />
+            <SgExampleLinks links={ links }/>
           </SgExampleBody>
           <SgExampleFooter>
 

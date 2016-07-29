@@ -1,0 +1,8 @@
+{
+  "name": "~~~~package_name~~~~",
+  "description": "~~~~package_description~~~~",
+  "logo": "http://realglobe-inc.github.io/~~~~package_name~~~~/images/favicon.png",
+  "scripts": {
+    "postdeploy": "rm -rf tmp && rm -rf ui/js/lib/*.js && npm update && ./ci/build.js"
+  }
+}

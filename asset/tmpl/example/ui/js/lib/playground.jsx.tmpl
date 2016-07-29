@@ -3,7 +3,7 @@
  */
 'use strict'
 
-require('babel-polyfill')
+import 'babel-polyfill'
 
 import React, {PropTypes as types} from 'react'
 import {mount} from 'sg-react'
@@ -46,7 +46,7 @@ const Playground = React.createClass({
     return (
       <div className='dynamic-component'>
         <ApSelectableArticle
-          options={ (actors || []).reduce((options, actor) => Object.assign(options, {[actor.key]: actor.key}), {}) }
+          options={ (actors || []).reduce((options, actor) => Object.assign(options, { [actor.key]: actor.key }), {}) }
           name='actorKey'
           label='Spot: '
           alt='No actor found! You need to connect one before playing'
@@ -64,7 +64,7 @@ const Playground = React.createClass({
                     onTap={ () => s.withTerminal(function * sendPing (caller) {
                       if (s.state.pongAt) {
                         // Reset to send ping
-                        s.setState({pingAt: null, pongAt: null})
+                        s.setState({ pingAt: null, pongAt: null })
                         return
                       }
 
@@ -74,15 +74,15 @@ const Playground = React.createClass({
 
                       // Do ping-pong
                       console.log('Send ping to noop...')
-                      s.setState({pingAt: new Date().toLocaleTimeString()})
+                      s.setState({ pingAt: new Date().toLocaleTimeString() })
                       let pong = yield noop.ping()
-                      s.setState({pongAt: new Date().toLocaleTimeString()})
+                      s.setState({ pongAt: new Date().toLocaleTimeString() })
                       console.log(`...received ping from noop: "${pong}"`)
 
                       // Tear down
                       yield actor.disconnect()
                       yield asleep(10)
-                  }) }
+                    }) }
                     spinning={ pingAt && !pongAt }
                     primary={ !pingAt }
                   >{ pongAt ? `Pong at ${pongAt}` : (pingAt ? 'Waiting...' : 'Send ping')} </ApBigButton>
@@ -120,11 +120,13 @@ const Playground = React.createClass({
 })
 
 // Mount react component
-setTimeout(() => {
-  let mountRoot = document.getElementById('playground-root')
-  mount(mountRoot, Playground, {
+co(function * () {
+  let mountRoot
+  while (!mountRoot) {
+    mountRoot = document.getElementById('playground-root')
+    yield asleep(100)
+  }
+  yield mount(mountRoot, Playground, {
     actors: [].concat(window.actors || [])
-  }).then(() => {
-    console.debug('Playground mounted')
-  }).catch((err) => console.error(err))
-}, 600)
+  })
+}).catch((err) => console.error(err))
