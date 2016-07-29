@@ -47,6 +47,7 @@ const RequirePool = {
   'sg-react-components': sgReactComponents,
   'apeman-react-basic': apemanReactBasic
 }
+const links = require('../../../doc/links.json')
 
 /** @lends Component */
 const Component = React.createClass({
@@ -114,8 +115,11 @@ const Component = React.createClass({
             <SgExamplePlayground { ...{ html, script, globals } }
                                  compile={ s.compileScript }
                                  onChange={ s.handleChange }
+                                 pkg={ pkg }
+                                 vars={ s.getMarkdownVars() }
                                  pipeConsole={ true }
                                  closed={ !state.playground }
+                                 links={ links }
                                  onToggle={ s.togglePlayground }
                                  defaultHtml={ DEFAULT_HTML }
                                  defaultScript={ DEFAULT_SCRIPT }
@@ -127,7 +131,7 @@ const Component = React.createClass({
               markdowns[ '12.Connect Actor' ],
               markdowns[ '13.Use Caller' ]
             ] } vars={ s.getMarkdownVars() }/>
-            <SgExampleLinks links={ require('../../../doc/links.json') }/>
+            <SgExampleLinks links={ links } />
           </SgExampleBody>
           <SgExampleFooter>
 

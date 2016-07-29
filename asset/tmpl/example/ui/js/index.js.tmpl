@@ -1,6 +1,9 @@
 window.require = (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/doc/links.json":[function(require,module,exports){
 module.exports={
-  "sugos": "https://github.com/realglobe-Inc/sugos"
+  "sugos": "https://github.com/realglobe-Inc/sugos",
+  "sugo-cloud": "https://github.com/realglobe-Inc/sugo-cloud",
+  "sugo-caller": "https://github.com/realglobe-Inc/sugo-caller",
+  "sugo-actor": "https://github.com/realglobe-Inc/sugo-actor"
 }
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/lib/configs.js":[function(require,module,exports){
 (function (process){
@@ -77672,7 +77675,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = cachedSetTimeout(cleanUpNextTick);
+    var timeout = cachedSetTimeout.call(null, cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -77689,7 +77692,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    cachedClearTimeout(timeout);
+    cachedClearTimeout.call(null, timeout);
 }
 
 process.nextTick = function (fun) {
@@ -77701,7 +77704,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        cachedSetTimeout(drainQueue, 0);
+        cachedSetTimeout.call(null, drainQueue, 0);
     }
 };
 
@@ -106076,7 +106079,7 @@ exports.default = SgExampleHeader;
 
 },{"apeman-react-container":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-container/lib/index.js","apeman-react-header":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-header/lib/index.js","apeman-react-mixin-layout":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-layout/lib/index.js","apeman-react-notice":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-notice/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/sg_example_instruction.js":[function(require,module,exports){
 /**
- * Example instaruction component
+ * Example instruction component
  * @class SgExampleInstruction
  */
 
@@ -106271,7 +106274,11 @@ var _apemanReactMixinLayout = require('apeman-react-mixin-layout');
 
 var _apemanReactSection = require('apeman-react-section');
 
+var _apemanReactMarkdown = require('apeman-react-markdown');
+
 var _body_helper = require('./helpers/body_helper');
+
+var _markdown_helper = require('./helpers/markdown_helper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -106307,7 +106314,11 @@ var SgExamplePlayground = _react2.default.createClass({
     /** Default html string */
     defaultHtml: _react.PropTypes.string,
     /** Default script string */
-    defaultScript: _react.PropTypes.string
+    defaultScript: _react.PropTypes.string,
+    links: _react.PropTypes.object,
+    vars: _react.PropTypes.object,
+    /** Source for actor */
+    actorSrc: _react.PropTypes.string
   },
 
   mixins: [_apemanReactMixinLayout.ApLayoutMixin],
@@ -106323,9 +106334,14 @@ var SgExamplePlayground = _react2.default.createClass({
         title: 'PlayGround',
         open: 'Open Playground',
         header: 'Playground',
-        restoreDefault: 'Restore default'
+        restoreDefault: 'Restore default',
+        beforePlay: 'Before playing',
+        connectActorToPlay: 'Connect an actor to this server:'
       },
-      closed: false
+      vars: {},
+      links: {},
+      closed: false,
+      actorSrc: '\n' + '```bash' + '    \n$ HOSTNAME="__your_host__" ___pkg_name__ actor\n' + '```' + '\n'
     };
   },
   getInitialState: function getInitialState() {
@@ -106347,7 +106363,13 @@ var SgExamplePlayground = _react2.default.createClass({
     var script = props.script;
     var messages = props.messages;
     var closed = props.closed;
+    var actorSrc = props.actorSrc;
+    var links = props.links;
+    var vars = props.vars;
+    var pkg = props.pkg;
 
+
+    vars.___pkg_name__ = vars.___pkg_name__ || pkg && pkg.name;
 
     var className = (0, _classnames2.default)('sg-example-playground', {
       'sg-example-playground-has-script-error': !!state.scriptError
@@ -106367,6 +106389,25 @@ var SgExamplePlayground = _react2.default.createClass({
       _react2.default.createElement(
         _apemanReactSection.ApSectionBody,
         null,
+        _react2.default.createElement(
+          'fieldset',
+          { className: 'sg-example-help' },
+          _react2.default.createElement(
+            'legend',
+            null,
+            messages.beforePlay
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            messages.connectActorToPlay
+          ),
+          _react2.default.createElement(_apemanReactMarkdown.ApMarkdown, { src: actorSrc,
+            beforeCompile: function beforeCompile(src) {
+              return (0, _markdown_helper.injectVariables)(src, vars);
+            },
+            links: links })
+        ),
         _react2.default.createElement(
           'div',
           { className: 'sg-example-action' },
@@ -106642,7 +106683,7 @@ var SgExamplePlayground = _react2.default.createClass({
 
 exports.default = SgExamplePlayground;
 
-},{"./helpers/body_helper":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/helpers/body_helper.js","apeman-react-builder":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-builder/lib/index.js","apeman-react-button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-button/lib/index.js","apeman-react-console":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/index.js","apeman-react-mixin-layout":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-layout/lib/index.js","apeman-react-section":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-section/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/sg_example_status.js":[function(require,module,exports){
+},{"./helpers/body_helper":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/helpers/body_helper.js","./helpers/markdown_helper":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/helpers/markdown_helper.js","apeman-react-builder":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-builder/lib/index.js","apeman-react-button":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-button/lib/index.js","apeman-react-console":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-console/lib/index.js","apeman-react-markdown":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-markdown/lib/index.js","apeman-react-mixin-layout":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-mixin-layout/lib/index.js","apeman-react-section":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/apeman-react-section/lib/index.js","classnames":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/classnames/index.js","react":"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/react/react.js"}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/node_modules/sugo-react-example/lib/sg_example_status.js":[function(require,module,exports){
 /**
  * Status for example
  * @class SgExampleStatus
@@ -107081,7 +107122,7 @@ var SgExampleStyle = _react2.default.createClass({
         overflow: 'hidden',
         border: '1px solid #EEE'
       },
-      '.sg-example-tooltip pre': {
+      '.sg-example-help pre,.sg-example-tooltip pre': {
         background: '#FAFAFA',
         border: '1px solid #F0F0F0',
         padding: '8px 4px',
@@ -107184,6 +107225,18 @@ var SgExampleStyle = _react2.default.createClass({
       },
       '.sg-example .ap-info-disclosable-back': {
         justifyContent: 'center'
+      },
+      '.sg-example-help': {
+        padding: '4px 8px 16px',
+        fontSize: 'smaller',
+        color: '#888',
+        border: '1px solid #EEE',
+        margin: '16px auto',
+        maxWidth: '464px',
+        boxSizing: 'border-box'
+      },
+      '.sg-example-help pre': {
+        margin: 0
       }
     };
     return _react2.default.createElement(
@@ -112559,7 +112612,7 @@ module.exports = yeast;
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/package.json":[function(require,module,exports){
 module.exports={
   "name": "~~~~package_name~~~~",
-  "version": "1.1.23",
+  "version": "1.1.28",
   "description": "~~~~package_description~~~~",
   "main": "lib",
   "bin": "./bin/cli.js",
@@ -112610,8 +112663,8 @@ module.exports={
     "sugo-actor": "^4.0.1",
     "sugo-agent-compile": "^1.0.10",
     "sugo-agent-file": "^1.0.7",
-    "sugo-caller": "^2.1.4",
-    "sugo-cloud": "^2.0.5",
+    "sugo-caller": "^2.1.5",
+    "sugo-cloud": "^2.0.6",
     "sugo-endpoint-compile": "^2.0.6",
     "sugo-endpoint-file": "^1.0.7",
     "sugo-module-noop": "^4.0.1",
@@ -112629,9 +112682,11 @@ module.exports={
     "apeman-react-icon": "^3.0.5",
     "aport": "^1.0.0",
     "arequest": "^2.0.5",
+    "babel-polyfill": "^6.9.1",
     "coz": "^6.0.5",
     "injectmock": "^2.0.0",
-    "sugo-ci-example": "^2.0.5",
+    "sugo-ci-example": "^2.0.11",
+    "sugo-react-example": "^2.0.5",
     "sugos-assets": "^2.0.1"
   },
   "engines": {
@@ -112642,6 +112697,7 @@ module.exports={
     "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
   }
 }
+
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/component.js":[function(require,module,exports){
 /**
  * Root component to mount.
@@ -112728,6 +112784,7 @@ var RequirePool = {
   'sg-react-components': _sgReactComponents2.default,
   'apeman-react-basic': _apemanReactBasic2.default
 };
+var links = require('../../../doc/links.json');
 
 /** @lends Component */
 var Component = _react2.default.createClass({
@@ -112814,8 +112871,11 @@ var Component = _react2.default.createClass({
           _react2.default.createElement(_sugoReactExample.SgExamplePlayground, _extends({ html: html, script: script, globals: globals }, {
             compile: s.compileScript,
             onChange: s.handleChange,
+            pkg: pkg,
+            vars: s.getMarkdownVars(),
             pipeConsole: true,
             closed: !state.playground,
+            links: links,
             onToggle: s.togglePlayground,
             defaultHtml: _snippets.DEFAULT_HTML,
             defaultScript: _snippets.DEFAULT_SCRIPT
@@ -112825,7 +112885,7 @@ var Component = _react2.default.createClass({
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
           _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Connect Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
-          _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
+          _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: links })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
         _react2.default.createElement(_sugoReactExample.SgExampleTooltip, { onClose: function onClose() {
@@ -113089,13 +113149,13 @@ exports['01.Quick Start'] = restore('Quick Start\n-----\n\nDeploy to the [Heroku
 exports['10.How to'] = restore('How to\n-------');
 
 /** Converted from "doc/guides/11.Setup Cloud.md.hbs" */
-exports['11.Setup Cloud'] = restore('### Setup Cloud\n\nInstall the CLI\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, run the server\n\n&#x60;&#x60;&#x60;bash\n$ PORT&#x3D;3000 ~~~~package_name~~~~ cloud\n&#x60;&#x60;&#x60;\n\nIn the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.\n\n[nginx_url]: https://www.nginx.com/\n');
+exports['11.Setup Cloud'] = restore('### Setup Cloud\n\nSetup a cloud server to provide UI pages and actor/connector API.\nThis component is build with [SUGO-Cloud][sugo_cloud_url] package.\n\n\nInstall the CLI:\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, run the server\n\n&#x60;&#x60;&#x60;bash\n$ PORT&#x3D;3000 ~~~~package_name~~~~ cloud\n&#x60;&#x60;&#x60;\n\nIn the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.\n\n[nginx_url]: https://www.nginx.com/\n');
 
 /** Converted from "doc/guides/12.Connect Actor.md.hbs" */
-exports['12.Connect Actor'] = restore('### Connect Actor\n\nInstall the CLI\n\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, connect the actor to cloud\n\n&#x60;&#x60;&#x60;bash\n$ HOSTNAME&#x3D;&quot;__your_host__&quot; ACTOR_KEY&#x3D;&quot;__your_actor_name__&quot; ~~~~package_name~~~~ actor\n&#x60;&#x60;&#x60;\n');
+exports['12.Connect Actor'] = restore('### Connect Actor\n\nConnect an actor to provides functionalities with.\nThis component is build with [SUGO-Actor][sugo_actor_url] package.\n\nInstall the CLI:\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, connect the actor to the cloud\n\n&#x60;&#x60;&#x60;bash\n$ HOSTNAME&#x3D;&quot;__your_host__&quot; ACTOR_KEY&#x3D;&quot;__your_actor_name__&quot; ~~~~package_name~~~~ actor\n&#x60;&#x60;&#x60;\n');
 
 /** Converted from "doc/guides/13.Connect Caller.md.hbs" */
-exports['13.Connect Caller'] = restore('### Connect Caller\n\n\nInstall the CLI\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, run the example caller\n\n&#x60;&#x60;&#x60;bash\n$ HOSTNAME&#x3D;&quot;__your_host__&quot; ~~~~package_name~~~~ caller\n&#x60;&#x60;&#x60;\n\nOr, you can try it from UI pages on the cloud.\n');
+exports['13.Connect Caller'] = restore('### Run Caller\n\nRun a caller to call functions defined in actor.\nThis component is build with [SUGO-Caller][sugo_caller_url] package.\n\n\nInstall the CLI:\n\n&#x60;&#x60;&#x60;bash\n$ npm install ~~~~package_name~~~~ -g\n&#x60;&#x60;&#x60;\n\nThen, run the example caller\n\n&#x60;&#x60;&#x60;bash\n$ HOSTNAME&#x3D;&quot;__your_host__&quot; ~~~~package_name~~~~ caller\n&#x60;&#x60;&#x60;\n\nOr, you can try it from UI pages on the cloud.\n');
 
 },{}],"/Users/okunishinishi/Projects/realglobe-projects/~~~~package_name~~~~/ui/js/lib/snippets.js":[function(require,module,exports){
 

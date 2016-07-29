@@ -83,6 +83,7 @@ var RequirePool = {
   'sg-react-components': _sgReactComponents2.default,
   'apeman-react-basic': _apemanReactBasic2.default
 };
+var links = require('../../../doc/links.json');
 
 /** @lends Component */
 var Component = _react2.default.createClass({
@@ -169,8 +170,11 @@ var Component = _react2.default.createClass({
           _react2.default.createElement(_sugoReactExample.SgExamplePlayground, _extends({ html: html, script: script, globals: globals }, {
             compile: s.compileScript,
             onChange: s.handleChange,
+            pkg: pkg,
+            vars: s.getMarkdownVars(),
             pipeConsole: true,
             closed: !state.playground,
+            links: links,
             onToggle: s.togglePlayground,
             defaultHtml: _snippets.DEFAULT_HTML,
             defaultScript: _snippets.DEFAULT_SCRIPT
@@ -180,7 +184,7 @@ var Component = _react2.default.createClass({
           _sugoReactExample.SgExampleBody,
           { hidden: tab !== 'GUIDES' },
           _react2.default.createElement(_sugoReactExample.SgExampleInstruction, { src: [_markdowns2.default['11.Setup Cloud'], _markdowns2.default['12.Connect Actor'], _markdowns2.default['13.Use Caller']], vars: s.getMarkdownVars() }),
-          _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: require('../../../doc/links.json') })
+          _react2.default.createElement(_sugoReactExample.SgExampleLinks, { links: links })
         ),
         _react2.default.createElement(_sugoReactExample.SgExampleFooter, null),
         _react2.default.createElement(_sugoReactExample.SgExampleTooltip, { onClose: function onClose() {

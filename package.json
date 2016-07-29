@@ -44,10 +44,11 @@
     "ape-updating": "^4.0.4",
     "coz": "^6.0.14",
     "injectmock": "^2.0.0",
-    "sugo-demo-agent": "^1.0.12",
+    "sg-travis": "^1.1.25",
+    "sugo-demo-agent": "^1.0.14",
     "sugo-demo-ci": "^1.0.5",
     "sugo-demo-endpoint": "^1.0.11",
-    "sugo-demo-example": "^1.1.23",
+    "sugo-demo-example": "^1.1.28",
     "sugo-demo-middleware": "^1.0.5",
     "sugo-demo-module": "^4.0.5",
     "sugo-demo-site": "^1.1.4"
