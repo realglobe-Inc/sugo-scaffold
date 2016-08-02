@@ -6,7 +6,7 @@ before_install:
 - curl -u${NPM_USER}:${NPM_PASSWORD} "https://realglobe.artifactoryonline.com/realglobe/api/npm/auth" >> .npmrc
 - cat .npmrc
 install:
-- npm install
+- npm install --no-optional
 before_script:
 - npm link .
 script:
