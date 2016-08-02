@@ -79,7 +79,7 @@ const Playground = React.createClass({
         <ApSelectableArticle
           options={ (actors || []).reduce((options, actor) => Object.assign(options, { [actor.key]: actor.key }), {}) }
           name='actorKey'
-          label='Spot: '
+          label='Actor: '
           alt='No actor found! You need to connect one before playing'
           value={ actorKey }
           onChange={ (e) => s.setState({ actorKey: e.target.value }) }
@@ -144,9 +144,9 @@ const Playground = React.createClass({
     const s = this
     let { caller } = s
     if (!caller) {
-      return
+      return Promise.resolve(false)
     }
-    co(handler, caller).catch((err) => console.error(err))
+    return co(handler, caller).catch((err) => console.error(err))
   }
 })
 

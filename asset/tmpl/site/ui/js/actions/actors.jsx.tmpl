@@ -1,0 +1,103 @@
+/**
+ * Action of actors.
+ */
+import co from 'co'
+import equal from 'deep-equal'
+import cloudAgent from 'sugo-cloud/lib/agent'
+import sugoCaller from 'sugo-caller'
+
+const debug = require('debug')('sg:site:actions:actors')
+const host = window.location.host
+const protocol = window.location.protocol
+const CLOUD_URL = `${protocol}//${host}`
+const CALLER_URL = `${CLOUD_URL}/callers`
+
+const getActorsByAgent = () => {
+  return co(function * () {
+    let actors = yield cloudAgent(CLOUD_URL).actors()
+    debug('actors through cloudAgent')
+    debug(actors)
+    return actors
+  }).catch((err) => {
+    debug('cannot get actors through cloudAgent')
+    console.error(err)
+    return []
+  })
+}
+
+const openCaller = (key) => {
+  return co(function * () {
+    let Caller = sugoCaller(CALLER_URL, {})
+    let caller = yield Caller.connect(key)
+    return caller
+  }).catch(err => Promise.reject(err))
+}
+
+function getNewActorKeys (oldKeys, newKeys) {
+  let oldDict = dictByKey(oldKeys.map(key => ({ key })))
+  let added = newKeys.filter(key => !oldDict[ key ])
+  return added
+}
+
+function dictByKey (array) {
+  return array.reduce((dict, obj) => Object.assign(dict, { [obj.key]: obj }), {})
+}
+
+// ---- export modules ----
+
+const connectActors = () => {
+  return (dispatch, getState) => {
+    return co(function * () {
+      debug('connectActors starts')
+      let actorsInStore = getState().actors
+      let actorsByAgent = yield getActorsByAgent()
+
+      let keysInStore = actorsInStore.map(actor => actor.key)
+      let keysByAgent = actorsByAgent.map(actor => actor.key)
+      let noChange = equal(keysInStore, keysByAgent)
+      if (noChange) {
+        debug('Refreshed, but no change.')
+        return
+      }
+      let newKeys = getNewActorKeys(keysInStore, keysByAgent)
+      let newActors = yield newKeys.map(key => {
+        return co(function * () {
+          let caller = yield openCaller(key)
+          return {
+            key,
+            caller,
+            requesting: false
+          }
+        }).catch(err => Promise.reject(err))
+      })
+      let concatActors = Object.assign(
+        dictByKey(actorsInStore),
+        dictByKey(newActors)
+      )
+
+      // 接続されていないアクターはここで掃除される
+      let actors = keysByAgent.map(key => concatActors[ key ])
+      debug('dispatch CONNECT_ACTORS')
+      debug(actors)
+      dispatch({
+        type: 'CONNECT_ACTORS',
+        actors
+      })
+    }).catch(err => {
+      console.error(err)
+      return Promise.reject(err)
+    })
+  }
+}
+
+const toggleRequesting = (actorKey) => {
+  return {
+    type: 'TOGGLE_REQUESTING',
+    actorKey
+  }
+}
+
+export default {
+  connectActors,
+  toggleRequesting
+}

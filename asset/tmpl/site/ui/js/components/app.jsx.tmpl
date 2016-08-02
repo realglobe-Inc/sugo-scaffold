@@ -1,0 +1,27 @@
+/**
+ * Application component.
+ */
+import React from 'react'
+import AppStyle from '../containers/app_style'
+import RefreshConnectionButton from '../containers/refresh_connection_button'
+import ActorListSection from './actor_list_section'
+import Header from './header'
+import PongWindow from '../containers/pong_window'
+
+const debug = require('debug')('sg:site:app')
+
+const App = React.createClass({
+  render () {
+    return (
+      <div className='app'>
+        <AppStyle/>
+        <Header/>
+        <RefreshConnectionButton />
+        <ActorListSection />
+        <PongWindow />
+      </div>
+    )
+  }
+})
+
+export default App

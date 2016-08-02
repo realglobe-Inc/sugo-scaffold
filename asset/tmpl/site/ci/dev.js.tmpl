@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+'use strict'
+
+process.chdir(`${__dirname}/..`)
+
+const co = require('co')
+const asleep = require('asleep')
+const { spawn } = require('child_process')
+const { devServer } = require('sugo-ci-site')
+const { port } = require('../env')
+
+function spawnWithEnv (command) {
+  console.log(`> ${command}`)
+  let child = spawn(command, [], {
+    stdio: 'inherit',
+    env: Object.assign({}, process.env, {
+      NODE_ENV: 'development',
+      DEBUG: 'sg:*,sg:*',
+      HOSTNAME: `localhost:${port.CLOUD}`
+    })
+  })
+  child.on('error', (err) => console.error(err))
+  return child
+}
+
+co(function * () {
+  spawnWithEnv('redis-server')
+  yield asleep(1000)
+  spawnWithEnv('./bin/cloud.js')
+  yield asleep(1000)
+  devServer({ port, dir: process.cwd() })
+  yield asleep(1000)
+}).catch((err) => console.error(err))

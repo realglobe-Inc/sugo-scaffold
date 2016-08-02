@@ -1,0 +1,57 @@
+/**
+ * The List of SUGO Actors.
+ */
+import React from 'react'
+import {connect} from 'react-redux'
+import ActorListItem from './actor_list_item'
+
+const debug = require('debug')('sg:site:actor_list')
+
+let ActorList = React.createClass({
+  propTypes: {
+    actors: React.PropTypes.array
+  },
+  getDefaultProps () {
+    return {
+      actors: []
+    }
+  },
+
+  render () {
+    const s = this
+    let { props } = s
+    let { actors } = props
+    debug(actors)
+    if (actors.length > 0) {
+      return (
+        <div className='actor-list'>
+        {
+          actors.map((actor) => {
+            return (
+              <ActorListItem key={actor.key} actor={actor}/>
+            )
+          })
+        }
+        </div>
+      )
+    } else {
+      return (
+        <div className='actor-list'>
+          <div className='actor-list-empty'>
+            No actors connected.
+          </div>
+        </div>
+      )
+    }
+  }
+})
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    actors: state.actors
+  }
+}
+
+ActorList = connect(mapStateToProps)(ActorList)
+
+export default ActorList

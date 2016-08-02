@@ -13,8 +13,6 @@ const { release } = require('sugo-ci-example')
 release({
   beforeRelease: [
     './ci/build.js',
-    './ci/ghpages.js',
-    './ci/heroku.js',
     './ci/test.js'
   ]
 })

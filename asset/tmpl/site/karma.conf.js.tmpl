@@ -1,0 +1,48 @@
+module.exports = (config) => {
+  config.set({
+    browsers: ['Chrome', 'Firefox'],
+
+    singleRun: true,
+
+    frameworks: [ 'mocha' ],
+
+    files: [
+      'test-karma/tests.webpack.js'
+    ],
+
+    preprocessors: {
+      'test-karma/tests.webpack.js': [ 'webpack', 'sourcemap' ]
+    },
+
+    reporters: [ 'dots' ],
+
+    webpack: {
+      devtool: 'inline-source-map',
+      module: {
+        loaders: [
+          {
+            test: /\.js$|\.jsx$/,
+            loader: 'babel',
+            exclude: /node_modules\/(?!sugo-cloud)(?!sugo-terminal)(?!sg-schemas)/,
+            include: __dirname,
+            query: {
+              presets: ['es2015', 'react']
+            }
+          },
+          {
+            test: /\.json$/,
+            loader: 'json-loader'
+          }
+        ]
+      },
+      resolve: {
+        extensions: ['', '.js', '.jsx', '.json']
+      }
+    },
+
+    webpackServer: {
+      noInfo: true
+    }
+
+  })
+}

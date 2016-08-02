@@ -1,0 +1,10 @@
+describe('index', function () {
+  it('loads without problems', () => {
+    let div = document.createElement('div')
+    div.id = 'site'
+    document.body.appendChild(div)
+    require('../ui/js/index')
+  })
+})
+
+/* global describe it */

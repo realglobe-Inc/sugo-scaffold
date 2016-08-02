@@ -1,0 +1,22 @@
+/**
+ * Setup script for test
+ */
+'use strict'
+
+process.env.NODE_ENV = 'test'
+
+require('babel-register')({
+  presets: [ 'es2015', 'react' ],
+  sourceRoot: process.cwd(),
+  babelrc: false,
+  compact: false
+})
+
+const { port } = require('../env')
+
+global.window = {
+  location: {
+    host: `localhost:${port.CLOUD}`,
+    protocol: 'http:'
+  }
+}

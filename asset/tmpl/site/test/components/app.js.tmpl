@@ -1,0 +1,13 @@
+import React from 'react'
+import { shallow } from 'enzyme'
+import { equal, ok } from 'assert'
+import App from '../../ui/js/components/app'
+
+describe('<App />', () => {
+  it('renders', () => {
+    const wrapper = shallow(<App />)
+    ok(wrapper.find('Header'))
+  })
+})
+
+/* global describe it */

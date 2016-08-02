@@ -1,0 +1,27 @@
+/**
+ * Top level reducer.
+ * The state shape is below.
+ * {
+ *   actors: [
+ *     {
+ *       key: 'actor-01',
+ *       caller: Caller
+ *     }
+ *   ],
+ *   dominantColor: '#5ff',
+ *   modal_window: false
+ * }
+ */
+
+import { combineReducers } from 'redux'
+import actors from './actors'
+import dominantColor from './dominant_color'
+import modalWindow from './modal_window'
+
+const Reducer = combineReducers({
+  actors,
+  dominantColor,
+  modalWindow
+})
+
+export default Reducer
