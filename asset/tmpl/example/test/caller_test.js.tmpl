@@ -27,7 +27,7 @@ describe('caller', () => {
     injectmock.restoreAll()
   }))
 
-  it('Terminal', () => co(function * () {
+  it('Caller', () => co(function * () {
     let cloudInstance = yield cloud()
     let actorInstance = yield actor()
     let callerInstance = yield caller()

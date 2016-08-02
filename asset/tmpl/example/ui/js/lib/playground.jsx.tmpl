@@ -59,7 +59,7 @@ const Playground = React.createClass({
                 </div>
                 <div className='playground-item'>
                   <ApBigButton
-                    onTap={ () => s.withTerminal(function * sendPing (caller) {
+                    onTap={ () => s.withCaller(function * sendPing (caller) {
                       if (s.state.pongAt) {
                         // Reset to send ping
                         s.setState({ pingAt: null, pongAt: null })
@@ -107,7 +107,7 @@ const Playground = React.createClass({
   // custom
   // --------------------
 
-  withTerminal (handler) {
+  withCaller (handler) {
     const s = this
     let { caller } = s
     if (!caller) {
