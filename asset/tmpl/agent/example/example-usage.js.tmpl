@@ -1,0 +1,14 @@
+'use strict'
+
+const ~~~~package_name@camelcase~~~~ = require('~~~~package_name~~~~')
+const co = require('co')
+
+co(function * () {
+  let agent = ~~~~package_name@camelcase~~~~('/foo/bar')
+
+  // Check if server available
+  {
+    let ok = yield agent.knock() // Send HTTP HEAD request.
+    /* ... */
+  }
+}).catch((err) => console.error(err))

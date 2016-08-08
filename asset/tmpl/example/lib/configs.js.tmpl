@@ -6,7 +6,7 @@
 'use strict'
 
 const pkg = require('../package.json')
-const { nameColorizer } = require('apemancolor/lib/colorizers')
+const { nameColorizer } = require('apemancolor').colorizers
 
 module.exports = function configs () {
   let { PORT, HOSTNAME, STORAGE, CONTENTS } = process.env

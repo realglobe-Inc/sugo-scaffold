@@ -135,6 +135,7 @@ Available template types
 + [example](asset/tmpl/example)
 + [middleware](asset/tmpl/middleware)
 + [module](asset/tmpl/module)
++ [react](asset/tmpl/react)
 + [site](asset/tmpl/site)
 
 
