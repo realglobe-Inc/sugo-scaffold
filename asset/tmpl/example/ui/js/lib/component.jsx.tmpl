@@ -8,7 +8,7 @@ import 'babel-polyfill'
 
 import React, {PropTypes as types} from 'react'
 
-import cloudAgent from 'sugo-cloud/agent'
+import hubAgent from 'sugo-hub/agent'
 import fileAgent from 'sugo-agent-file'
 import compileAgent from 'sugo-agent-compile'
 
@@ -56,9 +56,9 @@ const Component = React.createClass({
   // --------------------
 
   propTypes: {
-    /** Port number of the cloud */
+    /** Port number of the hub */
     port: types.number,
-    /** Hostname of the cloud */
+    /** Hostname of the hub */
     hostname: types.string,
     /** Package data */
     pkg: types.object,
@@ -78,7 +78,7 @@ const Component = React.createClass({
       reading: false,
       refreshing: false,
       tooltip: null,
-      cloud: {},
+      hub: {},
       callers: [],
       actors: [],
       globals: {
@@ -96,7 +96,7 @@ const Component = React.createClass({
     const s = this
     let { state, props } = s
     let { pkg } = props
-    let { tab, script, html, globals, cloud, actors, callers } = state
+    let { tab, script, html, globals, hub, actors, callers } = state
     return (
       <div>
         <SgExample>
@@ -108,7 +108,7 @@ const Component = React.createClass({
             <SgExampleAbout pkg={ pkg }/>
             <SgExampleStatus actors={ actors }
                              callers={ callers }
-                             cloud={ cloud }
+                             hub={ hub }
                              spinning={ state.refreshing }
                              onRefresh={ s.refreshStatus }
             />
@@ -127,7 +127,7 @@ const Component = React.createClass({
           </SgExampleBody>
           <SgExampleBody hidden={ tab !== 'GUIDES' }>
             <SgExampleInstruction src={ [
-              markdowns[ '11.Setup Cloud' ],
+              markdowns[ '11.Setup Hub' ],
               markdowns[ '12.Connect Actor' ],
               markdowns[ '13.Use Caller' ]
             ] } vars={ s.getMarkdownVars() }/>
@@ -158,7 +158,7 @@ const Component = React.createClass({
 
     s.compileAgent = compileAgent('/dynamic/compile')
     s.fileAgent = fileAgent('/dynamic/contents')
-    s.cloudAgent = cloudAgent()
+    s.hubAgent = hubAgent()
 
     s.observer.start()
     s.refreshStatus()
@@ -201,17 +201,17 @@ const Component = React.createClass({
 
   refreshStatus () {
     const s = this
-    let { state, cloudAgent } = s
+    let { state, hubAgent } = s
     let { location } = window
     if (!location) {
       return
     }
     s.tryAsync('refreshing', co(function * () {
-      let actors = yield cloudAgent.actors()
-      let callers = yield cloudAgent.callers()
-      let cloud = { host: location.host }
+      let actors = yield hubAgent.actors()
+      let callers = yield hubAgent.callers()
+      let hub = { host: location.host }
       let globals = Object.assign(state.globals, { actors })
-      s.setState({ actors, callers, cloud, globals })
+      s.setState({ actors, callers, hub, globals })
     }))
   },
 

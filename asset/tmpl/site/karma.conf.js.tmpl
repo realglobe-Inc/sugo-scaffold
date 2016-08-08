@@ -1,48 +1,22 @@
-module.exports = (config) => {
+module.exports = function (config) {
   config.set({
-    browsers: ['Chrome', 'Firefox'],
+    browsers: process.env.CI ? ['Firefox'] : ['Chrome', 'Firefox'],
+
+    frameworks: ['mocha'],
 
     singleRun: true,
 
-    frameworks: [ 'mocha' ],
-
     files: [
-      'test-karma/tests.webpack.js'
+      'test/ui/ui_test.js',
+      'public/js/bundle.js'
     ],
 
-    preprocessors: {
-      'test-karma/tests.webpack.js': [ 'webpack', 'sourcemap' ]
-    },
+    reporters: ['dots'],
 
-    reporters: [ 'dots' ],
+    port: 9876,
 
-    webpack: {
-      devtool: 'inline-source-map',
-      module: {
-        loaders: [
-          {
-            test: /\.js$|\.jsx$/,
-            loader: 'babel',
-            exclude: /node_modules\/(?!sugo-cloud)(?!sugo-terminal)(?!sg-schemas)/,
-            include: __dirname,
-            query: {
-              presets: ['es2015', 'react']
-            }
-          },
-          {
-            test: /\.json$/,
-            loader: 'json-loader'
-          }
-        ]
-      },
-      resolve: {
-        extensions: ['', '.js', '.jsx', '.json']
-      }
-    },
+    colors: true,
 
-    webpackServer: {
-      noInfo: true
-    }
-
+    logLevel: config.LOG_INFO
   })
 }

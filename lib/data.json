@@ -1,5 +1,8 @@
 {
   "module": {
     "module_name": "MyModule"
+  },
+  "react": {
+    "component_name": "MyComponent"
   }
 }

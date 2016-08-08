@@ -26,9 +26,9 @@ function run (script) {
 }
 
 program
-  .command('cloud')
-  .description('Run example cloud')
-  .action(() => run(`${__dirname}/cloud.js`))
+  .command('hub')
+  .description('Run example hub')
+  .action(() => run(`${__dirname}/hub.js`))
 
 program
   .command('actor')

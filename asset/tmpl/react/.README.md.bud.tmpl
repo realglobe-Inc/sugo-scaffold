@@ -1,0 +1,43 @@
+/**
+ * Bud file for README.md
+ */
+
+'use strict'
+
+const { readmeMdBud } = require('ape-tmpl')
+const { parseReactComponent } = require('ape-doc')
+const pkg = require('./package.json')
+
+module.exports = readmeMdBud({
+  pkg,
+  repo: pkg.repository,
+  sections: 'doc/guides/*.md.hbs',
+  badges: {
+    travis: false,
+    travisCom: true,
+    travisComToken: 'aeFzCpBZebyaRijpCFmm',
+    codeclimate: false,
+    codeclimateCoverage: false,
+    gemnasium: false,
+    npm: true,
+    standard: true
+  },
+  overview: 'doc/overview.md',
+  links: require('./doc/links'),
+  vars: {
+    org: pkg.repository.split('/').shift(),
+    get components () {
+      try {
+        let pattern = `${__dirname}/lib/sg_*.jsx`
+        return parseReactComponent.fromPattern(pattern)
+      } catch (e) {
+        console.warn(e)
+        return null
+      }
+    }
+  }
+})
+
+if (!module.parent) {
+  require('coz').render(__filename)
+}

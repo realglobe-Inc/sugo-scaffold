@@ -7,7 +7,7 @@
     "dev": "./ci/dev.js",
     "prepublish": "npm run build",
     "start": "./bin/cloud.js",
-    "test": "./ci/test.js"
+    "test": "mocha test/js && karma start"
   },
   "repository": "~~~~github_repository~~~~",
   "keywords": [
@@ -37,8 +37,8 @@
     "redux-thunk": "^2.1.0",
     "sg-react-components": "^1.3.8",
     "sugo-caller": "^2.1.7",
-    "sugo-ci-site": "^1.0.10",
-    "sugo-cloud": "^2.0.8",
+    "sugo-ci-site": "*",
+    "sugo-cloud": "*",
     "sugo-module-noop": "^4.0.3"
   },
   "devDependencies": {
@@ -58,17 +58,15 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.1.1",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.7.0",
     "koa-webpack-dev-middleware": "^1.2.1",
     "koa-webpack-hot-middleware": "^1.0.3",
     "mocha": "^3.0.0",
     "react-addons-test-utils": "^15.3.0",
     "sass-loader": "^4.0.0",
-    "sg-travis": "^1.1.26",
+    "sg-travis": "*",
     "style-loader": "^0.13.1",
-    "sugo-actor": "^4.0.3",
-    "sugos-assets": "^2.0.1",
+    "sugo-actor": "*",
+    "sugos-assets": "*",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.1"

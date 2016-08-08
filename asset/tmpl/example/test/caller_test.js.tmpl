@@ -6,7 +6,7 @@
 
 const caller = require('../lib/caller.js')
 const actor = require('../lib/actor.js')
-const cloud = require('../lib/cloud.js')
+const hub = require('../lib/hub.js')
 const assert = require('assert')
 const co = require('co')
 const injectmock = require('injectmock')
@@ -28,17 +28,17 @@ describe('caller', () => {
   }))
 
   it('Caller', () => co(function * () {
-    let cloudInstance = yield cloud()
+    let hubInstance = yield hub()
     let actorInstance = yield actor()
     let callerInstance = yield caller()
-    assert.ok(cloudInstance)
+    assert.ok(hubInstance)
     assert.ok(actorInstance)
     assert.ok(callerInstance)
     yield asleep(500)
     yield callerInstance.kill()
     yield callerInstance.disconnect()
     yield actorInstance.disconnect()
-    yield cloudInstance.close()
+    yield hubInstance.close()
   }))
 })
 

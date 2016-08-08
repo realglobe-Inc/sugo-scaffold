@@ -48,11 +48,11 @@ Deploy to the [Heroku][heroku_url] and play it!
 exports[ '10.How to' ] = restore(`How to
 -------`)
 
-/** Converted from "doc/guides/11.Setup Cloud.md.hbs" */
-exports[ '11.Setup Cloud' ] = restore(`### Setup Cloud
+/** Converted from "doc/guides/11.Setup Hub.md.hbs" */
+exports[ '11.Setup Hub' ] = restore(`### Setup Hub
 
-Setup a cloud server to provide UI pages and actor/connector API.
-This component is build with [SUGO-Cloud][sugo_cloud_url] package.
+Setup a hub server to provide UI pages and actor/connector API.
+This component is build with [SUGO-Hub][sugo_hub_url] package.
 
 
 Install the CLI:
@@ -64,7 +64,7 @@ $ npm install ~~~~package_name~~~~ -g
 Then, run the server
 
 &#x60;&#x60;&#x60;bash
-$ PORT&#x3D;3000 ~~~~package_name~~~~ cloud
+$ PORT&#x3D;3000 ~~~~package_name~~~~ hub
 &#x60;&#x60;&#x60;
 
 In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.

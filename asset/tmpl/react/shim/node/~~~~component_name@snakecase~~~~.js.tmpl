@@ -1,0 +1,107 @@
+/**
+ * ~~~~package_description~~~~
+ * @class ~~~~component_name~~~~
+ */
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _debug = require('debug');
+
+var _debug2 = _interopRequireDefault(_debug);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var debug = (0, _debug2.default)('~~~~component_name@enumcase~~~~');
+
+/** @lends ~~~~component_name~~~~ */
+var ~~~~component_name~~~~ = _react2.default.createClass({
+  displayName: '~~~~component_name~~~~',
+
+
+  // --------------------
+  // Specs
+  // --------------------
+
+  propTypes: {},
+
+  mixins: [],
+
+  statics: {},
+
+  getInitialState: function getInitialState() {
+    return {};
+  },
+  getDefaultProps: function getDefaultProps() {
+    return {};
+  },
+  render: function render() {
+    debug('render');
+
+    var s = this;
+    var state = s.state;
+    var props = s.props;
+
+
+    return _react2.default.createElement(
+      'div',
+      { className: (0, _classnames2.default)('~~~~component_name@spinalcase~~~~', props.className),
+        style: Object.assign({}, props.style) },
+      props.children
+    );
+  },
+
+
+  // --------------------
+  // Lifecycle
+  // --------------------
+
+  componentWillMount: function componentWillMount() {
+    debug('willMount');
+    var s = this;
+  },
+  componentDidMount: function componentDidMount() {
+    debug('didMount');
+    var s = this;
+  },
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    var s = this;
+  },
+  shouldComponentUpdate: function shouldComponentUpdate(nextProps, nextState) {
+    var s = this;
+    return true;
+  },
+  componentWillUpdate: function componentWillUpdate(nextProps, nextState) {
+    var s = this;
+  },
+  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+    var s = this;
+  },
+  componentWillUnmount: function componentWillUnmount() {
+    debug('willUnmount');
+    var s = this;
+  }
+
+  // ------------------
+  // Custom
+  // ------------------
+
+  // ------------------
+  // Private
+  // ------------------
+
+});
+
+exports.default = ~~~~component_name~~~~;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

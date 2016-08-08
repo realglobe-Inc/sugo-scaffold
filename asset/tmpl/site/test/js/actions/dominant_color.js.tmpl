@@ -1,0 +1,14 @@
+import {deepEqual} from 'assert'
+import dominantColor from '../../../ui/js/actions/dominant_color'
+
+describe('dominantColor', () => {
+  it('should create a correct action', () => {
+    let color = 'red'
+    deepEqual(dominantColor({color}), {
+      type: 'SET_COLOR',
+      color
+    })
+  })
+})
+
+/* global describe it */

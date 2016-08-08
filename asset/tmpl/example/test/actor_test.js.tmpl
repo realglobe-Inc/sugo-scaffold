@@ -5,7 +5,7 @@
 'use strict'
 
 const actor = require('../lib/actor.js')
-const cloud = require('../lib/cloud.js')
+const hub = require('../lib/hub')
 const assert = require('assert')
 const filedel = require('filedel')
 const co = require('co')
@@ -24,15 +24,15 @@ describe('actor', () => {
 
   after(() => co(function * () {
     injectmock.restoreAll()
-    yield filedel(`${storage}/**/*.*`)
+    yield filedel(`${storage}/**/*.*`, { force: true })
   }))
 
-  it('Spot', () => co(function * () {
-    let cloudInstance = yield cloud()
+  it('Actor', () => co(function * () {
+    let hubInstance = yield hub()
     let actorInstance = yield actor()
     yield asleep(300)
     yield actorInstance.disconnect()
-    yield cloudInstance.close()
+    yield hubInstance.close()
   }))
 })
 

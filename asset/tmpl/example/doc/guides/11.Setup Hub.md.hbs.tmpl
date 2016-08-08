@@ -1,0 +1,21 @@
+### Setup Hub
+
+Setup a hub server to provide UI pages and actor/connector API.
+This component is build with [SUGO-Hub][sugo_hub_url] package.
+
+
+Install the CLI:
+
+```bash
+$ npm install {{pkg.name}} -g
+```
+
+Then, run the server
+
+```bash
+$ PORT=3000 {{pkg.name}} hub
+```
+
+In the most of cases, you need to setup reverse-proxy (like [nginx][nginx_url]) to exports the server to the outer world.
+
+[nginx_url]: https://www.nginx.com/

@@ -1,0 +1,77 @@
+/**
+ * Style for ~~~~component_name~~~~.
+ * @class ~~~~component_name~~~~Style
+ */
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _apemanReactStyle = require('apeman-react-style');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/** @lends ~~~~component_name~~~~Style */
+var ~~~~component_name~~~~Style = _react2.default.createClass({
+  displayName: '~~~~component_name~~~~Style',
+
+  propTypes: {
+    style: _react.PropTypes.object,
+    highlightColor: _react.PropTypes.string
+  },
+  getDefaultProps: function getDefaultProps() {
+    return {
+      style: {},
+      highlightColor: _apemanReactStyle.ApStyle.DEFAULT_HIGHLIGHT_COLOR,
+      backgroundColor: _apemanReactStyle.ApStyle.DEFAULT_BACKGROUND_COLOR
+    };
+  },
+
+  statics: {
+    styleData: function styleData(config) {
+      var highlightColor = config.highlightColor;
+      var backgroundColor = config.backgroundColor;
+
+
+      return {
+        all: {
+          '.~~~~component_name@spinalcase~~~~': {}
+        },
+        small: {},
+        medium: {},
+        large: {}
+      };
+    }
+  },
+  render: function render() {
+    var s = this;
+    var props = s.props;
+
+    var _~~~~component_name~~~~Style$sty = ~~~~component_name~~~~Style.styleData(props);
+
+    var all = _~~~~component_name~~~~Style$sty.all;
+    var small = _~~~~component_name~~~~Style$sty.small;
+    var medium = _~~~~component_name~~~~Style$sty.medium;
+    var large = _~~~~component_name~~~~Style$sty.large;
+
+
+    return _react2.default.createElement(
+      _apemanReactStyle.ApStyle,
+      { data: Object.assign(all, props.style),
+        smallMediaData: small,
+        mediumMediaData: medium,
+        largeMediaData: large
+      },
+      props.children
+    );
+  }
+});
+
+exports.default = ~~~~component_name~~~~Style;
+//# sourceMappingURL=data:application/json;base64,bnVsbA==

@@ -31,7 +31,7 @@
     "co": "^4.6.0",
     "filemode": "^2.0.3",
     "gitconfig": "^2.0.3",
-    "sugos-assets": "^2.0.1",
+    "sugos-assets": "^2.0.3",
     "tmplconv": "^3.0.9"
   },
   "devDependencies": {
@@ -46,12 +46,13 @@
     "injectmock": "^2.0.0",
     "sg-travis": "^1.1.27",
     "sugo-demo-agent": "^1.0.14",
-    "sugo-demo-ci": "^1.0.6",
+    "sugo-demo-ci": "^1.0.7",
     "sugo-demo-endpoint": "^1.0.11",
-    "sugo-demo-example": "^1.1.46",
-    "sugo-demo-middleware": "^1.0.5",
+    "sugo-demo-example": "^1.1.50",
+    "sugo-demo-middleware": "^1.0.8",
     "sugo-demo-module": "^4.0.5",
-    "sugo-demo-site": "^1.1.14"
+    "sugo-demo-react": "^1.0.1",
+    "sugo-demo-site": "^1.1.16"
   },
   "engines": {
     "node": ">=6",

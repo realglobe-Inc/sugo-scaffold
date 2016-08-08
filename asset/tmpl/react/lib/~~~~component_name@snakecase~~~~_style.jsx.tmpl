@@ -1,0 +1,57 @@
+/**
+ * Style for ~~~~component_name~~~~.
+ * @class ~~~~component_name~~~~Style
+ */
+
+'use strict'
+
+import React, {PropTypes as types} from 'react'
+import {ApStyle} from 'apeman-react-style'
+
+/** @lends ~~~~component_name~~~~Style */
+const ~~~~component_name~~~~Style = React.createClass({
+  propTypes: {
+    style: types.object,
+    highlightColor: types.string
+  },
+  getDefaultProps () {
+    return {
+      style: {},
+      highlightColor: ApStyle.DEFAULT_HIGHLIGHT_COLOR,
+      backgroundColor: ApStyle.DEFAULT_BACKGROUND_COLOR
+    }
+  },
+  statics: {
+    styleData (config) {
+      let {
+        highlightColor,
+        backgroundColor
+      } = config
+
+      return {
+        all: {
+          '.~~~~component_name@spinalcase~~~~': {}
+        },
+        small: {},
+        medium: {},
+        large: {}
+      }
+    }
+  },
+  render () {
+    const s = this
+    let { props } = s
+
+    let { all, small, medium, large } = ~~~~component_name~~~~Style.styleData(props)
+
+    return (
+      <ApStyle data={ Object.assign(all, props.style) }
+               smallMediaData={ small }
+               mediumMediaData={ medium }
+               largeMediaData={ large }
+      >{ props.children }</ApStyle>
+    )
+  }
+})
+
+export default ~~~~component_name~~~~Style
