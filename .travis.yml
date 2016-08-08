@@ -10,6 +10,7 @@ install:
 before_script:
 - npm link .
 script:
+- ./ci/tmplify.js
 - ./ci/build.js
 - ./ci/test.js
 - ./ci/cover.js
