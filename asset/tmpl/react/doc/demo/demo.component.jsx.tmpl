@@ -1,0 +1,33 @@
+'use strict'
+
+import React from 'react'
+import {ApThemeStyle} from 'apeman-react-theme'
+import ~~~~component_name~~~~ from '../../lib/~~~~component_name@snakecase~~~~'
+
+const DOMINANT_COLOR = '#FFC533'
+
+const demoStyle = {
+  '.react-demo a:link, .react-demo a:visited': {
+    color: DOMINANT_COLOR
+  },
+  '.react-demo .syntaxhighlighter .keyword': {
+    color: `${DOMINANT_COLOR} !important`
+  }
+}
+
+const Demo = React.createClass({
+  render () {
+    return (
+      <div>
+        <ApThemeStyle dominant={ DOMINANT_COLOR } style={ demoStyle }/>
+        <~~~~component_name~~~~>
+          <p className='screenshot-target'>
+            This is the demo!!
+          </p>
+        </~~~~component_name~~~~>
+      </div>
+    )
+  }
+})
+
+export default Demo
