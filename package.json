@@ -51,6 +51,7 @@
     "sugo-demo-example": "^1.1.46",
     "sugo-demo-middleware": "^1.0.5",
     "sugo-demo-module": "^4.0.5",
+    "sugo-demo-react": "^1.0.1",
     "sugo-demo-site": "^1.1.14"
   },
   "engines": {
