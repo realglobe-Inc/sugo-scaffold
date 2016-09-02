@@ -79,10 +79,10 @@ Usage
 
 const sugoScaffold = require('sugo-scaffold')
 
-// Generate interface project
+// Generate module project
 sugoScaffold(
-  'interface', // Type
-  'my-projects/my-custom-interface', // Destination directory
+  'module', // Type
+  'my-projects/my-custom-module', // Destination directory
   {
     force: false
   }
@@ -113,8 +113,9 @@ Then,
 
 ```bash
 
-# Generate interface project
-sugo-scaffold interface "my-projects/my-custom-interface"
+# Generate module project
+sugo-scaffold module "my-projects/my-custom-module"
+
 ```
 
 

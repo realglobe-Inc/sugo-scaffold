@@ -1,3 +1,3 @@
 
-# Generate interface project
-sugo-scaffold interface "my-projects/my-custom-interface"
+# Generate module project
+sugo-scaffold module "my-projects/my-custom-module"

@@ -22,7 +22,7 @@ program
 program.on('--help', () => {
   console.log('  Examples:')
   console.log('')
-  console.log('  $ sugo-scaffold interface my-awesome-interface   # Generate a interface project')
+  console.log('  $ sugo-scaffold module my-awesome-module   # Generate a module project')
   console.log('')
 })
 

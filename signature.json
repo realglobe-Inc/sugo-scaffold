@@ -25,8 +25,8 @@
   ],
   "examples": [
     {
-      "script": "sugo-scaffold interface my-awesome-interface",
-      "desc": "Generate a interface project"
+      "script": "sugo-scaffold module my-awesome-module",
+      "desc": "Generate a module project"
     }
   ]
 }
