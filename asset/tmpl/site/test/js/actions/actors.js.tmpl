@@ -1,5 +1,5 @@
 import {equal} from 'assert'
-import sugoCloud from 'sugo-cloud'
+import sugoHub from 'sugo-hub'
 import sugoActor from 'sugo-actor'
 import 'babel-polyfill'
 import co from 'co'
@@ -9,16 +9,15 @@ import noopModule from 'sugo-module-noop'
 
 const {connectActors} = actors
 
-const PORT = env.port.CLOUD
+const PORT = env.port.SERVER
 const CLOUD_URL = `http://localhost:${PORT}`
 const ACTOR_URL = `${CLOUD_URL}/actors`
 
 describe('action actors', () => {
   before(() => {
     return co(function * () {
-      yield sugoCloud({
-        port: PORT
-      })
+      let server = sugoHub({})
+      yield server.listen(PORT)
       let actor = sugoActor(ACTOR_URL, {
         key: 'actor-01',
         modules: {
