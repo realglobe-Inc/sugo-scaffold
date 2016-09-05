@@ -3,18 +3,22 @@
   "version": "1.0.0",
   "description": "~~~~package_description~~~~",
   "scripts": {
-    "build": "./ci/build.js && ./ci/compile.js",
-    "dev": "./ci/dev.js",
+    "build": "node ./ci/build.js && node ./ci/compile.js",
+    "dev": "node ./ci/dev.js",
     "prepublish": "npm run build",
-    "start": "./bin/cloud.js",
+    "start": "node ./bin/hub.js",
     "test": "mocha test/js && karma start"
   },
   "repository": "~~~~github_repository~~~~",
   "keywords": [
-    "sugos"
+    "SUGOS",
+    "React.js",
+    "Redux"
   ],
   "author": {
-    "name": "~~~~author_name~~~~"
+    "name": "~~~~author_name~~~~",
+    "email": "~~~~author_email~~~~",
+    "url": "https://github.com/~~~~author_name@pascalcase~~~~"
   },
   "license": "MIT",
   "bugs": {

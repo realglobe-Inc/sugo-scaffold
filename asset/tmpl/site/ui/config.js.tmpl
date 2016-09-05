@@ -5,11 +5,10 @@
  */
 'use strict'
 
-const pkg = require('../package.json')
 const { nameColorizer } = require('apemancolor/lib/colorizers')
 
 module.exports = function configs () {
-  let color = nameColorizer('#3A8')(pkg.name)
+  let color = nameColorizer('#3A8')('~~~~package_name~~~~')
 
   return {
     /** Dominant ui color */

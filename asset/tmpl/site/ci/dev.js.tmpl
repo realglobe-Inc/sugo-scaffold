@@ -16,7 +16,7 @@ function spawnWithEnv (command) {
     env: Object.assign({}, process.env, {
       NODE_ENV: 'development',
       DEBUG: 'sg:*,sg:*',
-      HOSTNAME: `localhost:${port.CLOUD}`
+      HOSTNAME: `localhost:${port.SERVER}`
     })
   })
   child.on('error', (err) => console.error(err))
@@ -26,8 +26,7 @@ function spawnWithEnv (command) {
 co(function * () {
   spawnWithEnv('redis-server')
   yield asleep(1000)
-  spawnWithEnv('./bin/cloud.js')
+  spawnWithEnv('./bin/hub.js')
   yield asleep(1000)
   devServer({ port, dir: process.cwd() })
-  yield asleep(1000)
 }).catch((err) => console.error(err))
