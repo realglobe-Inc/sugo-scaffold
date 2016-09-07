@@ -24,8 +24,8 @@ import {
   SgExampleAbout,
   SgExampleInstruction
 } from 'sugo-react-example'
-import sgReactComponents from 'sg-react-components'
-import apemanReactBasic from 'apeman-react-basic'
+import * as sgReactComponents from 'sg-react-components'
+import * as apemanReactBasic from 'apeman-react-basic'
 import asleep from 'asleep'
 import co from 'co'
 import os from 'os'

@@ -25,7 +25,7 @@ function hub () {
   colorprint.trace('Settings: %s', { port, storage })
   return co(function * () {
     let hub = yield sugoHub({
-      port, storage,
+      storage,
       static: [ 'ui' ],
       middlewares: [],
       endpoints: {
@@ -33,7 +33,7 @@ function hub () {
         '/dynamic/compile': compile(),
         '/dynamic/contents/:filename': file(contents)
       }
-    })
+    }).listen(port)
     return hub
   })
 }
