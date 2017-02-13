@@ -1,14 +1,14 @@
 {
   "name": "sugo-scaffold",
-  "version": "2.2.19",
+  "version": "3.0.0",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
     "sugo-scaffold": "bin/sugo-scaffold"
   },
   "scripts": {
-    "test": "./ci/test.js",
-    "prepublish": "./ci/build.js && ./ci/tmplify.js"
+    "test": "node ./ci/test.js",
+    "prepare": "node ./ci/build.js && node ./ci/tmplify.js"
   },
   "repository": "realglobe-Inc/sugo-scaffold",
   "keywords": [
@@ -38,13 +38,11 @@
     "amocha": "^1.0.11",
     "ape-formatting": "^1.0.0",
     "ape-releasing": "^4.0.4",
-    "ape-reporting": "^3.0.2",
     "ape-tasking": "^4.0.8",
     "ape-tmpl": "^5.0.15",
-    "ape-updating": "^4.0.5",
+    "ape-updating": "^4.1.0",
     "coz": "^6.0.16",
     "injectmock": "^2.0.0",
-    "sg-travis": "^1.1.27",
     "sugo-demo-agent": "^1.0.14",
     "sugo-demo-ci": "^1.0.6",
     "sugo-demo-endpoint": "^1.0.11",
@@ -52,13 +50,10 @@
     "sugo-demo-middleware": "^1.0.5",
     "sugo-demo-module": "^4.0.5",
     "sugo-demo-react": "^1.0.1",
-    "sugo-demo-site": "^1.1.14"
+    "sugos-travis": "^2.0.7"
   },
   "engines": {
     "node": ">=6",
-    "npm": ">=3"
-  },
-  "publishConfig": {
-    "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
+    "npm": ">=4"
   }
 }

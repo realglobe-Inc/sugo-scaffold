@@ -13,8 +13,6 @@ script:
 - ./ci/tmplify.js
 - ./ci/build.js
 - ./ci/test.js
-- ./ci/cover.js
-- ./ci/report.js
 after_success:
 - ./ci/travis/commit_push.js
 - ./ci/travis/publish.js
