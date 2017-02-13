@@ -6,6 +6,6 @@
 
 process.chdir(`${__dirname}/../..`)
 
-const { commitPush } = require('sg-travis')
+const { commitPush } = require('sugos-travis')
 
 commitPush({})
