@@ -33,11 +33,6 @@ runTasks('build', [
       out: shimDir
     })
   },
-  () => coz.render([
-    '.*.bud',
-    'lib/.*.bud',
-    'test/.*.bud'
-  ]),
   () => {
     let demoDir = `${__dirname}/../doc/demo`
     return co(function * () {

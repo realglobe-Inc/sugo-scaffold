@@ -4,15 +4,26 @@
  */
 'use strict';
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
-var _require = require('sugo-agent-base');
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var SugoAgentBase = _require.SugoAgentBase;
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _require = require('sugo-agent-base'),
+    SugoAgentBase = _require.SugoAgentBase;
 
 var co = require('co');
 var debug = require('debug')('~~~~package_name@enumcase~~~~');
@@ -20,18 +31,16 @@ var debug = require('debug')('~~~~package_name@enumcase~~~~');
 /** @lends ~~~~package_name@pascalcase~~~~ */
 
 var ~~~~package_name@pascalcase~~~~ = function (_SugoAgentBase) {
-  _inherits(~~~~package_name@pascalcase~~~~, _SugoAgentBase);
+  (0, _inherits3.default)(~~~~package_name@pascalcase~~~~, _SugoAgentBase);
 
   function ~~~~package_name@pascalcase~~~~(url) {
-    var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-    _classCallCheck(this, ~~~~package_name@pascalcase~~~~);
-
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(~~~~package_name@pascalcase~~~~).call(this, url, options));
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    (0, _classCallCheck3.default)(this, ~~~~package_name@pascalcase~~~~);
+    return (0, _possibleConstructorReturn3.default)(this, (~~~~package_name@pascalcase~~~~.__proto__ || (0, _getPrototypeOf2.default)(~~~~package_name@pascalcase~~~~)).call(this, url, options));
   }
 
   return ~~~~package_name@pascalcase~~~~;
 }(SugoAgentBase);
 
 module.exports = ~~~~package_name@pascalcase~~~~;
-//# sourceMappingURL=data:application/json;base64,bnVsbA==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN1Z29fZGVtb19hZ2VudC5qcyJdLCJuYW1lcyI6WyJyZXF1aXJlIiwiU3Vnb0FnZW50QmFzZSIsImNvIiwiZGVidWciLCJTdWdvRGVtb0FnZW50IiwidXJsIiwib3B0aW9ucyIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBOzs7O0FBSUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O2VBRTBCQSxRQUFRLGlCQUFSLEM7SUFBbEJDLGEsWUFBQUEsYTs7QUFDUixJQUFNQyxLQUFLRixRQUFRLElBQVIsQ0FBWDtBQUNBLElBQU1HLFFBQVFILFFBQVEsT0FBUixFQUFpQixpQkFBakIsQ0FBZDs7QUFFQTs7SUFDTUksYTs7O0FBQ0oseUJBQWFDLEdBQWIsRUFBZ0M7QUFBQSxRQUFkQyxPQUFjLHVFQUFKLEVBQUk7QUFBQTtBQUFBLCtJQUN4QkQsR0FEd0IsRUFDbkJDLE9BRG1CO0FBRS9COzs7RUFIeUJMLGE7O0FBTTVCTSxPQUFPQyxPQUFQLEdBQWlCSixhQUFqQiIsImZpbGUiOiJzdWdvX2RlbW9fYWdlbnQuanMiLCJzb3VyY2VSb290IjoibGliIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBEZW1vIG9mIHN1Z28gYWdlbnRcbiAqIEBjbGFzcyBTdWdvRGVtb0FnZW50XG4gKi9cbid1c2Ugc3RyaWN0J1xuXG5jb25zdCB7IFN1Z29BZ2VudEJhc2UgfSA9IHJlcXVpcmUoJ3N1Z28tYWdlbnQtYmFzZScpXG5jb25zdCBjbyA9IHJlcXVpcmUoJ2NvJylcbmNvbnN0IGRlYnVnID0gcmVxdWlyZSgnZGVidWcnKSgnc3VnbzpkZW1vOmFnZW50JylcblxuLyoqIEBsZW5kcyBTdWdvRGVtb0FnZW50ICovXG5jbGFzcyBTdWdvRGVtb0FnZW50IGV4dGVuZHMgU3Vnb0FnZW50QmFzZSB7XG4gIGNvbnN0cnVjdG9yICh1cmwsIG9wdGlvbnMgPSB7fSkge1xuICAgIHN1cGVyKHVybCwgb3B0aW9ucylcbiAgfVxufVxuXG5tb2R1bGUuZXhwb3J0cyA9IFN1Z29EZW1vQWdlbnRcbiJdfQ==

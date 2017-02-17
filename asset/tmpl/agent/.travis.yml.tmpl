@@ -2,21 +2,19 @@ language: node_js
 node_js:
 - '6'
 before_install:
-- echo registry = https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual > .npmrc
-- curl -u${NPM_USER}:${NPM_PASSWORD} https://realglobe.artifactoryonline.com/realglobe/api/npm/auth >> .npmrc
-- cat .npmrc
-- npm install istanbul mocha babel-cli -g
+- npm i npm-cli-login -g
+- echo "NPM_USER=${NPM_USER}"
+- npm-cli-login -u "${NPM_USER}" -p "${NPM_PASSWORD}" -e "${NPM_EMAIL}"
 install:
-- npm install babel-preset-es2015
 - npm install
 script:
 - "./ci/build.js"
+- "./ci/shim.js"
 - "./ci/test.js"
-- "./ci/cover.js"
-- "./ci/report.js"
 after_success:
 - "./ci/travis/publish.js"
 - "./ci/travis/push_scaffold.js"
 - "./ci/travis/push_sugos_index.js"
+
 env:
-  secure: NOFdtlmFQUW79fA/QgcYQ9bNXUt2PRkSWcqWpiUXdMMrm6rfilxR4rWZixaIKGapj4V/AQNgLaJEZSXsqPFT2zhmpbSZxMdYO6njnry45GvIXkZ0JiDIUfwSoLdJMk9A9SpReM4O8ZO0sv8Ud5XEq5JQRsBL5yt9QjonPzjqzWDaHadymYh1vVofDjvP7muE6WaRJRL9nnLu8Y81hOddQx2kKQMkZL44+hMZmV4mMkkSRhTv1Y1Ju3lsB67vikFkDmhdeiJUKHR5VVrfN2O03+s3ZsXRtCxxcWMjysHqNNLlts5zFZwFN1kV2I/Hvls+r8QMDJeI1+eOZaohkdAobr5gbonqscKgl6pJH0dEkrr8/5g/RVJzSQEQIPKY+5b5a1GgRBIe86J5MkPPYzX4GRroImsIuM4fvAk5CgN4aKI915LJHWfdbgLZed5QtMrCBS/Lb6H96h98l9Xil9dzm7/x11ewaNuQHDbsTET/b3erzQZkI/OLBHPViwnoErOTB5Vry7SwRrIMUI0CITT6+FXzWSFHn8hHUmzKBdgshsoJSOmJKsQtsvmS7+4Ru34p36WBrG2F5Msyz3Izbe+JYhejQsS1vpNrtgjkl6jzugyVpjOyEewcxcJhlLJoUXYuq5DvrULxv+QvXtxu2mqR3Rvmb8BQ0rhaNeHxIcpNvag=
+  secure: "DRyEk+SiYLSGuSU90Fjq5UswA7vCxB33Ul3hfzYNsl4np3ppDQGgsfl+mhorcyA49Qlki7aQD8c//uHSyvG5fMw42MtzJWI3eytQN0iNHiAjXHBp1RQS5RVM+KlmoVeL0XsY7k37aUey3D/QQmOMuBgvv7MYaES5b93PveAbWb9TFTRex781lNXvqd5hsHeU7k7PPiCTdu50SsW1tJaMesRkPx+Qt6VVEtD1j+BFu0RWFOH39HisYyN0961WEjN1H7h84svEV3nyCNC7/A/SYI7f0AaIQ1DivNnPQN79jiz0fonIcPtyjAM5LBzSHb4OWeHc5akn8a+hZGda4XAQbMTVBMKuine6pr4RJ0mauHEeJ04p5Y03M/mMhY+pg05jkYiRd8XAoxTRO6n15o0+jkfF6+tNcq7rw+zPhaC0RP3LlmhbpCg/rG/16wP+2Y0ImOgby5ZCposdEhb9+Qj0yKQyL/Uko1oqJviYjmrqw4syjovPAJVaap1o9SAXf+5LEq0C1g4crIxCcL7P+q0MFZQ83oXjrp2MKgfpB7rCgiZlC/3+z4o/eeWysUUuf7pxXjloDZK+JKwC8hsev0YMFjdVOaQLY9ejYT4W2yxYwzl864hCpsIARJM614FHscOUMac1lb1HOdjIlB7o8O2OyLyw+ba4iNDrX8slne29IwQ="

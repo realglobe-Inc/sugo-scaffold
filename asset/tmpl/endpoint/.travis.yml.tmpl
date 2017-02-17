@@ -2,20 +2,17 @@ language: node_js
 node_js:
 - '6'
 before_install:
-- echo "registry = https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-virtual" > .npmrc
-- curl -u${NPM_USER}:${NPM_PASSWORD} "https://realglobe.artifactoryonline.com/realglobe/api/npm/auth" >> .npmrc
-- cat .npmrc
-- npm install istanbul mocha -g
+- npm i npm-cli-login -g
+- npm-cli-login -u "${NPM_USER}" -p "${NPM_PASSWORD}" -e "${NPM_EMAIL}"
+- npm who
 install:
 - npm install
 script:
 - ./ci/build.js
 - ./ci/test.js
-- ./ci/cover.js
-- ./ci/report.js
 after_success:
 - ./ci/travis/publish.js
 - ./ci/travis/push_scaffold.js
 - ./ci/travis/push_sugos_index.js
 env:
-  secure: "KbsoSyH6ZWIH7DGGwMxYtc614/B6OuwsGGhaWatqM7UHUs4PIXguoDnTzY3CetJEDuJXaDxfzWBUAoFPYKVbMY2fSm13GTEjAyY50qbDm/Y6CZJeDn2wO0Wn1GmzWfUBiKjZF9OdDu3bHOEorbqaYKQn0FgfPiAnGltAJzfi0OAAC/e/EqiLx45ddibsv8nQS7Zt4rupq5nE8bb199tShGhHZTCPA2Ka2yysvnkovOJHCLfIFGN4ADEG/kaxciD/1opRguQN5SISoct3nu4rDjif/QmgtUnu/atZ4HvcZRsI7JizUdKiLqkM3/WXn0T2gQqalkUEXF8W7CVO4TPw6N1cV99DARI1o+rEy27amhrTv2LGHsmrvlQrgUzykjipv4v+iyI2tUT4fK9URp0S1TuX0TX6JzvRwy7CdBQb67YNilGStebHRHJRdw+r+xxEdX27SuVkPnAwPuY5n1nxRbmzaGKo0wRVwIS+8F0CZh/BmMZ9sXyxTpWzuynloFJcmvyN5iMlwiXryhq5xKG86balWrVZUuYDEk1I49CoZKaz8uVrWXMy6tdF35aqnpKSN6/jZrwa9wjiOYkS92E/fsevKxNl3xZ6Hf0oKm78xv/l9M2tcvKnkUQP6Zws4e7cQXMa+4Bk4IZo1MCaxMa7sIJiLe6AOOQ6T3CDpAKuerc="
+  secure: "dqfOHGze4OJgv4drE+e42d3OVqECV0nWipoNKpPM0ewCqdz+aW6haeEWyjU1PDBYufrqhvLiLT1LRTkXTmtBZJpDDVMRKiCiw3/DpsD82Ri3E8albXeZCIVkIiOSdnchX+PJTZYI34+KpgbT4S75lGj+6a0vn5JlIE6LVUPf1j26vVxLtZ6MOqj6BGppXeYC5FDczRsm9QjBOfhdni4edZHBUu8dHpiez727J4tnLkfUf3XdJQKP9/MJ9tis4f2kEEpU1NeiXA06BLgd99LvT07FwMqQKAT6mkm7mj7bLwmUBJiTUBH0vBKJf4nRXyeltG+o4dq+zAmJ72DK8/SjwwG559wwjO+1lvbectxPPkbydUff7xsSprQTh+1KhC+ChoWYwo+MTagXfKO0ZE2/mZo3bKJpl+/O56g6VI0sNP9sg4q2MYJ+LEarSVyhFurSxuLDr5I7DcuUtcPQ/laMg0r2XdG70chzJgnyDkOpmMvN4DpycnOoQWuNTIRZZnCYjeexNoZJt+/4w/OxVHMvZtYsmIkPuyvlvpCtY2xEt7ABdYTr3+4cWZIsJ/nV5oEPrfuEmNUQW/qI7bccLo6wlKmM5H7oWJeL/MSLZYZdGhsVuLV0d+QaVKv86JKzcYPhxU4wT1IMBG3oMPZnWa15AsubRWT8rDQ8ZFhmRJ9BbmU="

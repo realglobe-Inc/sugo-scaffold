@@ -6,45 +6,53 @@
  */
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _regenerator = require('babel-runtime/regenerator');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _require = require('sugo-module-base');
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
-var Module = _require.Module;
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _require2 = require('../package.json');
+var _createClass2 = require('babel-runtime/helpers/createClass');
 
-var name = _require2.name;
-var version = _require2.version;
-var description = _require2.description;
+var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _require = require('sugo-module-base'),
+    Module = _require.Module;
 
 var co = require('co');
 
-var _require3 = require('sg-check');
-
-var hasBin = _require3.hasBin;
+var _require2 = require('sg-check'),
+    hasBin = _require2.hasBin;
 
 var debug = require('debug')('sugo:module:demo-module');
 
 /** @lends ~~~~module_name~~~~ */
 
 var ~~~~module_name~~~~ = function (_Module) {
-  _inherits(~~~~module_name~~~~, _Module);
+  (0, _inherits3.default)(~~~~module_name~~~~, _Module);
 
   function ~~~~module_name~~~~() {
-    var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-    _classCallCheck(this, ~~~~module_name~~~~);
+    var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0, _classCallCheck3.default)(this, ~~~~module_name~~~~);
 
     debug('Config: ', config);
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(~~~~module_name~~~~).call(this, config));
+    return (0, _possibleConstructorReturn3.default)(this, (~~~~module_name~~~~.__proto__ || (0, _getPrototypeOf2.default)(~~~~module_name~~~~)).call(this, config));
   }
 
   /**
@@ -54,13 +62,13 @@ var ~~~~module_name~~~~ = function (_Module) {
    */
 
 
-  _createClass(~~~~module_name~~~~, [{
+  (0, _createClass3.default)(~~~~module_name~~~~, [{
     key: 'ping',
     value: function ping() {
-      var pong = arguments.length <= 0 || arguments[0] === undefined ? 'pong' : arguments[0];
+      var pong = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'pong';
 
-      return co(regeneratorRuntime.mark(function pingAck() {
-        return regeneratorRuntime.wrap(function pingAck$(_context) {
+      return co(_regenerator2.default.mark(function pingAck() {
+        return _regenerator2.default.wrap(function pingAck$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -85,8 +93,8 @@ var ~~~~module_name~~~~ = function (_Module) {
     key: 'assert',
     value: function assert() {
       var bins = ['node']; // Required commands
-      return co(regeneratorRuntime.mark(function assertAck() {
-        return regeneratorRuntime.wrap(function assertAck$(_context2) {
+      return co(_regenerator2.default.mark(function assertAck() {
+        return _regenerator2.default.wrap(function assertAck$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -113,41 +121,11 @@ var ~~~~module_name~~~~ = function (_Module) {
   }, {
     key: '$spec',
     get: function get() {
-      return {
-        name: name,
-        version: version,
-        desc: description,
-        methods: {
-          ping: {
-            desc: 'Test the reachability of a module.',
-            params: [{ name: 'pong', type: 'string', desc: 'Pong message to return' }],
-            return: {
-              type: 'string',
-              desc: 'Pong message'
-            }
-          },
-
-          assert: {
-            desc: 'Test if the actor fulfills system requirements',
-            params: [],
-            throws: [{
-              type: 'Error',
-              desc: 'System requirements failed'
-            }],
-            return: {
-              type: 'boolean',
-              desc: 'System is OK'
-            }
-          }
-        },
-
-        events: null
-      };
+      return require('./meta/spec')();
     }
   }]);
-
   return ~~~~module_name~~~~;
 }(Module);
 
 module.exports = ~~~~module_name~~~~;
-//# sourceMappingURL=data:application/json;base64,bnVsbA==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15X21vZHVsZS5qcyJdLCJuYW1lcyI6WyJyZXF1aXJlIiwiTW9kdWxlIiwiY28iLCJoYXNCaW4iLCJkZWJ1ZyIsIk15TW9kdWxlIiwiY29uZmlnIiwicG9uZyIsInBpbmdBY2siLCJiaW5zIiwiYXNzZXJ0QWNrIiwiYXNzZXJ0QWxsIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztBQU1BOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O2VBRW1CQSxRQUFRLGtCQUFSLEM7SUFBWEMsTSxZQUFBQSxNOztBQUVSLElBQU1DLEtBQUtGLFFBQVEsSUFBUixDQUFYOztnQkFDbUJBLFFBQVEsVUFBUixDO0lBQVhHLE0sYUFBQUEsTTs7QUFDUixJQUFNQyxRQUFRSixRQUFRLE9BQVIsRUFBaUIseUJBQWpCLENBQWQ7O0FBRUE7O0lBQ01LLFE7OztBQUNKLHNCQUEwQjtBQUFBLFFBQWJDLE1BQWEsdUVBQUosRUFBSTtBQUFBOztBQUN4QkYsVUFBTSxVQUFOLEVBQWtCRSxNQUFsQjtBQUR3QixxSUFFbEJBLE1BRmtCO0FBR3pCOztBQUVEOzs7Ozs7Ozs7MkJBS3FCO0FBQUEsVUFBZkMsSUFBZSx1RUFBUixNQUFROztBQUNuQixhQUFPTCw4QkFBRyxTQUFXTSxPQUFYO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxpREFDREQsSUFEQzs7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBV0MsT0FBWDtBQUFBLE9BQUgsRUFBUDtBQUdEOztBQUVEOzs7Ozs7Ozs2QkFLVTtBQUNSLFVBQU1DLE9BQU8sQ0FBRSxNQUFGLENBQWIsQ0FEUSxDQUNnQjtBQUN4QixhQUFPUCw4QkFBRyxTQUFXUSxTQUFYO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLHVCQUNGUCxPQUFPUSxTQUFQLENBQWlCRixJQUFqQixDQURFOztBQUFBO0FBQUEsa0RBRUQsSUFGQzs7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBV0MsU0FBWDtBQUFBLE9BQUgsRUFBUDtBQUlEOztBQUVEOzs7Ozs7O3dCQUlhO0FBQ1gsYUFBT1YsUUFBUSxhQUFSLEdBQVA7QUFDRDs7O0VBcENvQkMsTTs7QUF1Q3ZCVyxPQUFPQyxPQUFQLEdBQWlCUixRQUFqQiIsImZpbGUiOiJteV9tb2R1bGUuanMiLCJzb3VyY2VSb290IjoibGliIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBNeU1vZHVsZSBjbGFzc1xuICogQGNsYXNzIE15TW9kdWxlXG4gKiBAYXVnbWVudHMgTW9kdWxlXG4gKiBAcGFyYW0ge09iamVjdH0gY29uZmlnIC0gQ29uZmlndXJhdGlvblxuICovXG4ndXNlIHN0cmljdCdcblxuY29uc3QgeyBNb2R1bGUgfSA9IHJlcXVpcmUoJ3N1Z28tbW9kdWxlLWJhc2UnKVxuXG5jb25zdCBjbyA9IHJlcXVpcmUoJ2NvJylcbmNvbnN0IHsgaGFzQmluIH0gPSByZXF1aXJlKCdzZy1jaGVjaycpXG5jb25zdCBkZWJ1ZyA9IHJlcXVpcmUoJ2RlYnVnJykoJ3N1Z286bW9kdWxlOmRlbW8tbW9kdWxlJylcblxuLyoqIEBsZW5kcyBNeU1vZHVsZSAqL1xuY2xhc3MgTXlNb2R1bGUgZXh0ZW5kcyBNb2R1bGUge1xuICBjb25zdHJ1Y3RvciAoY29uZmlnID0ge30pIHtcbiAgICBkZWJ1ZygnQ29uZmlnOiAnLCBjb25maWcpXG4gICAgc3VwZXIoY29uZmlnKVxuICB9XG5cbiAgLyoqXG4gICAqIFBpbmcgYSBtZXNzYWdlLlxuICAgKiBAcGFyYW0ge3N0cmluZ30gcG9uZ1xuICAgKiBAcmV0dXJucyB7UHJvbWlzZS48c3RyaW5nPn0gLSBQb25nIG1lc3NhZ2VcbiAgICovXG4gIHBpbmcgKHBvbmcgPSAncG9uZycpIHtcbiAgICByZXR1cm4gY28oZnVuY3Rpb24gKiBwaW5nQWNrICgpIHtcbiAgICAgIHJldHVybiBwb25nIC8vIFJldHVybiByZXN1bHQgdG8gYSByZW1vdGUgY2FsbGVyLlxuICAgIH0pXG4gIH1cblxuICAvKipcbiAgICogQXNzZXJ0IGFjdG9yIHN5c3RlbSByZXF1aXJlbWVudHMuXG4gICAqIEB0aHJvd3Mge0Vycm9yfSAtIFN5c3RlbSByZXF1aXJlbWVudHMgZmFpbGVkIGVycm9yXG4gICAqIEByZXR1cm5zIHtQcm9taXNlLjxib29sZWFuPn0gLSBBc3NlcnRlZCBzdGF0ZVxuICAgKi9cbiAgYXNzZXJ0ICgpIHtcbiAgICBjb25zdCBiaW5zID0gWyAnbm9kZScgXSAvLyBSZXF1aXJlZCBjb21tYW5kc1xuICAgIHJldHVybiBjbyhmdW5jdGlvbiAqIGFzc2VydEFjayAoKSB7XG4gICAgICB5aWVsZCBoYXNCaW4uYXNzZXJ0QWxsKGJpbnMpXG4gICAgICByZXR1cm4gdHJ1ZVxuICAgIH0pXG4gIH1cblxuICAvKipcbiAgICogTW9kdWxlIHNwZWNpZmljYXRpb25cbiAgICogQHNlZSBodHRwczovL2dpdGh1Yi5jb20vcmVhbGdsb2JlLUluYy9zZy1zY2hlbWFzL2Jsb2IvbWFzdGVyL2xpYi9tb2R1bGVfc3BlYy5qc29uXG4gICAqL1xuICBnZXQgJHNwZWMgKCkge1xuICAgIHJldHVybiByZXF1aXJlKCcuL21ldGEvc3BlYycpKClcbiAgfVxufVxuXG5tb2R1bGUuZXhwb3J0cyA9IE15TW9kdWxlXG4iXX0=

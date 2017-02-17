@@ -9,6 +9,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -35,8 +39,8 @@ var ~~~~component_name~~~~Style = _react2.default.createClass({
 
   statics: {
     styleData: function styleData(config) {
-      var highlightColor = config.highlightColor;
-      var backgroundColor = config.backgroundColor;
+      var highlightColor = config.highlightColor,
+          backgroundColor = config.backgroundColor;
 
 
       return {
@@ -53,17 +57,15 @@ var ~~~~component_name~~~~Style = _react2.default.createClass({
     var s = this;
     var props = s.props;
 
-    var _~~~~component_name~~~~Style$sty = ~~~~component_name~~~~Style.styleData(props);
-
-    var all = _~~~~component_name~~~~Style$sty.all;
-    var small = _~~~~component_name~~~~Style$sty.small;
-    var medium = _~~~~component_name~~~~Style$sty.medium;
-    var large = _~~~~component_name~~~~Style$sty.large;
-
+    var _~~~~component_name~~~~Style$sty = ~~~~component_name~~~~Style.styleData(props),
+        all = _~~~~component_name~~~~Style$sty.all,
+        small = _~~~~component_name~~~~Style$sty.small,
+        medium = _~~~~component_name~~~~Style$sty.medium,
+        large = _~~~~component_name~~~~Style$sty.large;
 
     return _react2.default.createElement(
       _apemanReactStyle.ApStyle,
-      { data: Object.assign(all, props.style),
+      { data: (0, _assign2.default)(all, props.style),
         smallMediaData: small,
         mediumMediaData: medium,
         largeMediaData: large
@@ -74,4 +76,4 @@ var ~~~~component_name~~~~Style = _react2.default.createClass({
 });
 
 exports.default = ~~~~component_name~~~~Style;
-//# sourceMappingURL=data:application/json;base64,bnVsbA==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15X2NvbXBvbmVudF9zdHlsZS5qc3giXSwibmFtZXMiOlsiTXlDb21wb25lbnRTdHlsZSIsImNyZWF0ZUNsYXNzIiwicHJvcFR5cGVzIiwic3R5bGUiLCJvYmplY3QiLCJoaWdobGlnaHRDb2xvciIsInN0cmluZyIsImdldERlZmF1bHRQcm9wcyIsIkRFRkFVTFRfSElHSExJR0hUX0NPTE9SIiwiYmFja2dyb3VuZENvbG9yIiwiREVGQVVMVF9CQUNLR1JPVU5EX0NPTE9SIiwic3RhdGljcyIsInN0eWxlRGF0YSIsImNvbmZpZyIsImFsbCIsInNtYWxsIiwibWVkaXVtIiwibGFyZ2UiLCJyZW5kZXIiLCJzIiwicHJvcHMiLCJjaGlsZHJlbiJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0FBS0E7Ozs7Ozs7Ozs7QUFFQTs7OztBQUNBOzs7O0FBRUE7QUFDQSxJQUFNQSxtQkFBbUIsZ0JBQU1DLFdBQU4sQ0FBa0I7QUFBQTs7QUFDekNDLGFBQVc7QUFDVEMsV0FBTyxpQkFBTUMsTUFESjtBQUVUQyxvQkFBZ0IsaUJBQU1DO0FBRmIsR0FEOEI7QUFLekNDLGlCQUx5Qyw2QkFLdEI7QUFDakIsV0FBTztBQUNMSixhQUFPLEVBREY7QUFFTEUsc0JBQWdCLDBCQUFRRyx1QkFGbkI7QUFHTEMsdUJBQWlCLDBCQUFRQztBQUhwQixLQUFQO0FBS0QsR0FYd0M7O0FBWXpDQyxXQUFTO0FBQ1BDLGFBRE8scUJBQ0lDLE1BREosRUFDWTtBQUFBLFVBRWZSLGNBRmUsR0FJYlEsTUFKYSxDQUVmUixjQUZlO0FBQUEsVUFHZkksZUFIZSxHQUliSSxNQUphLENBR2ZKLGVBSGU7OztBQU1qQixhQUFPO0FBQ0xLLGFBQUs7QUFDSCwyQkFBaUI7QUFEZCxTQURBO0FBSUxDLGVBQU8sRUFKRjtBQUtMQyxnQkFBUSxFQUxIO0FBTUxDLGVBQU87QUFORixPQUFQO0FBUUQ7QUFmTSxHQVpnQztBQTZCekNDLFFBN0J5QyxvQkE2Qi9CO0FBQ1IsUUFBTUMsSUFBSSxJQUFWO0FBRFEsUUFFRkMsS0FGRSxHQUVRRCxDQUZSLENBRUZDLEtBRkU7O0FBQUEsZ0NBSTRCcEIsaUJBQWlCWSxTQUFqQixDQUEyQlEsS0FBM0IsQ0FKNUI7QUFBQSxRQUlGTixHQUpFLHlCQUlGQSxHQUpFO0FBQUEsUUFJR0MsS0FKSCx5QkFJR0EsS0FKSDtBQUFBLFFBSVVDLE1BSlYseUJBSVVBLE1BSlY7QUFBQSxRQUlrQkMsS0FKbEIseUJBSWtCQSxLQUpsQjs7QUFNUixXQUNFO0FBQUE7QUFBQSxRQUFTLE1BQU8sc0JBQWNILEdBQWQsRUFBbUJNLE1BQU1qQixLQUF6QixDQUFoQjtBQUNTLHdCQUFpQlksS0FEMUI7QUFFUyx5QkFBa0JDLE1BRjNCO0FBR1Msd0JBQWlCQztBQUgxQjtBQUlHRyxZQUFNQztBQUpULEtBREY7QUFPRDtBQTFDd0MsQ0FBbEIsQ0FBekI7O2tCQTZDZXJCLGdCIiwiZmlsZSI6Im15X2NvbXBvbmVudF9zdHlsZS5qc3giLCJzb3VyY2VSb290IjoibGliIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBTdHlsZSBmb3IgTXlDb21wb25lbnQuXG4gKiBAY2xhc3MgTXlDb21wb25lbnRTdHlsZVxuICovXG5cbid1c2Ugc3RyaWN0J1xuXG5pbXBvcnQgUmVhY3QsIHtQcm9wVHlwZXMgYXMgdHlwZXN9IGZyb20gJ3JlYWN0J1xuaW1wb3J0IHtBcFN0eWxlfSBmcm9tICdhcGVtYW4tcmVhY3Qtc3R5bGUnXG5cbi8qKiBAbGVuZHMgTXlDb21wb25lbnRTdHlsZSAqL1xuY29uc3QgTXlDb21wb25lbnRTdHlsZSA9IFJlYWN0LmNyZWF0ZUNsYXNzKHtcbiAgcHJvcFR5cGVzOiB7XG4gICAgc3R5bGU6IHR5cGVzLm9iamVjdCxcbiAgICBoaWdobGlnaHRDb2xvcjogdHlwZXMuc3RyaW5nXG4gIH0sXG4gIGdldERlZmF1bHRQcm9wcyAoKSB7XG4gICAgcmV0dXJuIHtcbiAgICAgIHN0eWxlOiB7fSxcbiAgICAgIGhpZ2hsaWdodENvbG9yOiBBcFN0eWxlLkRFRkFVTFRfSElHSExJR0hUX0NPTE9SLFxuICAgICAgYmFja2dyb3VuZENvbG9yOiBBcFN0eWxlLkRFRkFVTFRfQkFDS0dST1VORF9DT0xPUlxuICAgIH1cbiAgfSxcbiAgc3RhdGljczoge1xuICAgIHN0eWxlRGF0YSAoY29uZmlnKSB7XG4gICAgICBsZXQge1xuICAgICAgICBoaWdobGlnaHRDb2xvcixcbiAgICAgICAgYmFja2dyb3VuZENvbG9yXG4gICAgICB9ID0gY29uZmlnXG5cbiAgICAgIHJldHVybiB7XG4gICAgICAgIGFsbDoge1xuICAgICAgICAgICcubXktY29tcG9uZW50Jzoge31cbiAgICAgICAgfSxcbiAgICAgICAgc21hbGw6IHt9LFxuICAgICAgICBtZWRpdW06IHt9LFxuICAgICAgICBsYXJnZToge31cbiAgICAgIH1cbiAgICB9XG4gIH0sXG4gIHJlbmRlciAoKSB7XG4gICAgY29uc3QgcyA9IHRoaXNcbiAgICBsZXQgeyBwcm9wcyB9ID0gc1xuXG4gICAgbGV0IHsgYWxsLCBzbWFsbCwgbWVkaXVtLCBsYXJnZSB9ID0gTXlDb21wb25lbnRTdHlsZS5zdHlsZURhdGEocHJvcHMpXG5cbiAgICByZXR1cm4gKFxuICAgICAgPEFwU3R5bGUgZGF0YT17IE9iamVjdC5hc3NpZ24oYWxsLCBwcm9wcy5zdHlsZSkgfVxuICAgICAgICAgICAgICAgc21hbGxNZWRpYURhdGE9eyBzbWFsbCB9XG4gICAgICAgICAgICAgICBtZWRpdW1NZWRpYURhdGE9eyBtZWRpdW0gfVxuICAgICAgICAgICAgICAgbGFyZ2VNZWRpYURhdGE9eyBsYXJnZSB9XG4gICAgICA+eyBwcm9wcy5jaGlsZHJlbiB9PC9BcFN0eWxlPlxuICAgIClcbiAgfVxufSlcblxuZXhwb3J0IGRlZmF1bHQgTXlDb21wb25lbnRTdHlsZVxuIl19

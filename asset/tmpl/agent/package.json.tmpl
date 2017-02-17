@@ -5,8 +5,8 @@
   "main": "lib",
   "browser": "shim/browser",
   "scripts": {
-    "prepublish": "./ci/build.js && ./ci/browser.js",
-    "test": "./ci/test.js"
+    "prepare": "node ./ci/build.js && node ./ci/shim.js",
+    "test": "node ./ci/test.js"
   },
   "repository": "~~~~github_repository~~~~",
   "keywords": [
@@ -18,7 +18,7 @@
     "email": "~~~~author_email~~~~",
     "url": "~~~~author_url~~~~"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/realglobe-Inc/~~~~package_name~~~~/issues"
   },
@@ -33,16 +33,13 @@
     "coz": "^6.0.14",
     "injectmock": "^2.0.0",
     "sg-server": "^1.2.8",
-    "sg-travis": "^1.1.24",
     "sugo-agent-base": "^1.2.7",
-    "sugo-ci-agent": "^1.0.7",
-    "sugos-assets": "^2.0.1"
+    "sugo-ci-agent": "^2.0.1",
+    "sugos-assets": "^2.0.1",
+    "sugos-travis": "^2.0.7"
   },
   "engines": {
     "node": ">=6",
-    "npm": ">=3"
-  },
-  "publishConfig": {
-    "registry": "https://realglobe.artifactoryonline.com/realglobe/api/npm/npm-local"
+    "npm": ">=4"
   }
 }

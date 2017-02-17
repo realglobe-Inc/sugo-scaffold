@@ -5,15 +5,21 @@
 
 'use strict';
 
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var create = require('./create');
 var ~~~~package_name@pascalcase~~~~ = require('./~~~~package_name@snakecase~~~~');
 
 var lib = create.bind(undefined);
 
-Object.assign(lib, ~~~~package_name@pascalcase~~~~, {
+(0, _assign2.default)(lib, ~~~~package_name@pascalcase~~~~, {
   create: create,
   ~~~~package_name@pascalcase~~~~: ~~~~package_name@pascalcase~~~~
 });
 
 module.exports = lib;
-//# sourceMappingURL=data:application/json;base64,bnVsbA==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImNyZWF0ZSIsInJlcXVpcmUiLCJTdWdvRGVtb0FnZW50IiwibGliIiwiYmluZCIsIm1vZHVsZSIsImV4cG9ydHMiXSwibWFwcGluZ3MiOiJBQUFBOzs7OztBQUtBOzs7Ozs7OztBQUVBLElBQU1BLFNBQVNDLFFBQVEsVUFBUixDQUFmO0FBQ0EsSUFBTUMsZ0JBQWdCRCxRQUFRLG1CQUFSLENBQXRCOztBQUVBLElBQUlFLE1BQU1ILE9BQU9JLElBQVAsV0FBVjs7QUFFQSxzQkFBY0QsR0FBZCxFQUFtQkQsYUFBbkIsRUFBa0M7QUFDaENGLGdCQURnQztBQUVoQ0U7QUFGZ0MsQ0FBbEM7O0FBS0FHLE9BQU9DLE9BQVAsR0FBaUJILEdBQWpCIiwiZmlsZSI6ImluZGV4LmpzIiwic291cmNlUm9vdCI6ImxpYiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogRGVtbyBvZiBzdWdvIGFnZW50XG4gKiBAbW9kdWxlIHN1Z28tZGVtby1hZ2VudFxuICovXG5cbid1c2Ugc3RyaWN0J1xuXG5jb25zdCBjcmVhdGUgPSByZXF1aXJlKCcuL2NyZWF0ZScpXG5jb25zdCBTdWdvRGVtb0FnZW50ID0gcmVxdWlyZSgnLi9zdWdvX2RlbW9fYWdlbnQnKVxuXG5sZXQgbGliID0gY3JlYXRlLmJpbmQodGhpcylcblxuT2JqZWN0LmFzc2lnbihsaWIsIFN1Z29EZW1vQWdlbnQsIHtcbiAgY3JlYXRlLFxuICBTdWdvRGVtb0FnZW50XG59KVxuXG5tb2R1bGUuZXhwb3J0cyA9IGxpYlxuIl19
