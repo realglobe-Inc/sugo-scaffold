@@ -1,6 +1,6 @@
 {
   "name": "sugo-scaffold",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "Scaffold generator for SUGOS",
   "main": "lib",
   "bin": {
